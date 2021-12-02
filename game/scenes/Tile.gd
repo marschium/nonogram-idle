@@ -3,9 +3,9 @@ extends Node2D
 signal clicked()
 signal changed()
 
-var base_color = Color(1, 0, 0)
-var x = 0
-var y = 0
+var base_color = Color(0, 1, 0)
+var x :int = 0
+var y :int = 0
 
 var just_clicked = false
 var changed = false

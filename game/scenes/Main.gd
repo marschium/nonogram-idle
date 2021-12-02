@@ -5,7 +5,7 @@ var score = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	$AutoclickerButton.pressed = $Autoclicker.running
 
 func _on_Gameboard_tile_changed(tile):
 	score += 1
@@ -17,8 +17,14 @@ func _on_Autoclicker_click(color):
 		t.change(color)
 
 func _on_Gameboard_tile_clicked(tile):
-	tile.change(Color(0, 1, 0))
+	tile.change(Color(1, 0, 0))
 
 func _on_Gameboard_complete():
 	yield(get_tree().create_timer(0.2), "timeout")
 	$Gameboard.reset()
+
+func _on_AutoclickerButton_toggled(button_pressed):
+	if button_pressed:
+		$Autoclicker.start()
+	else:
+		$Autoclicker.stop()

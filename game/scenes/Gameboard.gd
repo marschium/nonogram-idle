@@ -29,7 +29,9 @@ func _ready():
 	var viewportWidth = get_viewport().size.x
 	var viewportHeight = get_viewport().size.y
 	var spacing = 64
-	var offset = Vector2(viewportWidth/2, viewportHeight/2)
+	var gh = 64 * 4
+	var gw = 64 * 4
+	var offset = Vector2(viewportWidth/2 - gw/2, viewportHeight/2 - gh/2)
 	
 	for y in range(4):
 		for x in range(4):
