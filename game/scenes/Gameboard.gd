@@ -33,8 +33,8 @@ func _ready():
 	var gw = 64 * 4
 	var offset = Vector2(viewportWidth/2 - gw/2, viewportHeight/2 - gh/2)
 	
-	for y in range(4):
-		for x in range(4):
+	for x in range(4):
+		for y in range(4):
 			var t = Tile.instance()
 			var pos = Vector2(spacing * x, spacing * y) + offset
 			t.x = x

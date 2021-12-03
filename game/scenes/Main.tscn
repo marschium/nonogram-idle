@@ -28,12 +28,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Pattern" type="Node2D" parent="."]
+[node name="Patterns" type="Node2D" parent="."]
+
+[node name="TestPattern" type="Node2D" parent="Patterns"]
 script = ExtResource( 4 )
 
 [connection signal="complete" from="Gameboard" to="." method="_on_Gameboard_complete"]
 [connection signal="tile_changed" from="Gameboard" to="." method="_on_Gameboard_tile_changed"]
-[connection signal="tile_changed" from="Gameboard" to="Pattern" method="_on_Gameboard_tile_changed"]
 [connection signal="tile_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_clicked"]
 [connection signal="click" from="Autoclicker" to="." method="_on_Autoclicker_click"]
 [connection signal="toggled" from="AutoclickerButton" to="." method="_on_AutoclickerButton_toggled"]
