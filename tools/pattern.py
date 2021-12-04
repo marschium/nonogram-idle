@@ -1,20 +1,25 @@
 import PIL
 from PIL import Image
 import json
+import os
+
+BONUS_BASE = 64
 
 def main(src, dest):
     img = Image.open(src)
     out = {
         "tiles": [],
-        "name": "test", # TODO take from filename
-        "bonus": 32, # TODO based on number of colors?
+        "name": os.path.splitext(src),
         "w": img.width,
         "h": img.height
     }
+    colors = set()
     for x in range(img.width):
         for y in range(img.height):
             rgb = img.getpixel((x, y))
             out["tiles"].append({"c": rgb, "x": x, "y": y})
+            colors.add(rgb)
+    out["bonus"] = BONUS_BASE * len(colors)
 
     with open(dest, "w+") as f:
         json.dump(out, f, indent=4)
@@ -22,4 +27,4 @@ def main(src, dest):
 
 if __name__ == "__main__":
     import sys
-    main(sys.argv[1], "test.json")
+    main(sys.argv[1], sys.argv[2])
