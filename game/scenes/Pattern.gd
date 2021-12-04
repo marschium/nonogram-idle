@@ -36,6 +36,6 @@ func _on_Gameboard_tile_changed(tile):
 
 func _on_Gameboard_complete():
 	if tiles_unmatched.empty():
-		print_debug("pattern matched %s" % pattern_name)
+		print_debug("pattern matched")
 		emit_signal("matched", bonus)
 	tiles_unmatched = tiles.duplicate(true)

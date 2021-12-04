@@ -26,7 +26,7 @@ func _on_Gameboard_complete():
 	yield(get_tree().create_timer(0.2), "timeout")
 	$Gameboard.reset()
 	if $AutoclickerButton.pressed:
-		$Autoclicker.start()
+		$Autoclicker.start(0, 0)
 
 func _on_AutoclickerButton_toggled(button_pressed):
 	if button_pressed:
