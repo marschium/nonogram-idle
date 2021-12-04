@@ -5,7 +5,11 @@ import json
 def main(src, dest):
     img = Image.open(src)
     out = {
-        "tiles": []
+        "tiles": [],
+        "name": "test", # TODO take from filename
+        "bonus": 32, # TODO based on number of colors?
+        "w": img.width,
+        "h": img.height
     }
     for x in range(img.width):
         for y in range(img.height):
