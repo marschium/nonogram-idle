@@ -6,6 +6,7 @@ signal complete()
 
 var Tile = preload("res://scenes/Tile.tscn")
 onready var dots = $Dots
+var dots_lookup = Dictionary()
 
 func reset():
 	for c in dots.get_children():
@@ -18,6 +19,9 @@ func check_cleared():
 	if complete:
 		emit_signal("complete")
 		
+func change_dot(x, y, color):
+	dots_lookup.get(x).get(y).change(color)
+		
 func next_unchanged():
 	for c in dots.get_children():
 		if not c.changed:
@@ -29,12 +33,12 @@ func _ready():
 	var viewportWidth = get_viewport().size.x
 	var viewportHeight = get_viewport().size.y
 	var spacing = 64
-	var gh = 64 * 4
-	var gw = 64 * 4
+	var gh = 64 * 16
+	var gw = 64 * 16
 	var offset = Vector2(viewportWidth/2 - gw/2, viewportHeight/2 - gh/2)
 	
-	for x in range(4):
-		for y in range(4):
+	for x in range(16):
+		for y in range(16):
 			var t = Tile.instance()
 			var pos = Vector2(spacing * x, spacing * y) + offset
 			t.x = x
@@ -43,6 +47,10 @@ func _ready():
 			t.connect("clicked", self, "_on_Tile_clicked", [t])
 			t.connect("changed", self, "_on_Tile_changed", [t])
 			dots.add_child(t)
+			
+			if not dots_lookup.has(x):
+				dots_lookup[x] = Dictionary()
+			dots_lookup[x][y] = t
 
 func _on_Tile_clicked(tile):
 	emit_signal("tile_clicked", tile)

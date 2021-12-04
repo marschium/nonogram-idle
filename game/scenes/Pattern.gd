@@ -2,7 +2,7 @@ extends Node2D
 
 signal matched(bonus)
 
-var file = "res://example.json"
+var file = "res://patterns/red.json"
 var pattern_name = ""
 var bonus = 0
 var tiles = Dictionary()
@@ -18,7 +18,7 @@ func read_json_file(file_path):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var pattern_def = read_json_file(file)
-	pattern_name = pattern_def["name"]
+	pattern_name = pattern_def.get("name", "test")
 	bonus = pattern_def["bonus"]
 	for t in pattern_def["tiles"]:
 		var x = int(t["x"])

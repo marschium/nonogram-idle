@@ -5,7 +5,8 @@ signal click(x, y, color)
 export var running = false
 export var color = Color(0, 0, 1)
 
-var file = "res://example.json"
+var file = "res://patterns/red.json"
+var w = 16
 var clicks = []
 var click_idx = 0
 
@@ -16,7 +17,8 @@ func read_json_file(file_path):
 	var content_as_dictionary = parse_json(content_as_text)
 	return content_as_dictionary
 
-func start():
+func start(x, y):
+	click_idx = y + (x * 16) # traverse y axis first
 	$Timer.start()
 
 func stop():
@@ -29,24 +31,14 @@ func _ready():
 	var pattern_def = read_json_file(file)
 	var w = int(pattern_def["w"])
 	var h = int(pattern_def["h"])
-	var tiles = []
-	tiles.resize(w)
-	for x in w:
-		var c = []
-		c.resize(h)
-		tiles[x] = c
 	
 	# order the tiles
+	clicks = []
+	clicks.resize(w * h)
 	for t in pattern_def["tiles"]:
 		var x = int(t["x"])
 		var y = int(t["y"])
-		tiles[x][y] = Color(float(t["c"][0]) / 255.0, float(t["c"][1]) / 255.0, float(t["c"][2]) / 255.0)
-
-	click_idx = 0
-	clicks = []
-	for x in range(w):
-		for y in range(h):
-			clicks.append([x, y, tiles[x][y]])
+		clicks[y + (x * 16)] = [x, y, Color(float(t["c"][0]) / 255.0, float(t["c"][1]) / 255.0, float(t["c"][2]) / 255.0)]
 
 	if running:
 		$Timer.start()

@@ -16,10 +16,7 @@ func _on_Gameboard_tile_changed(tile):
 	$ScoreLabel.text = "dots: %s" % score
 
 func _on_Autoclicker_click(x, y, color):
-	# TODO use coords instead of next unchanged
-	var t = $Gameboard.next_unchanged()
-	if t != null:
-		t.change(color)
+	$Gameboard.change_dot(x, y, color)
 
 func _on_Gameboard_tile_clicked(tile):
 	tile.change(Color(1, 0, 0))
@@ -33,7 +30,8 @@ func _on_Gameboard_complete():
 
 func _on_AutoclickerButton_toggled(button_pressed):
 	if button_pressed:
-		$Autoclicker.start()
+		var d = $Gameboard.next_unchanged()
+		$Autoclicker.start(d.x, d.y)
 	else:
 		$Autoclicker.stop()
 		
