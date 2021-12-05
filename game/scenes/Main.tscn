@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/Gameboard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Main.gd" type="Script" id=2]
 [ext_resource path="res://scenes/Autoclicker.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/Pattern.gd" type="Script" id=4]
+[ext_resource path="res://scenes/UpgradeControl.gd" type="Script" id=5]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
@@ -32,8 +33,36 @@ __meta__ = {
 
 [node name="TestPattern" type="Node2D" parent="Patterns"]
 script = ExtResource( 4 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UpgradeControl" type="Control" parent="CanvasLayer"]
+anchor_left = 0.901
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.62402
+mouse_filter = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UpgradeControl"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -101.0
+mouse_filter = 1
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UpgradeControl/ScrollContainer"]
+
 [connection signal="complete" from="Gameboard" to="." method="_on_Gameboard_complete"]
 [connection signal="tile_changed" from="Gameboard" to="." method="_on_Gameboard_tile_changed"]
 [connection signal="tile_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_clicked"]
 [connection signal="click" from="Autoclicker" to="." method="_on_Autoclicker_click"]
 [connection signal="toggled" from="AutoclickerButton" to="." method="_on_AutoclickerButton_toggled"]
+[connection signal="expand_grid_upgrade" from="CanvasLayer/UpgradeControl" to="." method="_on_UpgradeControl_expand_grid_upgrade"]
