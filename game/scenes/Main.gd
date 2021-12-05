@@ -16,10 +16,10 @@ func toggle_autoclicker(enabled):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	toggle_autoclicker(enable_autoclicker)
-	$CanvasLayer/UpgradeControl.add_expand_grid_upgrade(2)
-	$CanvasLayer/UpgradeControl.add_expand_grid_upgrade(4)
-	$CanvasLayer/UpgradeControl.add_expand_grid_upgrade(8)
-	$CanvasLayer/UpgradeControl.add_expand_grid_upgrade(16)
+	$CanvasLayer/UpgradeControl.add_expand_grid_upgrade(2, 1)
+	$CanvasLayer/UpgradeControl.add_expand_grid_upgrade(4, 8)
+	$CanvasLayer/UpgradeControl.add_expand_grid_upgrade(8, 32)
+	$CanvasLayer/UpgradeControl.add_expand_grid_upgrade(16, 64)
 	for p in $Patterns.get_children():
 		$Gameboard.connect("tile_changed", p, "_on_Gameboard_tile_changed")
 		$Gameboard.connect("complete", p, "_on_Gameboard_complete")
@@ -55,5 +55,9 @@ func _on_Pattern_matched(bonus, pattern):
 	score += bonus
 	$ScoreLabel.text = "dots: %s" % score
 
-func _on_UpgradeControl_expand_grid_upgrade(new_size):
-	$Gameboard.reset_board(new_size)
+func _on_UpgradeControl_expand_grid_upgrade(new_size, cost, control):
+	# TODO remove the button/update ui if enough dots
+	if score >= cost:
+		score -= cost
+		control.queue_free()
+		$Gameboard.reset_board(new_size)
