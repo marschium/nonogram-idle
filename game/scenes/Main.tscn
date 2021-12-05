@@ -32,7 +32,6 @@ __meta__ = {
 
 [node name="TestPattern" type="Node2D" parent="Patterns"]
 script = ExtResource( 4 )
-
 [connection signal="complete" from="Gameboard" to="." method="_on_Gameboard_complete"]
 [connection signal="tile_changed" from="Gameboard" to="." method="_on_Gameboard_tile_changed"]
 [connection signal="tile_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_clicked"]
