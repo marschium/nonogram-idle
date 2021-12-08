@@ -1,57 +1,52 @@
 extends Node2D
 
+signal click_any(color)
 signal click(x, y, color)
 
 export var running = false
-export var color = Color(0, 0, 1)
 
-var file = "res://patterns/red.json"
-var w = 16
-var clicks = []
-var click_idx = 0
+var single = true
 
-func read_json_file(file_path):
-	var file = File.new()
-	file.open(file_path, File.READ)
-	var content_as_text = file.get_as_text()
-	var content_as_dictionary = parse_json(content_as_text)
-	return content_as_dictionary
-
-func start(x, y):
-	click_idx = y + (x * 16) # traverse y axis first
-	$Timer.start()
-
-func stop():
-	$Timer.stop()
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	
-	# container for ordered tiles
-	var pattern_def = read_json_file(file)
-	var w = int(pattern_def["w"])
-	var h = int(pattern_def["h"])
-	
-	# order the tiles
-	clicks = []
-	clicks.resize(w * h)
-	for t in pattern_def["tiles"]:
-		var x = int(t["x"])
-		var y = int(t["y"])
-		clicks[y + (x * 16)] = [x, y, Color(float(t["c"][0]) / 255.0, float(t["c"][1]) / 255.0, float(t["c"][2]) / 255.0)]
+    $PatternAutoClicker.stop()
+    $SingleAutoClicker.stop()
+    
+func start(x, y):
+    if running:
+        return
+    running = true
+    if single:
+        $SingleAutoClicker.start()
+    else:
+        $PatternAutoClicker.start(x, y)
+    
+func stop():
+    if not running:
+        return
+    running = false
+    if single:
+        $SingleAutoClicker.stop()
+    else:
+        $PatternAutoClicker.stop()
 
-	if running:
-		$Timer.start()
-	else:
-		$Timer.stop()
+func set_single():
+    # TODO color as param
+    if not single:
+        $PatternAutoClicker.stop()
+    if running:
+        $SingleAutoClicker.start()
+    single = true
+    
+func set_pattern(x, y):
+    # TODO pattern as param
+    if single:
+        $SingleAutoClicker.stop()
+    if running:
+        $PatternAutoClicker.start(x, y)
+    single = false
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _on_PatternAutoClicker_click(x, y, color):
+    emit_signal("click", x, y, color)
 
-func _on_Timer_timeout():
-	if click_idx >= len(clicks):
-		click_idx = 0
-	var v = clicks[click_idx]
-	emit_signal("click", v[0], v[1], v[2])
-	click_idx += 1
+func _on_SingleAutoClicker_click(color):
+    emit_signal("click_any", color)

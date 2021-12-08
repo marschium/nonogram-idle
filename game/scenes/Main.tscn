@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/Gameboard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Main.gd" type="Script" id=2]
-[ext_resource path="res://scenes/Autoclicker.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/AutoClicker.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/Pattern.gd" type="Script" id=4]
 [ext_resource path="res://scenes/UpgradeControl.gd" type="Script" id=5]
 [ext_resource path="res://scenes/Upgrades.gd" type="Script" id=6]
@@ -23,15 +23,6 @@ __meta__ = {
 }
 
 [node name="Autoclicker" parent="." instance=ExtResource( 3 )]
-
-[node name="AutoclickerButton" type="CheckButton" parent="."]
-margin_left = 931.0
-margin_top = 14.0
-margin_right = 1007.0
-margin_bottom = 54.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Patterns" type="Node2D" parent="."]
 
@@ -64,6 +55,36 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UpgradeControl/ScrollContainer"]
 
+[node name="Control" type="Control" parent="CanvasLayer"]
+anchor_right = 0.075
+anchor_bottom = 1.0
+margin_right = 0.199997
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
+anchor_left = -0.012987
+anchor_right = -0.012987
+anchor_bottom = 1.0
+margin_right = 77.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="AutoclickerButton" type="CheckButton" parent="CanvasLayer/Control/VBoxContainer"]
+visible = false
+margin_right = 77.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PatternButton" type="CheckButton" parent="CanvasLayer/Control/VBoxContainer"]
+margin_right = 126.0
+margin_bottom = 40.0
+text = "pattern"
 [connection signal="expand_autoclicker_active" from="Upgrades" to="." method="_on_Upgrades_expand_autoclicker_active"]
 [connection signal="expand_autoclicker_available" from="Upgrades" to="." method="_on_Upgrades_expand_autoclicker_available"]
 [connection signal="expand_autoclicker_unavailable" from="Upgrades" to="." method="_on_Upgrades_expand_autoclicker_unavailable"]
@@ -75,5 +96,8 @@ __meta__ = {
 [connection signal="tile_changed" from="Gameboard" to="." method="_on_Gameboard_tile_changed"]
 [connection signal="tile_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_clicked"]
 [connection signal="click" from="Autoclicker" to="." method="_on_Autoclicker_click"]
-[connection signal="toggled" from="AutoclickerButton" to="." method="_on_AutoclickerButton_toggled"]
+[connection signal="click_any" from="Autoclicker" to="." method="_on_Autoclicker_click_any"]
+[connection signal="autoclicker_upgrade" from="CanvasLayer/UpgradeControl" to="." method="_on_UpgradeControl_autoclicker_upgrade"]
 [connection signal="expand_grid_upgrade" from="CanvasLayer/UpgradeControl" to="." method="_on_UpgradeControl_expand_grid_upgrade"]
+[connection signal="toggled" from="CanvasLayer/Control/VBoxContainer/AutoclickerButton" to="." method="_on_AutoclickerButton_toggled"]
+[connection signal="toggled" from="CanvasLayer/Control/VBoxContainer/PatternButton" to="." method="_on_PatternButton_toggled"]
