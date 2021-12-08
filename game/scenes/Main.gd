@@ -69,3 +69,12 @@ func _on_Gameboard_tile_changed(tile):
 
 func _on_Upgrades_expand_board_upgrade_active(size, cost):
 	pass
+
+func _on_Upgrades_expand_autoclicker_active(speed, cost):
+	pass # Replace with function body.
+
+func _on_Upgrades_expand_autoclicker_available(speed, cost):	
+	print_debug("available %d" % speed)
+
+func _on_Upgrades_expand_autoclicker_unavailable(speed):
+	print_debug("unavailable %d" % speed)
