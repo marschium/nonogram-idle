@@ -5,6 +5,7 @@ export var enable_autoclicker = false
 var score = 0
 
 onready var autoclicker_button = $CanvasLayer/Control/VBoxContainer/AutoclickerButton
+onready var pattern_enable_button = $CanvasLayer/Control/VBoxContainer/PatternButton
 onready var autoclicker = $Autoclicker
 onready var upgrade_control = $CanvasLayer/UpgradeControl
 
@@ -72,6 +73,12 @@ func _on_UpgradeControl_autoclicker_upgrade(new_speed, cost, control):
 		control.queue_free()
 		autoclicker_button.visible = true
 
+func _on_UpgradeControl_pattern_upgrade(control):
+	# TODO enable the patterns selection screen and active pattern tracking node
+	if $Upgrades.buy_patterns_upgrade():
+		control.queue_free()
+		pattern_enable_button.visible = true
+
 func _on_Upgrades_score_increased(new_value):
 	$ScoreLabel.text = "dots: %s" % new_value
 
@@ -91,11 +98,22 @@ func _on_Upgrades_expand_board_upgrade_active(size, cost):
 
 func _on_Upgrades_expand_autoclicker_active(speed, cost):
 	pass # Replace with function body.
+	
+func _on_Upgrades_patterns_active():
+	pass
 
 func _on_Upgrades_expand_autoclicker_available(speed, cost):	
 	print_debug("available %d" % speed)
 	upgrade_control.add_autoclicker_upgrade(speed, cost)
 
 func _on_Upgrades_expand_autoclicker_unavailable(speed):
+	# TODO could just setup forwarding on _ready
 	print_debug("unavailable %d" % speed)
 	upgrade_control.remove_autoclicker_upgrade(speed)	
+
+func _on_Upgrades_patterns_available():
+	print_debug("patterns available")
+	upgrade_control.add_pattern_upgrade()
+
+func _on_Upgrades_patterns_unavailable():
+	upgrade_control.remove_pattern_upgrade()

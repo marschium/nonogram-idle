@@ -19,7 +19,9 @@ autostart = true
 script = ExtResource( 3 )
 
 [node name="Timer" type="Timer" parent="SingleAutoClicker"]
+process_mode = 0
 wait_time = 0.1
+
 [connection signal="click" from="PatternAutoClicker" to="." method="_on_PatternAutoClicker_click"]
 [connection signal="timeout" from="PatternAutoClicker/Timer" to="PatternAutoClicker" method="_on_Timer_timeout"]
 [connection signal="click" from="SingleAutoClicker" to="." method="_on_SingleAutoClicker_click"]
