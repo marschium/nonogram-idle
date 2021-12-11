@@ -1,5 +1,6 @@
 extends Node2D
 
+export var current_color = Color(1, 1, 1)
 export var enable_autoclicker = false
 
 var score = 0
@@ -8,6 +9,7 @@ onready var autoclicker_button = $CanvasLayer/Control/VBoxContainer/AutoclickerB
 onready var pattern_enable_button = $CanvasLayer/Control/VBoxContainer/PatternButton
 onready var autoclicker = $Autoclicker
 onready var upgrade_control = $CanvasLayer/UpgradeControl
+onready var color_control = $CanvasLayer/ColorMenu
 
 func toggle_autoclicker(enabled):
 	autoclicker.set_process(enabled)
@@ -20,6 +22,7 @@ func toggle_autoclicker(enabled):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$CanvasLayer/ColorMenu.add_color(current_color)
 	toggle_autoclicker(enable_autoclicker)
 	for p in $Patterns.get_children():
 		$Gameboard.connect("tile_changed", p, "_on_Gameboard_tile_changed")
@@ -30,12 +33,12 @@ func _on_Autoclicker_click(x, y, color):
 	$Gameboard.change_dot(x, y, color)    
 
 func _on_Autoclicker_click_any(color):
-	$Gameboard.next_unchanged().change(color)
+	$Gameboard.next_unchanged().change(current_color)
 
 func _on_Gameboard_tile_clicked(tile):
 	autoclicker.stop()
 	autoclicker_button.pressed = false
-	tile.change(Color(1, 0, 0)) # TODO brush color
+	tile.change(current_color)
 
 func _on_Gameboard_complete():
 	autoclicker.stop()
@@ -117,3 +120,15 @@ func _on_Upgrades_patterns_available():
 
 func _on_Upgrades_patterns_unavailable():
 	upgrade_control.remove_pattern_upgrade()
+
+func _on_Upgrades_color_available(color, cost):	
+	print_debug("color available")
+	upgrade_control.add_color_upgrade(color, cost)
+
+func _on_UpgradeControl_color_upgrade(color, cost, control):
+	if $Upgrades.buy_color_upgrade(color):
+		control.queue_free()
+		color_control.add_color(color)
+
+func _on_ColorMenu_color_select(color):
+	current_color = color

@@ -2,6 +2,7 @@ extends Control
 
 signal expand_grid_upgrade(new_size, cost, control)
 signal autoclicker_upgrade(new_speed, cost, control)
+signal color_upgrade(color, cost, control)
 signal pattern_upgrade(control)
 
 # Called when the node enters the scene tree for the first time.
@@ -43,6 +44,13 @@ func remove_pattern_upgrade():
 	for b in $ScrollContainer/VBoxContainer.get_children():
 		if b.name == "pattern":
 			b.queue_free()
+			
+func add_color_upgrade(color, cost):	
+	var b = Button.new() # TODO Button with texture
+	b.name = "color"
+	b.text = "Color %s" % [color]
+	b.connect("pressed", self, "_on_ColorButton_pressed", [b, color, cost])
+	$ScrollContainer/VBoxContainer.add_child(b)
 
 func _on_ExpandGridButton_pressed(button, new_size, cost):
 	emit_signal("expand_grid_upgrade", new_size, cost, button)
@@ -52,3 +60,6 @@ func _on_AutoclickerButton_pressed(button, new_speed, cost):
 	
 func _on_PatternButton_pressed(button):
 	emit_signal("pattern_upgrade", button)
+
+func _on_ColorButton_pressed(button, color, cost):
+	emit_signal("color_upgrade", color, cost, button)

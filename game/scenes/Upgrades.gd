@@ -10,6 +10,10 @@ signal expand_autoclicker_available(speed, cost)
 signal expand_autoclicker_active(speed, cost)
 signal expand_autoclicker_unavailable(speed)
 
+signal color_available(color, cost)
+signal color_active(color, cost)
+signal color_unavailable(color)
+
 # TODO parameterize with pattern file/def?
 # TODO maybe have patterns stored somewhere else?
 signal patterns_available()
@@ -18,7 +22,7 @@ signal patterns_active()
 
 var patterns_available = false
 var patterns_activated = false
-var pattern_activation_cost = 512
+var pattern_activation_cost = 1024
 
 var score = 0
 # TODO these would be in a save file or something
@@ -26,6 +30,8 @@ var unavilable_expand_upgrades = Dictionary()  # size -> cost
 var available_expand_upgrades = Dictionary()  # size -> cost
 var unavilable_autoclick_upgrades = Dictionary()  # per sec -> cost
 var available_autoclick_upgrades = Dictionary()  # per sec -> cost
+var unavilable_color_upgrades = Dictionary()  # per sec -> cost
+var available_color_upgrades = Dictionary()  # per sec -> cost
 
 func _ready():	
 	unavilable_expand_upgrades[2] = 32
@@ -33,6 +39,7 @@ func _ready():
 	unavilable_expand_upgrades[8] = 128
 	unavilable_expand_upgrades[16] = 256
 	unavilable_autoclick_upgrades[1] = 8
+	unavilable_color_upgrades[Color(1, 0, 0)] = 512
 	
 func do_upgrade_dict(upgrades):
 	var just_unlocked = []
@@ -57,6 +64,12 @@ func increase_score():
 		unavilable_autoclick_upgrades.erase(sz_cost[0])
 		available_autoclick_upgrades[sz_cost[0]] = sz_cost[1]
 		emit_signal("expand_autoclicker_available", sz_cost[0], sz_cost[1])
+		
+	var color_unlocked = do_upgrade_dict(unavilable_color_upgrades)	
+	for sz_cost in color_unlocked:
+		unavilable_color_upgrades.erase(sz_cost[0])
+		available_color_upgrades[sz_cost[0]] = sz_cost[1]
+		emit_signal("color_available", sz_cost[0], sz_cost[1])
 		
 	if not patterns_available and score > pattern_activation_cost:
 		patterns_available = true
@@ -107,4 +120,15 @@ func buy_patterns_upgrade():
 	patterns_activated = true
 	emit_signal("patterns_active")
 	emit_signal("patterns_unavailable")
+	return true
+
+func buy_color_upgrade(color):
+	var cost = available_color_upgrades[color]
+	if score < cost:
+		return false
+
+	score -= cost
+	available_color_upgrades.erase(color)
+	emit_signal("color_unavailable", color)
+	emit_signal("color_active", color)
 	return true
