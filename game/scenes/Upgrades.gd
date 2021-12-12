@@ -11,6 +11,7 @@ signal expand_autoclicker_active(speed, cost)
 signal expand_autoclicker_unavailable(speed)
 
 var score = 0
+
 # TODO these would be in a save file or something
 var unavilable_expand_upgrades = Dictionary()  # size -> cost
 var available_expand_upgrades = Dictionary()  # size -> cost

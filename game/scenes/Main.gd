@@ -20,6 +20,7 @@ func toggle_autoclicker(enabled):
 # Called when the node enters the scene tree for the first time.
 func _ready():
     toggle_autoclicker(enable_autoclicker)
+    # TODO should the Patterns be responsible for multiplexing?
     for p in $Patterns.get_children():
         $Gameboard.connect("tile_changed", p, "_on_Gameboard_tile_changed")
         $Gameboard.connect("complete", p, "_on_Gameboard_complete")
@@ -56,9 +57,10 @@ func _on_PatternButton_toggled(button_pressed):
         autoclicker.set_pattern(d.x, d.y)
     else:
         autoclicker.set_single()
-
         
 func _on_Pattern_matched(bonus, pattern):
+    # TODO check that first pattern unlock.
+    # TODO make pattern first unlock a seperate signal?
     score += bonus
     $ScoreLabel.text = "dots: %s" % score
 
