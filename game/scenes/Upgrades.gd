@@ -24,7 +24,7 @@ var patterns_available = false
 var patterns_activated = false
 var pattern_activation_cost = 1024
 
-var score = 0
+var score = 99999
 
 # TODO these would be in a save file or something
 var unavilable_expand_upgrades = Dictionary()  # size -> cost
