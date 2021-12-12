@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/Gameboard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Main.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/Patterns.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/UpgradeControl.gd" type="Script" id=5]
 [ext_resource path="res://scenes/Upgrades.gd" type="Script" id=6]
+[ext_resource path="res://scenes/ColorMenu.gd" type="Script" id=7]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
@@ -79,15 +80,44 @@ __meta__ = {
 }
 
 [node name="PatternButton" type="CheckButton" parent="CanvasLayer/Control/VBoxContainer"]
+visible = false
 margin_right = 126.0
 margin_bottom = 40.0
 text = "pattern"
+
+[node name="ColorMenu" type="Control" parent="CanvasLayer"]
+anchor_top = 0.877
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -0.200012
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/ColorMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ColorMenu/CenterContainer"]
+margin_left = 512.0
+margin_top = 37.0
+margin_right = 512.0
+margin_bottom = 37.0
+
+[connection signal="color_available" from="Upgrades" to="." method="_on_Upgrades_color_available"]
 [connection signal="expand_autoclicker_active" from="Upgrades" to="." method="_on_Upgrades_expand_autoclicker_active"]
 [connection signal="expand_autoclicker_available" from="Upgrades" to="." method="_on_Upgrades_expand_autoclicker_available"]
 [connection signal="expand_autoclicker_unavailable" from="Upgrades" to="." method="_on_Upgrades_expand_autoclicker_unavailable"]
 [connection signal="expand_board_upgrade_active" from="Upgrades" to="." method="_on_Upgrades_expand_board_upgrade_active"]
 [connection signal="expand_board_upgrade_available" from="Upgrades" to="." method="_on_Upgrades_expand_board_upgrade_available"]
 [connection signal="expand_board_upgrade_unavailable" from="Upgrades" to="." method="_on_Upgrades_expand_board_upgrade_unavailable"]
+[connection signal="patterns_active" from="Upgrades" to="." method="_on_Upgrades_patterns_active"]
+[connection signal="patterns_available" from="Upgrades" to="." method="_on_Upgrades_patterns_available"]
+[connection signal="patterns_unavailable" from="Upgrades" to="." method="_on_Upgrades_patterns_unavailable"]
 [connection signal="score_increased" from="Upgrades" to="." method="_on_Upgrades_score_increased"]
 [connection signal="complete" from="Gameboard" to="." method="_on_Gameboard_complete"]
 [connection signal="tile_changed" from="Gameboard" to="." method="_on_Gameboard_tile_changed"]
@@ -95,6 +125,9 @@ text = "pattern"
 [connection signal="click" from="Autoclicker" to="." method="_on_Autoclicker_click"]
 [connection signal="click_any" from="Autoclicker" to="." method="_on_Autoclicker_click_any"]
 [connection signal="autoclicker_upgrade" from="CanvasLayer/UpgradeControl" to="." method="_on_UpgradeControl_autoclicker_upgrade"]
+[connection signal="color_upgrade" from="CanvasLayer/UpgradeControl" to="." method="_on_UpgradeControl_color_upgrade"]
 [connection signal="expand_grid_upgrade" from="CanvasLayer/UpgradeControl" to="." method="_on_UpgradeControl_expand_grid_upgrade"]
+[connection signal="pattern_upgrade" from="CanvasLayer/UpgradeControl" to="." method="_on_UpgradeControl_pattern_upgrade"]
 [connection signal="toggled" from="CanvasLayer/Control/VBoxContainer/AutoclickerButton" to="." method="_on_AutoclickerButton_toggled"]
 [connection signal="toggled" from="CanvasLayer/Control/VBoxContainer/PatternButton" to="." method="_on_PatternButton_toggled"]
+[connection signal="color_select" from="CanvasLayer/ColorMenu" to="." method="_on_ColorMenu_color_select"]

@@ -1,12 +1,15 @@
 extends Node2D
 
+export var current_color = Color(1, 1, 1)
 export var enable_autoclicker = false
 
 var score = 0
 
 onready var autoclicker_button = $CanvasLayer/Control/VBoxContainer/AutoclickerButton
+onready var pattern_enable_button = $CanvasLayer/Control/VBoxContainer/PatternButton
 onready var autoclicker = $Autoclicker
 onready var upgrade_control = $CanvasLayer/UpgradeControl
+onready var color_control = $CanvasLayer/ColorMenu
 
 func toggle_autoclicker(enabled):
     autoclicker.set_process(enabled)
@@ -19,8 +22,9 @@ func toggle_autoclicker(enabled):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    toggle_autoclicker(enable_autoclicker)
+    $CanvasLayer/ColorMenu.add_color(current_color)
     # TODO should the Patterns be responsible for multiplexing?
+    toggle_autoclicker(enable_autoclicker)
     for p in $Patterns.get_children():
         $Gameboard.connect("tile_changed", p, "_on_Gameboard_tile_changed")
         $Gameboard.connect("complete", p, "_on_Gameboard_complete")
@@ -30,12 +34,12 @@ func _on_Autoclicker_click(x, y, color):
     $Gameboard.change_dot(x, y, color)    
 
 func _on_Autoclicker_click_any(color):
-    $Gameboard.next_unchanged().change(color)
+    $Gameboard.next_unchanged().change(current_color)
 
 func _on_Gameboard_tile_clicked(tile):
     autoclicker.stop()
     autoclicker_button.pressed = false
-    tile.change(Color(1, 0, 0)) # TODO brush color
+    tile.change(current_color)
 
 func _on_Gameboard_complete():
     autoclicker.stop()
@@ -74,6 +78,12 @@ func _on_UpgradeControl_autoclicker_upgrade(new_speed, cost, control):
         control.queue_free()
         autoclicker_button.visible = true
 
+func _on_UpgradeControl_pattern_upgrade(control):
+    # TODO enable the patterns selection screen and active pattern tracking node
+    if $Upgrades.buy_patterns_upgrade():
+        control.queue_free()
+        pattern_enable_button.visible = true
+
 func _on_Upgrades_score_increased(new_value):
     $ScoreLabel.text = "dots: %s" % new_value
 
@@ -93,11 +103,34 @@ func _on_Upgrades_expand_board_upgrade_active(size, cost):
 
 func _on_Upgrades_expand_autoclicker_active(speed, cost):
     pass # Replace with function body.
+    
+func _on_Upgrades_patterns_active():
+    pass
 
 func _on_Upgrades_expand_autoclicker_available(speed, cost):	
     print_debug("available %d" % speed)
     upgrade_control.add_autoclicker_upgrade(speed, cost)
 
 func _on_Upgrades_expand_autoclicker_unavailable(speed):
+    # TODO could just setup forwarding on _ready
     print_debug("unavailable %d" % speed)
     upgrade_control.remove_autoclicker_upgrade(speed)	
+
+func _on_Upgrades_patterns_available():
+    print_debug("patterns available")
+    upgrade_control.add_pattern_upgrade()
+
+func _on_Upgrades_patterns_unavailable():
+    upgrade_control.remove_pattern_upgrade()
+
+func _on_Upgrades_color_available(color, cost):	
+    print_debug("color available")
+    upgrade_control.add_color_upgrade(color, cost)
+
+func _on_UpgradeControl_color_upgrade(color, cost, control):
+    if $Upgrades.buy_color_upgrade(color):
+        control.queue_free()
+        color_control.add_color(color)
+
+func _on_ColorMenu_color_select(color):
+    current_color = color
