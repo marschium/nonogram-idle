@@ -5,7 +5,7 @@ import os
 
 BONUS_BASE = 64
 
-def main(src, dest):
+def gen(src, dest):
     img = Image.open(src)
     out = {
         "tiles": [],
@@ -27,4 +27,4 @@ def main(src, dest):
 
 if __name__ == "__main__":
     import sys
-    main(sys.argv[1], sys.argv[2])
+    gen(sys.argv[1], sys.argv[2])
