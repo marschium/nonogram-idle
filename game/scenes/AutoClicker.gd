@@ -37,10 +37,13 @@ func set_single():
 		$SingleAutoClicker.start()
 	single = true
 	
-func set_pattern(x, y):
-	# TODO pattern as param
+func set_pattern(x, y, pattern):
 	if single:
 		$SingleAutoClicker.stop()
+	
+	$PatternAutoClicker.file = pattern.file
+	$PatternAutoClicker.setup()
+	
 	if running:
 		$PatternAutoClicker.start(x, y)
 	single = false

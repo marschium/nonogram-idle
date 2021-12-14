@@ -25,8 +25,8 @@ func _ready():
 	for t in pattern_def["tiles"]:
 		var x = int(t["x"])
 		var y = int(t["y"])
-		if not tiles.has(t["x"]):
-			tiles[x] = Dictionary()
+		if not tiles.has(x):
+			tiles[x] = {}
 		tiles[x][y] = Color(float(t["c"][0]) / 255.0, float(t["c"][1]) / 255.0, float(t["c"][2]) / 255.0)
 	tiles_unmatched = tiles.duplicate(true)
 
@@ -38,7 +38,7 @@ func _on_Gameboard_tile_changed(tile):
 
 func _on_Gameboard_complete():
 	if tiles_unmatched.empty():
-		print_debug("pattern matched")
+		print_debug("pattern matched %s" % file)
 		emit_signal("matched", bonus)
 		if not unlocked:
 			unlocked = true

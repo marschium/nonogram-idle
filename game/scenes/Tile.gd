@@ -39,7 +39,7 @@ func _process(delta):
 		just_clicked = false
 
 func _on_Area2D_mouse_entered():
-	mouse_over = !Input.is_mouse_button_pressed(BUTTON_LEFT) # ignore mouse being held down
+	mouse_over = true  #!Input.is_mouse_button_pressed(BUTTON_LEFT) # ignore mouse being held down
 
 func _on_Area2D_mouse_exited():
 	mouse_over = false

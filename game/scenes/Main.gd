@@ -5,20 +5,21 @@ export var enable_autoclicker = false
 
 var score = 0
 
-onready var autoclicker_button = $CanvasLayer/Control/VBoxContainer/AutoclickerButton
-onready var pattern_enable_button = $CanvasLayer/Control/VBoxContainer/PatternButton
 onready var autoclicker = $Autoclicker
 onready var upgrade_control = $CanvasLayer/UpgradeControl
 onready var color_control = $CanvasLayer/ColorMenu
 
 func toggle_autoclicker(enabled):
 	autoclicker.set_process(enabled)
-	autoclicker_button.set_process(enabled)
 	autoclicker.stop()
 	if enabled:
 		autoclicker.start()
 	# autoclicker_button.visible = autoclicker.running
-	autoclicker_button.pressed = autoclicker.running
+	if autoclicker.running:
+		$CanvasLayer/AutoclickerControl.autoclicker_running()
+	else:
+		$CanvasLayer/AutoclickerControl.autoclicker_stopped()
+		
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,7 +30,7 @@ func _ready():
 		$Gameboard.connect("tile_changed", p, "_on_Gameboard_tile_changed")
 		$Gameboard.connect("complete", p, "_on_Gameboard_complete")
 		p.connect("matched", self, "_on_Pattern_matched", [p])
-		$CanvasLayer/Control/VBoxContainer/PatternsControl.add_pattern(p)
+		$CanvasLayer/AutoclickerControl.add_pattern(p)
 
 func _on_Autoclicker_click(x, y, color):
 	$Gameboard.change_dot(x, y, color)    
@@ -39,29 +40,16 @@ func _on_Autoclicker_click_any(color):
 
 func _on_Gameboard_tile_clicked(tile):
 	autoclicker.stop()
-	autoclicker_button.pressed = false
+	$CanvasLayer/AutoclickerControl.autoclicker_stopped()
 	tile.change(current_color)
 
 func _on_Gameboard_complete():
+	var was_autoclicked = autoclicker.running
 	autoclicker.stop()
 	yield(get_tree().create_timer(0.2), "timeout")
 	$Gameboard.reset()
-	if autoclicker_button.pressed:
+	if was_autoclicked:
 		autoclicker.start(0, 0)
-
-func _on_AutoclickerButton_toggled(button_pressed):
-	if button_pressed:
-		var d = $Gameboard.next_unchanged()
-		autoclicker.start(d.x, d.y)
-	else:
-		autoclicker.stop()
-
-func _on_PatternButton_toggled(button_pressed):
-	if button_pressed:
-		var d = $Gameboard.next_unchanged()
-		autoclicker.set_pattern(d.x, d.y)
-	else:
-		autoclicker.set_single()
 		
 func _on_Pattern_matched(bonus, pattern):
 	# TODO check that first pattern unlock.
@@ -77,13 +65,13 @@ func _on_UpgradeControl_expand_grid_upgrade(new_size, cost, control):
 func _on_UpgradeControl_autoclicker_upgrade(new_speed, cost, control):
 	if $Upgrades.buy_autoclicker_upgrade(new_speed):
 		control.queue_free()
-		autoclicker_button.visible = true
+		$CanvasLayer/AutoclickerControl.enable_autoclick()
 
 func _on_UpgradeControl_pattern_upgrade(control):
 	# TODO enable the patterns selection screen and active pattern tracking node
 	if $Upgrades.buy_patterns_upgrade():
 		control.queue_free()
-		pattern_enable_button.visible = true
+		$CanvasLayer/AutoclickerControl.enable_pattern_select()
 
 func _on_Upgrades_score_increased(new_value):
 	$ScoreLabel.text = "dots: %s" % new_value
@@ -135,3 +123,17 @@ func _on_UpgradeControl_color_upgrade(color, cost, control):
 
 func _on_ColorMenu_color_select(color):
 	current_color = color
+
+func _on_AutoclickerControl_autoclick_toggled(enabled):
+	if enabled:
+		var d = $Gameboard.next_unchanged()
+		autoclicker.start(d.x, d.y)
+	else:
+		autoclicker.stop()
+
+func _on_AutoclickerControl_pattern_toggled(enabled, pattern):	
+	if enabled:
+		var d = $Gameboard.next_unchanged()
+		autoclicker.set_pattern(d.x, d.y, pattern)
+	else:
+		autoclicker.set_single()

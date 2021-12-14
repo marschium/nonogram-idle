@@ -3,15 +3,15 @@ extends Node2D
 signal score_increased(new_value)
 
 signal expand_board_upgrade_available(size, cost)
-signal expand_board_upgrade_active(size, cost)
-signal expand_board_upgrade_unavailable(size)
+signal expand_board_upgrade_active(size)
+signal expand_board_upgrade_unavailable()
 
 signal expand_autoclicker_available(speed, cost)
-signal expand_autoclicker_active(speed, cost)
+signal expand_autoclicker_active(speed)
 signal expand_autoclicker_unavailable(speed)
 
 signal color_available(color, cost)
-signal color_active(color, cost)
+signal color_active(color)
 signal color_unavailable(color)
 
 # TODO parameterize with pattern file/def?
