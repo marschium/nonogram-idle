@@ -117,6 +117,16 @@ margin_top = 37.0
 margin_right = 512.0
 margin_bottom = 37.0
 
+[node name="TestButton" type="CheckButton" parent="."]
+margin_left = 814.0
+margin_top = 313.0
+margin_right = 890.0
+margin_bottom = 353.0
+text = "TEST"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="color_available" from="Upgrades" to="." method="_on_Upgrades_color_available"]
 [connection signal="expand_autoclicker_active" from="Upgrades" to="." method="_on_Upgrades_expand_autoclicker_active"]
 [connection signal="expand_autoclicker_available" from="Upgrades" to="." method="_on_Upgrades_expand_autoclicker_available"]
@@ -143,3 +153,4 @@ margin_bottom = 37.0
 [connection signal="pattern_cleared" from="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl" to="CanvasLayer/AutoclickerControl" method="_on_PatternsControl_pattern_cleared"]
 [connection signal="pattern_selected" from="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl" to="CanvasLayer/AutoclickerControl" method="_on_PatternsControl_pattern_selected"]
 [connection signal="color_select" from="CanvasLayer/ColorMenu" to="." method="_on_ColorMenu_color_select"]
+[connection signal="toggled" from="TestButton" to="." method="_on_TestButton_toggled"]

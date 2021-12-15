@@ -87,10 +87,10 @@ func _on_Upgrades_expand_board_upgrade_available(size, cost):
 func _on_Gameboard_tile_changed(tile):
 	$Upgrades.increase_score()
 
-func _on_Upgrades_expand_board_upgrade_active(size, cost):
+func _on_Upgrades_expand_board_upgrade_active(size):
 	pass
 
-func _on_Upgrades_expand_autoclicker_active(speed, cost):
+func _on_Upgrades_expand_autoclicker_active(speed):
 	pass # Replace with function body.
 	
 func _on_Upgrades_patterns_active():
@@ -137,3 +137,8 @@ func _on_AutoclickerControl_pattern_toggled(enabled, pattern):
 		autoclicker.set_pattern(d.x, d.y, pattern)
 	else:
 		autoclicker.set_single()
+
+
+func _on_TestButton_toggled(button_pressed):
+	if button_pressed:
+		$Gameboard.show_guide($Patterns.get_child(0).tiles)
