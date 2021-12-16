@@ -67,15 +67,14 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/AutoclickerControl"]
 anchor_left = -0.012987
-anchor_right = -0.012987
+anchor_right = 0.987
 anchor_bottom = 1.0
-margin_right = 77.0
+margin_right = 0.000999451
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
 [node name="AutoclickerButton" type="CheckButton" parent="CanvasLayer/AutoclickerControl/VBoxContainer"]
-visible = false
 margin_right = 77.0
 margin_bottom = 40.0
 __meta__ = {
@@ -83,13 +82,17 @@ __meta__ = {
 }
 
 [node name="PatternsControl" type="Control" parent="CanvasLayer/AutoclickerControl/VBoxContainer"]
-visible = false
+margin_top = 44.0
 margin_right = 77.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource( 8 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -117,16 +120,6 @@ margin_top = 37.0
 margin_right = 512.0
 margin_bottom = 37.0
 
-[node name="TestButton" type="CheckButton" parent="."]
-margin_left = 814.0
-margin_top = 313.0
-margin_right = 890.0
-margin_bottom = 353.0
-text = "TEST"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [connection signal="color_available" from="Upgrades" to="." method="_on_Upgrades_color_available"]
 [connection signal="expand_autoclicker_active" from="Upgrades" to="." method="_on_Upgrades_expand_autoclicker_active"]
 [connection signal="expand_autoclicker_available" from="Upgrades" to="." method="_on_Upgrades_expand_autoclicker_available"]
@@ -148,9 +141,10 @@ __meta__ = {
 [connection signal="expand_grid_upgrade" from="CanvasLayer/UpgradeControl" to="." method="_on_UpgradeControl_expand_grid_upgrade"]
 [connection signal="pattern_upgrade" from="CanvasLayer/UpgradeControl" to="." method="_on_UpgradeControl_pattern_upgrade"]
 [connection signal="autoclick_toggled" from="CanvasLayer/AutoclickerControl" to="." method="_on_AutoclickerControl_autoclick_toggled"]
+[connection signal="guide_toggled" from="CanvasLayer/AutoclickerControl" to="." method="_on_AutoclickerControl_guide_toggled"]
 [connection signal="pattern_toggled" from="CanvasLayer/AutoclickerControl" to="." method="_on_AutoclickerControl_pattern_toggled"]
 [connection signal="toggled" from="CanvasLayer/AutoclickerControl/VBoxContainer/AutoclickerButton" to="CanvasLayer/AutoclickerControl" method="_on_AutoclickerButton_toggled"]
+[connection signal="guide_selected" from="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl" to="CanvasLayer/AutoclickerControl" method="_on_PatternsControl_guide_selected"]
 [connection signal="pattern_cleared" from="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl" to="CanvasLayer/AutoclickerControl" method="_on_PatternsControl_pattern_cleared"]
 [connection signal="pattern_selected" from="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl" to="CanvasLayer/AutoclickerControl" method="_on_PatternsControl_pattern_selected"]
 [connection signal="color_select" from="CanvasLayer/ColorMenu" to="." method="_on_ColorMenu_color_select"]
-[connection signal="toggled" from="TestButton" to="." method="_on_TestButton_toggled"]

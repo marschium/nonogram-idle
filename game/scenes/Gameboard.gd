@@ -59,6 +59,10 @@ func reset_board(size):
 				dots_lookup[x] = Dictionary()
 			dots_lookup[x][y] = t
 			
+func hide_guide():
+	for c in $Guide.get_children():
+		c.queue_free()
+			
 func show_guide(pattern_tiles):
 	for x in range(self.size):
 		var colors = {}

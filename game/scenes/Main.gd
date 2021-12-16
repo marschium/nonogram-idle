@@ -139,6 +139,8 @@ func _on_AutoclickerControl_pattern_toggled(enabled, pattern):
 		autoclicker.set_single()
 
 
-func _on_TestButton_toggled(button_pressed):
-	if button_pressed:
-		$Gameboard.show_guide($Patterns.get_child(0).tiles)
+func _on_AutoclickerControl_guide_toggled(enabled, pattern):
+	if enabled:
+		$Gameboard.show_guide(pattern.tiles)
+	else:
+		$Gameboard.hide_guide()

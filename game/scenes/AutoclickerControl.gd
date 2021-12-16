@@ -3,11 +3,7 @@ extends Control
 
 signal autoclick_toggled(enabled)
 signal pattern_toggled(enabled, pattern)
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+signal guide_toggled(enabled, pattern)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -36,3 +32,6 @@ func _on_PatternsControl_pattern_selected(pattern):
 
 func _on_PatternsControl_pattern_cleared():
 	emit_signal("pattern_toggled", false, null)
+
+func _on_PatternsControl_guide_selected(pattern):
+	emit_signal("guide_toggled", true, pattern)
