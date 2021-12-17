@@ -23,6 +23,9 @@ func autoclicker_stopped():
 
 func add_pattern(pattern):
 	$VBoxContainer/PatternsControl.add_pattern(pattern)
+	
+func add_color(color):
+	$VBoxContainer/PatternsControl.add_color(color)
 
 func _on_AutoclickerButton_toggled(button_pressed):
 	emit_signal("autoclick_toggled", button_pressed)

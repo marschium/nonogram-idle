@@ -64,6 +64,7 @@ func hide_guide():
 		c.queue_free()
 			
 func show_guide(pattern_tiles):
+	hide_guide()
 	for x in range(self.size):
 		var colors = {}
 		for y in range(self.size):

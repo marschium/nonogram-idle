@@ -7,6 +7,7 @@ var score = 0
 
 onready var autoclicker = $Autoclicker
 onready var upgrade_control = $CanvasLayer/UpgradeControl
+onready var autoclicker_control = $CanvasLayer/AutoclickerControl
 onready var color_control = $CanvasLayer/ColorMenu
 
 func toggle_autoclicker(enabled):
@@ -23,6 +24,7 @@ func toggle_autoclicker(enabled):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$CanvasLayer/AutoclickerControl.add_color(current_color)
 	$CanvasLayer/ColorMenu.add_color(current_color)
 	# TODO should the Patterns be responsible for multiplexing?
 	toggle_autoclicker(enable_autoclicker)
@@ -120,6 +122,7 @@ func _on_UpgradeControl_color_upgrade(color, cost, control):
 	if $Upgrades.buy_color_upgrade(color):
 		control.queue_free()
 		color_control.add_color(color)
+		autoclicker_control.add_color(color)
 
 func _on_ColorMenu_color_select(color):
 	current_color = color

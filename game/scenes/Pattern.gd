@@ -9,6 +9,7 @@ var bonus = 0
 var tiles = Dictionary()
 var tiles_unmatched = Dictionary()
 var unlocked = false
+var colors= Dictionary()
 
 func read_json_file(file_path):
 	var file = File.new()
@@ -27,7 +28,9 @@ func _ready():
 		var y = int(t["y"])
 		if not tiles.has(x):
 			tiles[x] = {}
-		tiles[x][y] = Color(float(t["c"][0]) / 255.0, float(t["c"][1]) / 255.0, float(t["c"][2]) / 255.0)
+		var color = Color(float(t["c"][0]) / 255.0, float(t["c"][1]) / 255.0, float(t["c"][2]) / 255.0)
+		tiles[x][y] = color
+		colors[color] = true
 	tiles_unmatched = tiles.duplicate(true)
 
 func _on_Gameboard_tile_changed(tile):
