@@ -22,6 +22,7 @@ func add_pattern(pattern):
 	var l = PatternSelectControl.instance()
 	l.pattern = pattern
 	l.connect("guide_selected", self, "_on_PatternSelect_guide_selected")
+	l.connect("set_selected", self, "_on_PatternSelect_set_selected")
 	l.visible = show_pattern(pattern)
 	$VBoxContainer.add_child(l)
 	
@@ -33,3 +34,6 @@ func add_color(color):
 func _on_PatternSelect_guide_selected(pattern):
 	emit_signal("guide_selected", pattern)
 
+func _on_PatternSelect_set_selected(pattern):
+	# TODO only if unlocked
+	emit_signal("pattern_selected", pattern)	
