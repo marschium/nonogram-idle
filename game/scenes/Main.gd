@@ -3,8 +3,6 @@ extends Node2D
 export var current_color = Color(1, 1, 1)
 export var enable_autoclicker = false
 
-var score = 0
-
 onready var autoclicker = $Autoclicker
 onready var upgrade_control = $CanvasLayer/UpgradeControl
 onready var autoclicker_control = $CanvasLayer/AutoclickerControl
@@ -54,10 +52,8 @@ func _on_Gameboard_complete():
 		autoclicker.start(0, 0)
 		
 func _on_Pattern_matched(bonus, pattern):
-	# TODO check that first pattern unlock.
-	# TODO make pattern first unlock a seperate signal?
-	score += bonus
-	$ScoreLabel.text = "dots: %s" % score
+	Score.add(bonus)
+	$ScoreLabel.text = "dots: %s" % Score.val
 
 func _on_UpgradeControl_expand_grid_upgrade(new_size, cost, control):
 	if $Upgrades.buy_expand_upgrade(new_size):
@@ -87,7 +83,8 @@ func _on_Upgrades_expand_board_upgrade_available(size, cost):
 	upgrade_control.add_expand_grid_upgrade(size, cost)
 
 func _on_Gameboard_tile_changed(tile):
-	$Upgrades.increase_score()
+	Score.add(1)
+	$ScoreLabel.text = "dots: %s" % Score.val # TODO ScoreLabel can just poll
 
 func _on_Upgrades_expand_board_upgrade_active(size):
 	pass

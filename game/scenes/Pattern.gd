@@ -9,7 +9,8 @@ var bonus = 0
 var tiles = Dictionary()
 var tiles_unmatched = Dictionary()
 var unlocked = false
-var colors= Dictionary()
+var colors = Dictionary()
+var tags = []
 
 func read_json_file(file_path):
 	var file = File.new()
@@ -32,6 +33,7 @@ func _ready():
 		tiles[x][y] = color
 		colors[color] = true
 	tiles_unmatched = tiles.duplicate(true)
+	tags = [ "test1", "test2" ] # TODO read from file
 
 func _on_Gameboard_tile_changed(tile):
 	if tiles.get(tile.x).get(tile.y) == tile.sprite.modulate:

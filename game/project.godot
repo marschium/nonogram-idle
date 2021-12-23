@@ -17,6 +17,10 @@ _global_script_class_icons={
 config/name="dots"
 config/icon="res://icon.png"
 
+[autoload]
+
+Score="*res://scenes/Score.tscn"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

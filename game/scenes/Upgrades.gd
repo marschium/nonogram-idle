@@ -22,9 +22,8 @@ signal patterns_active()
 
 var patterns_available = false
 var patterns_activated = false
-var pattern_activation_cost = 1024
+var pattern_activation_cost = 96
 
-var score = 99999
 
 # TODO these would be in a save file or something
 var unavilable_expand_upgrades = Dictionary()  # size -> cost
@@ -35,24 +34,23 @@ var unavilable_color_upgrades = Dictionary()  # per sec -> cost
 var available_color_upgrades = Dictionary()  # per sec -> cost
 
 func _ready():	
-	unavilable_expand_upgrades[2] = 32
-	unavilable_expand_upgrades[4] = 64
-	unavilable_expand_upgrades[8] = 128
-	unavilable_expand_upgrades[16] = 256
-	unavilable_autoclick_upgrades[1] = 8
-	unavilable_color_upgrades[Color(1, 0, 0)] = 512
+	Score.connect("changed", self, "_on_Score_changed")
+	unavilable_expand_upgrades[2] = 8
+	unavilable_expand_upgrades[4] = 16
+	unavilable_expand_upgrades[8] = 32
+	unavilable_expand_upgrades[16] = 64
+	unavilable_autoclick_upgrades[1] = 256
+	unavilable_color_upgrades[Color(1, 0, 0)] = 1024
 	
 func do_upgrade_dict(upgrades):
 	var just_unlocked = []
 	for sz in upgrades.keys():
 		var cost = upgrades[sz]
-		if cost <= score:
+		if cost <= Score.val:
 			just_unlocked.append([sz, cost])
 	return just_unlocked
 
-func increase_score():	
-	score += 1
-	emit_signal("score_increased", score)
+func _on_Score_changed(old, new):
 	
 	var expand_unlocked = do_upgrade_dict(unavilable_expand_upgrades)
 	for sz_cost in expand_unlocked:
@@ -66,23 +64,26 @@ func increase_score():
 		available_autoclick_upgrades[sz_cost[0]] = sz_cost[1]
 		emit_signal("expand_autoclicker_available", sz_cost[0], sz_cost[1])
 		
-	var color_unlocked = do_upgrade_dict(unavilable_color_upgrades)	
-	for sz_cost in color_unlocked:
-		unavilable_color_upgrades.erase(sz_cost[0])
-		available_color_upgrades[sz_cost[0]] = sz_cost[1]
-		emit_signal("color_available", sz_cost[0], sz_cost[1])
+	# colors can only be unlocked after patterns
+	if patterns_activated:
+		var color_unlocked = do_upgrade_dict(unavilable_color_upgrades)	
+		for sz_cost in color_unlocked:
+			unavilable_color_upgrades.erase(sz_cost[0])
+			available_color_upgrades[sz_cost[0]] = sz_cost[1]
+			emit_signal("color_available", sz_cost[0], sz_cost[1])
 		
-	if not patterns_available and score > pattern_activation_cost:
+	# patterns can only be unlocked after grid is largest
+	var all_expand_bought = unavilable_expand_upgrades.empty() and available_expand_upgrades.empty()
+	if not patterns_available and Score.val > pattern_activation_cost and all_expand_bought:
 		patterns_available = true
 		emit_signal("patterns_available")
 		
 func buy_expand_upgrade(size):
 	var cost = available_expand_upgrades[size]
-	if score < cost:
+	if Score.val < cost:
 		return false
 	
-	# TODO emit score signal
-	score -= cost
+	Score.sub(cost)
 	# disable anything that is smaller
 	var just_disabled = []
 	for sz in available_expand_upgrades.keys():
@@ -97,10 +98,10 @@ func buy_expand_upgrade(size):
 
 func buy_autoclicker_upgrade(size):
 	var cost = available_autoclick_upgrades[size]
-	if score < cost:
+	if Score.val < cost:
 		return false
 	
-	score -= cost
+	Score.sub(cost)
 	# disable anything that is slower
 	var just_disabled = []
 	for sz in available_autoclick_upgrades.keys():
@@ -114,10 +115,10 @@ func buy_autoclicker_upgrade(size):
 	return true
 
 func buy_patterns_upgrade():
-	if score < pattern_activation_cost:
+	if Score.val < pattern_activation_cost:
 		return false
 		
-	score -= pattern_activation_cost
+	Score.sub(pattern_activation_cost)
 	patterns_activated = true
 	emit_signal("patterns_active")
 	emit_signal("patterns_unavailable")
@@ -125,10 +126,10 @@ func buy_patterns_upgrade():
 
 func buy_color_upgrade(color):
 	var cost = available_color_upgrades[color]
-	if score < cost:
+	if Score.val < cost:
 		return false
 
-	score -= cost
+	Score.sub(cost)
 	available_color_upgrades.erase(color)
 	emit_signal("color_unavailable", color)
 	emit_signal("color_active", color)
