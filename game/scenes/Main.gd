@@ -23,6 +23,7 @@ func toggle_autoclicker(enabled):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Score.add(99999)
+	Combo.connect("combo_complete", self, "_on_Combo_complete")
 	$CanvasLayer/AutoclickerControl.add_color(current_color)
 	$CanvasLayer/ColorMenu.add_color(current_color)
 	# TODO should the Patterns be responsible for multiplexing?
@@ -54,6 +55,7 @@ func _on_Gameboard_complete():
 		
 func _on_Pattern_matched(bonus, pattern):
 	Score.add(bonus)
+	Combo.tick(["test1", "test2"])
 	$ScoreLabel.text = "dots: %s" % Score.val
 
 func _on_UpgradeControl_expand_grid_upgrade(new_size, cost, control):
@@ -126,11 +128,11 @@ func _on_ColorMenu_color_select(color):
 	current_color = color
 
 func _on_AutoclickerControl_autoclick_toggled(enabled):
-	if enabled:
+	if enabled and autoclicker.can_run():
 		var d = $Gameboard.next_unchanged()
 		autoclicker.start(d.x, d.y)
 	else:
-		autoclicker.stop()
+		toggle_autoclicker(false)
 
 func _on_AutoclickerControl_pattern_toggled(enabled, pattern):	
 	if enabled:
@@ -147,3 +149,6 @@ func _on_AutoclickerControl_guide_toggled(enabled, pattern):
 		$Gameboard.show_guide(pattern.tiles)
 	else:
 		$Gameboard.hide_guide()
+
+func _on_Combo_complete(words, num):
+	print("Combo finished")

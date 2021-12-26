@@ -11,8 +11,11 @@ func _ready():
 	$PatternAutoClicker.stop()
 	$SingleAutoClicker.stop()
 	
+func can_run():
+	return !running and len($PatternAutoClicker.clicks) != 0
+	
 func start(x, y):
-	if running:
+	if not can_run():
 		return
 	running = true
 	if single:
