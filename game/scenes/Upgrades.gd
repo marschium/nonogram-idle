@@ -58,11 +58,13 @@ func _on_Score_changed(old, new):
 		available_expand_upgrades[sz_cost[0]] = sz_cost[1]
 		emit_signal("expand_board_upgrade_available", sz_cost[0], sz_cost[1])
 		
-	var autoclick_unlocked = do_upgrade_dict(unavilable_autoclick_upgrades)	
-	for sz_cost in autoclick_unlocked:
-		unavilable_autoclick_upgrades.erase(sz_cost[0])
-		available_autoclick_upgrades[sz_cost[0]] = sz_cost[1]
-		emit_signal("expand_autoclicker_available", sz_cost[0], sz_cost[1])
+	# autoclicker only after unlocking patterns
+	if patterns_activated:
+		var autoclick_unlocked = do_upgrade_dict(unavilable_autoclick_upgrades)	
+		for sz_cost in autoclick_unlocked:
+			unavilable_autoclick_upgrades.erase(sz_cost[0])
+			available_autoclick_upgrades[sz_cost[0]] = sz_cost[1]
+			emit_signal("expand_autoclicker_available", sz_cost[0], sz_cost[1])
 		
 	# colors can only be unlocked after patterns
 	if patterns_activated:

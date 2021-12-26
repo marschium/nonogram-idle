@@ -22,6 +22,7 @@ func toggle_autoclicker(enabled):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Score.add(99999)
 	$CanvasLayer/AutoclickerControl.add_color(current_color)
 	$CanvasLayer/ColorMenu.add_color(current_color)
 	# TODO should the Patterns be responsible for multiplexing?
@@ -136,7 +137,9 @@ func _on_AutoclickerControl_pattern_toggled(enabled, pattern):
 		var d = $Gameboard.next_unchanged()
 		autoclicker.set_pattern(d.x, d.y, pattern)
 	else:
-		autoclicker.set_single()
+		toggle_autoclicker(false)
+		# TODO disable autoclicker single color for now
+		# autoclicker.set_single()
 
 
 func _on_AutoclickerControl_guide_toggled(enabled, pattern):

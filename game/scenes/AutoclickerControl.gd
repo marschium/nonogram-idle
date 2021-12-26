@@ -38,3 +38,7 @@ func _on_PatternsControl_pattern_cleared():
 
 func _on_PatternsControl_guide_selected(pattern):
 	emit_signal("guide_toggled", true, pattern)
+
+
+func _on_PatternsControl_guide_cleared():
+	emit_signal("guide_toggled", false, null)

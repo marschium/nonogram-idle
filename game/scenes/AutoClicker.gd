@@ -5,7 +5,7 @@ signal click(x, y, color)
 
 export var running = false
 
-var single = true
+var single = false
 
 func _ready():
 	$PatternAutoClicker.stop()

@@ -1,12 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://scenes/ui/PatternSelectControl.gd" type="Script" id=1]
-
-[sub_resource type="ButtonGroup" id=1]
-resource_local_to_scene = false
-
-[sub_resource type="ButtonGroup" id=2]
-resource_local_to_scene = false
 
 [node name="PatternSelectControl" type="CenterContainer"]
 anchor_right = 0.089
@@ -46,17 +40,15 @@ alignment = 1
 [node name="GuideButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 margin_right = 54.0
 margin_bottom = 20.0
-toggle_mode = true
-group = SubResource( 1 )
 text = "GUIDE"
 
 [node name="SetButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 margin_left = 58.0
 margin_right = 91.0
 margin_bottom = 20.0
-toggle_mode = true
-group = SubResource( 2 )
 text = "SET"
 
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/GuideButton" to="." method="_on_GuideButton_pressed"]
 [connection signal="toggled" from="VBoxContainer/HBoxContainer/GuideButton" to="." method="_on_GuideButton_toggled"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/SetButton" to="." method="_on_SetButton_pressed"]
 [connection signal="toggled" from="VBoxContainer/HBoxContainer/SetButton" to="." method="_on_SetButton_toggled"]
