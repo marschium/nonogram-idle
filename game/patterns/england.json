@@ -2305,10 +2305,7 @@
             "y": 15
         }
     ],
-    "name": [
-        "images/england",
-        ".png"
-    ],
+    "name": "england",
     "w": 16,
     "h": 16,
     "bonus": 128

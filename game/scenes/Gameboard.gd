@@ -3,6 +3,7 @@ extends Node2D
 signal tile_clicked(tile)
 signal tile_changed(tile)
 signal complete()
+signal complete_late()
 
 var spacing = 34
 var offset = 0
@@ -24,6 +25,7 @@ func check_cleared():
 		complete = complete and c.changed
 	if complete:
 		emit_signal("complete")
+		emit_signal("complete_late")
 		
 func change_dot(x, y, color):
 	dots_lookup.get(x).get(y).change(color)

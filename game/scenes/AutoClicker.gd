@@ -32,6 +32,9 @@ func stop():
 	else:
 		$PatternAutoClicker.stop()
 
+func clear():
+	$PatternAutoClicker.clear()
+
 func set_single():
 	# TODO color as param
 	if not single:

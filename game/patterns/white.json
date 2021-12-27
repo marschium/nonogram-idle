@@ -2305,10 +2305,7 @@
             "y": 15
         }
     ],
-    "name": [
-        "images/white",
-        ".png"
-    ],
+    "name": "white",
     "w": 16,
     "h": 16,
     "bonus": 64

@@ -37,7 +37,7 @@ func _on_SetButton_toggled(button_pressed):
 
 
 func _on_Pattern_unlocked():	
-	$VBoxContainer/NameLabel.text = pattern.pattern_name[0]
+	$VBoxContainer/NameLabel.text = pattern.pattern_name
 	$VBoxContainer/NameLabel.modulate = Color(0, 1, 0)
 
 

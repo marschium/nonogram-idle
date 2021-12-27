@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/Gameboard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Main.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/ColorMenu.gd" type="Script" id=7]
 [ext_resource path="res://scenes/PatternsControl.gd" type="Script" id=8]
 [ext_resource path="res://scenes/AutoclickerControl.gd" type="Script" id=9]
+[ext_resource path="res://scenes/ui/ComboTrackerControl.gd" type="Script" id=10]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
@@ -141,6 +142,33 @@ margin_top = 37.0
 margin_right = 512.0
 margin_bottom = 37.0
 
+[node name="ScoreControl" type="Control" parent="CanvasLayer"]
+anchor_left = 0.285
+anchor_right = 0.715
+anchor_bottom = 0.117
+margin_left = 0.159973
+margin_right = -0.160034
+margin_bottom = -0.200005
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/ScoreControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ComboTrackerControl" type="HBoxContainer" parent="CanvasLayer/ScoreControl/CenterContainer"]
+margin_left = 220.0
+margin_top = 35.0
+margin_right = 220.0
+margin_bottom = 35.0
+script = ExtResource( 10 )
+
 [connection signal="color_available" from="Upgrades" to="." method="_on_Upgrades_color_available"]
 [connection signal="expand_autoclicker_active" from="Upgrades" to="." method="_on_Upgrades_expand_autoclicker_active"]
 [connection signal="expand_autoclicker_available" from="Upgrades" to="." method="_on_Upgrades_expand_autoclicker_available"]
@@ -152,7 +180,7 @@ margin_bottom = 37.0
 [connection signal="patterns_available" from="Upgrades" to="." method="_on_Upgrades_patterns_available"]
 [connection signal="patterns_unavailable" from="Upgrades" to="." method="_on_Upgrades_patterns_unavailable"]
 [connection signal="score_increased" from="Upgrades" to="." method="_on_Upgrades_score_increased"]
-[connection signal="complete" from="Gameboard" to="." method="_on_Gameboard_complete"]
+[connection signal="complete_late" from="Gameboard" to="." method="_on_Gameboard_complete_late"]
 [connection signal="tile_changed" from="Gameboard" to="." method="_on_Gameboard_tile_changed"]
 [connection signal="tile_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_clicked"]
 [connection signal="click" from="Autoclicker" to="." method="_on_Autoclicker_click"]

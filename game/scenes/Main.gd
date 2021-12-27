@@ -31,7 +31,6 @@ func _ready():
 	for p in $Patterns.get_children():
 		$Gameboard.connect("tile_changed", p, "_on_Gameboard_tile_changed")
 		$Gameboard.connect("complete", p, "_on_Gameboard_complete")
-		p.connect("matched", self, "_on_Pattern_matched", [p])
 		$CanvasLayer/AutoclickerControl.add_pattern(p)
 
 func _on_Autoclicker_click(x, y, color):
@@ -45,18 +44,19 @@ func _on_Gameboard_tile_clicked(tile):
 	$CanvasLayer/AutoclickerControl.autoclicker_stopped()
 	tile.change(current_color)
 
-func _on_Gameboard_complete():
+func _on_Gameboard_complete_late():
 	var was_autoclicked = autoclicker.running
 	autoclicker.stop()
+	for p in $Patterns.get_macthes():
+		Score.add(p.bonus)
+		Combo.add([p.pattern_name])	 # TODO use keywords
+	$Patterns.reset_matches()
+	Combo.tick()
+	$ScoreLabel.text = "dots: %s" % Score.val
 	yield(get_tree().create_timer(0.2), "timeout")
 	$Gameboard.reset()
 	if was_autoclicked:
 		autoclicker.start(0, 0)
-		
-func _on_Pattern_matched(bonus, pattern):
-	Score.add(bonus)
-	Combo.tick(["test1", "test2"])
-	$ScoreLabel.text = "dots: %s" % Score.val
 
 func _on_UpgradeControl_expand_grid_upgrade(new_size, cost, control):
 	if $Upgrades.buy_expand_upgrade(new_size):
@@ -136,10 +136,11 @@ func _on_AutoclickerControl_autoclick_toggled(enabled):
 
 func _on_AutoclickerControl_pattern_toggled(enabled, pattern):	
 	if enabled:
-		var d = $Gameboard.next_unchanged()
+		var d = $Gameboard.next_unchanged() # TODO what if board filled?
 		autoclicker.set_pattern(d.x, d.y, pattern)
 	else:
 		toggle_autoclicker(false)
+		autoclicker.clear()
 		# TODO disable autoclicker single color for now
 		# autoclicker.set_single()
 

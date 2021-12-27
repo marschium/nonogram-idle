@@ -2305,10 +2305,7 @@
             "y": 15
         }
     ],
-    "name": [
-        "images/red",
-        ".png"
-    ],
+    "name": "red",
     "w": 16,
     "h": 16,
     "bonus": 64

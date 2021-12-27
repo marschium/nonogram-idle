@@ -4,6 +4,7 @@ extends Node2D
 var pattern_dir = "res://patterns"
 var Pattern = preload("res://scenes/Pattern.tscn")
 
+var matched = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,12 +19,16 @@ func _ready():
 			i += 1
 			var p = Pattern.instance()
 			p.file = d.get_current_dir() + "/" + f
+			p.connect("matched", self, "_on_Pattern_matched", [p])
 			add_child(p)
 		f = d.get_next()
 
 	
+func _on_Pattern_matched(bonus, pattern):
+	matched.append(pattern)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#    pass
+func get_macthes():
+	return matched
+	
+func reset_matches():
+	matched = []

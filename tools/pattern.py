@@ -9,7 +9,7 @@ def gen(src, dest):
     img = Image.open(src)
     out = {
         "tiles": [],
-        "name": os.path.splitext(src),
+        "name": os.path.basename(os.path.splitext(src)[0]),
         "w": img.width,
         "h": img.height
     }

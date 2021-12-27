@@ -37,12 +37,12 @@ func add_color(color):
 		pc.visible = show_pattern(pc.pattern)
 	
 func _on_PatternSelect_guide_selected(pattern):
-	active_pattern_label.text = "Guide: %s" % pattern.pattern_name[0]
+	active_pattern_label.text = "Guide: %s" % pattern.pattern_name
 	emit_signal("guide_selected", pattern)
 
 func _on_PatternSelect_set_selected(pattern):
 	# TODO only if unlocked
-	active_pattern_label.text = "Set: %s" % pattern.pattern_name[0]
+	active_pattern_label.text = "Set: %s" % pattern.pattern_name
 	emit_signal("pattern_selected", pattern)	
 	
 func _on_PatternSelect_set_deselected(pattern):

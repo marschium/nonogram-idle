@@ -9,6 +9,11 @@ var w = 16
 var clicks = []
 var click_idx = 0
 
+func clear():
+	file = ""
+	click_idx = 0
+	clicks = []
+
 func read_json_file(file_path):
 	var file = File.new()
 	file.open(file_path, File.READ)

@@ -2305,10 +2305,7 @@
             "y": 15
         }
     ],
-    "name": [
-        "images/heart",
-        ".png"
-    ],
+    "name": "heart",
     "w": 16,
     "h": 16,
     "bonus": 128
