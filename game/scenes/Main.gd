@@ -49,13 +49,14 @@ func _on_Gameboard_complete_late():
 	autoclicker.stop()
 	for p in $Patterns.get_macthes():
 		Score.add(p.bonus)
-		Combo.add([p.pattern_name])	 # TODO use keywords
+		Combo.add([p.pattern_name, "test"])	 # TODO use keywords
 	$Patterns.reset_matches()
 	Combo.tick()
 	$ScoreLabel.text = "dots: %s" % Score.val
 	yield(get_tree().create_timer(0.2), "timeout")
 	$Gameboard.reset()
 	if was_autoclicked:
+		autoclicker.next_clicker()
 		autoclicker.start(0, 0)
 
 func _on_UpgradeControl_expand_grid_upgrade(new_size, cost, control):
@@ -136,13 +137,10 @@ func _on_AutoclickerControl_autoclick_toggled(enabled):
 
 func _on_AutoclickerControl_pattern_toggled(enabled, pattern):	
 	if enabled:
-		var d = $Gameboard.next_unchanged() # TODO what if board filled?
-		autoclicker.set_pattern(d.x, d.y, pattern)
+		autoclicker.add_pattern(pattern)
 	else:
 		toggle_autoclicker(false)
-		autoclicker.clear()
-		# TODO disable autoclicker single color for now
-		# autoclicker.set_single()
+		autoclicker.clear() # TODO remove specific
 
 
 func _on_AutoclickerControl_guide_toggled(enabled, pattern):

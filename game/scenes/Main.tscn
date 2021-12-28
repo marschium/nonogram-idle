@@ -163,10 +163,10 @@ __meta__ = {
 }
 
 [node name="ComboTrackerControl" type="HBoxContainer" parent="CanvasLayer/ScoreControl/CenterContainer"]
-margin_left = 220.0
-margin_top = 35.0
-margin_right = 220.0
-margin_bottom = 35.0
+margin_left = 219.0
+margin_top = 34.0
+margin_right = 219.0
+margin_bottom = 34.0
 script = ExtResource( 10 )
 
 [connection signal="color_available" from="Upgrades" to="." method="_on_Upgrades_color_available"]
