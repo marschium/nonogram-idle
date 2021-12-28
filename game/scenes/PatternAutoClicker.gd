@@ -8,6 +8,7 @@ var file = ""
 var w = 16
 var clicks = []
 var click_idx = 0
+var pattern = null
 
 func clear():
 	file = ""

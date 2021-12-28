@@ -140,7 +140,7 @@ func _on_AutoclickerControl_pattern_toggled(enabled, pattern):
 		autoclicker.add_pattern(pattern)
 	else:
 		toggle_autoclicker(false)
-		autoclicker.clear() # TODO remove specific
+		autoclicker.remove_pattern(pattern) # TODO remove specific
 
 
 func _on_AutoclickerControl_guide_toggled(enabled, pattern):

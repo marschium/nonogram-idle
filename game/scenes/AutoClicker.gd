@@ -47,7 +47,6 @@ func stop():
 		current_clicker().stop()
 
 func clear():
-	#$PatternAutoClicker.clear()
 	for c in $PatternClickers.get_children():
 		c.queue_free()
 
@@ -62,21 +61,28 @@ func clear():
 func add_pattern(pattern):
 	var p = PatternAutoClicker.instance()
 	p.file = pattern.file
+	p.pattern = pattern
 	p.setup()
 	p.stop()
 	p.connect("click", self, "_on_PatternAutoClicker_click")
 	$PatternClickers.add_child(p)
 	
-func set_pattern(x, y, pattern):
-	if single:
-		$SingleAutoClicker.stop()
-	
-	$PatternAutoClicker.file = pattern.file
-	$PatternAutoClicker.setup()
-	
-	if running:
-		$PatternAutoClicker.start(x, y)
-	single = false
+func remove_pattern(pattern):
+	for c in $PatternClickers.get_children():
+		if c.pattern == pattern:
+			c.queue_free()
+	next_clicker()
+
+#func set_pattern(x, y, pattern):
+#	if single:
+#		$SingleAutoClicker.stop()
+#
+#	$PatternAutoClicker.file = pattern.file
+#	$PatternAutoClicker.setup()
+#
+#	if running:
+#		$PatternAutoClicker.start(x, y)
+#	single = false
 
 func _on_PatternAutoClicker_click(x, y, color):
 	emit_signal("click", x, y, color)

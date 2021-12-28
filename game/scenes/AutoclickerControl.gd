@@ -33,8 +33,8 @@ func _on_AutoclickerButton_toggled(button_pressed):
 func _on_PatternsControl_pattern_selected(pattern):	
 	emit_signal("pattern_toggled", true, pattern)
 
-func _on_PatternsControl_pattern_cleared():
-	emit_signal("pattern_toggled", false, null)
+func _on_PatternsControl_pattern_cleared(pattern):
+	emit_signal("pattern_toggled", false, pattern)
 
 func _on_PatternsControl_guide_selected(pattern):
 	emit_signal("guide_toggled", true, pattern)

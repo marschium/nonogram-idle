@@ -1,6 +1,6 @@
 extends Control
 
-signal pattern_cleared()
+signal pattern_cleared(pattern)
 signal pattern_selected(pattern)
 signal guide_selected(pattern)
 signal guide_cleared()
@@ -43,14 +43,21 @@ func _on_PatternSelect_guide_selected(pattern):
 func _on_PatternSelect_set_selected(pattern):
 	# TODO only if unlocked
 	active_pattern_label.text = "Set: %s" % pattern.pattern_name
-	emit_signal("pattern_selected", pattern)	
+	emit_signal("pattern_selected", pattern)
+	var b = Button.new()
+	b.text = "Clear %s" % [pattern.pattern_name]
+	b.connect("pressed", self, "_on_Button3_pressed", [pattern])
+	$VBoxContainer.add_child(b)
 	
 func _on_PatternSelect_set_deselected(pattern):
-	# last_set_selected = null
-	emit_signal("pattern_cleared")
+	emit_signal("pattern_cleared", pattern)
 
 func _on_Button_pressed():
 	emit_signal("guide_cleared")
 
 func _on_Button2_pressed():
-	emit_signal("pattern_cleared")
+	emit_signal("pattern_cleared", null) # TODO
+	
+func _on_Button3_pressed(pattern):
+	emit_signal("pattern_cleared", pattern)
+	
