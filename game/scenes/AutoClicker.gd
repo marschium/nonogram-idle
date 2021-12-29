@@ -41,6 +41,8 @@ func stop():
 	if not running:
 		return
 	running = false
+	if current_clicker() == null:
+		return
 	if single:
 		$SingleAutoClicker.stop()
 	else:
@@ -70,8 +72,14 @@ func add_pattern(pattern):
 func remove_pattern(pattern):
 	for c in $PatternClickers.get_children():
 		if c.pattern == pattern:
+			$PatternClickers.remove_child(c)
 			c.queue_free()
-	next_clicker()
+	current_clicker_idx = current_clicker_idx - 1
+	if current_clicker_idx >= $PatternClickers.get_child_count() or current_clicker_idx < 0:
+		current_clicker_idx = 0
+	if $PatternClickers.get_child_count() == 0:
+		current_clicker_idx = 0
+		stop()
 
 #func set_pattern(x, y, pattern):
 #	if single:

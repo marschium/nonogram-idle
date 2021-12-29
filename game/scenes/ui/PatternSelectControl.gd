@@ -2,7 +2,6 @@ extends Control
 
 signal guide_selected(pattern)
 signal set_selected(pattern)
-signal set_deselected(pattern)
 
 var pattern = null
 
@@ -19,24 +18,16 @@ func _ready():
 	pattern.connect("unlocked", self, "_on_Pattern_unlocked")
 	if pattern.unlocked:
 		$VBoxContainer/NameLabel.text = pattern.pattern_name[0]
+		$VBoxContainer/HBoxContainer/SetButton.disabled = true
+		
 
 
 func force_toggle_set_button(pressed):
 	$VBoxContainer/HBoxContainer/SetButton.pressed = pressed
 
-func _on_GuideButton_toggled(button_pressed):
-	if button_pressed:
-		emit_signal("guide_selected", pattern)
-
-
-func _on_SetButton_toggled(button_pressed):
-	if button_pressed:
-		emit_signal("set_selected", pattern)
-	else:
-		emit_signal("set_deselected", pattern)
-
 
 func _on_Pattern_unlocked():	
+	$VBoxContainer/HBoxContainer/SetButton.disabled = false
 	$VBoxContainer/NameLabel.text = pattern.pattern_name
 	$VBoxContainer/NameLabel.modulate = Color(0, 1, 0)
 

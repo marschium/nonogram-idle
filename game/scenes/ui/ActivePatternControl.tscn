@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/ui/ActivePatternControl.gd" type="Script" id=1]
+
+[node name="ActivePatternControl" type="CenterContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_top = 10.0
+margin_right = 97.0
+margin_bottom = 30.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+margin_top = 3.0
+margin_right = 28.0
+margin_bottom = 17.0
+text = "TEST"
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+margin_left = 32.0
+margin_right = 97.0
+margin_bottom = 20.0
+text = "REMOVE"
+
+[connection signal="pressed" from="HBoxContainer/Button" to="." method="_on_Button_pressed"]

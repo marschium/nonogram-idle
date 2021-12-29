@@ -49,7 +49,7 @@ func _on_Gameboard_complete_late():
 	autoclicker.stop()
 	for p in $Patterns.get_macthes():
 		Score.add(p.bonus)
-		Combo.add([p.pattern_name, "test"])	 # TODO use keywords
+		Combo.add(p)
 	$Patterns.reset_matches()
 	Combo.tick()
 	$ScoreLabel.text = "dots: %s" % Score.val
@@ -139,8 +139,9 @@ func _on_AutoclickerControl_pattern_toggled(enabled, pattern):
 	if enabled:
 		autoclicker.add_pattern(pattern)
 	else:
-		toggle_autoclicker(false)
-		autoclicker.remove_pattern(pattern) # TODO remove specific
+		autoclicker.remove_pattern(pattern)
+		if not autoclicker.running:
+			toggle_autoclicker(false)
 
 
 func _on_AutoclickerControl_guide_toggled(enabled, pattern):

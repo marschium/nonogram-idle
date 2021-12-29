@@ -1,6 +1,5 @@
 extends Node2D
 
-
 var pattern_dir = "res://patterns"
 var Pattern = preload("res://scenes/Pattern.tscn")
 
