@@ -2,6 +2,7 @@ extends Node2D
 
 signal click_any(color)
 signal click(x, y, color)
+signal pattern_changed(pattern)
 
 export var running = false
 
@@ -24,6 +25,8 @@ func next_clicker():
 	current_clicker_idx += 1
 	if current_clicker_idx >= $PatternClickers.get_child_count():
 		current_clicker_idx = 0
+	if $PatternClickers.get_child_count() > 0:
+		emit_signal("pattern_changed", current_clicker().pattern)
 	
 func can_run():
 	return !running and has_clicker() and len(current_clicker().clicks) != 0
@@ -32,10 +35,8 @@ func start(x, y):
 	if not can_run():
 		return
 	running = true
-	if single:
-		$SingleAutoClicker.start()
-	else:
-		current_clicker().start(x, y)
+	current_clicker().start(x, y)
+	emit_signal("pattern_changed", current_clicker().pattern)
 	
 func stop():
 	if not running:
@@ -43,10 +44,7 @@ func stop():
 	running = false
 	if current_clicker() == null:
 		return
-	if single:
-		$SingleAutoClicker.stop()
-	else:
-		current_clicker().stop()
+	current_clicker().stop()
 
 func clear():
 	for c in $PatternClickers.get_children():

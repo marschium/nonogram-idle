@@ -36,7 +36,16 @@ func add_color(color):
 	unlocked_colors.append(color)
 	for pc in pattern_select_vbox.get_children():
 		pc.visible = show_pattern(pc.pattern)
-	
+
+
+func set_current_active(pattern):
+	for c in active_pattern_container.get_children():
+		if c.pattern == pattern:
+			c.mark_active()
+		else:
+			c.mark_inactive()
+
+
 func _on_PatternSelect_guide_selected(pattern):
 	emit_signal("guide_selected", pattern)
 

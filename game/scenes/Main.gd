@@ -143,7 +143,6 @@ func _on_AutoclickerControl_pattern_toggled(enabled, pattern):
 		if not autoclicker.running:
 			toggle_autoclicker(false)
 
-
 func _on_AutoclickerControl_guide_toggled(enabled, pattern):
 	if enabled:
 		$Gameboard.show_guide(pattern.tiles)
@@ -152,3 +151,6 @@ func _on_AutoclickerControl_guide_toggled(enabled, pattern):
 
 func _on_Combo_complete(words, num):
 	print("Combo finished")
+
+func _on_Autoclicker_pattern_changed(pattern):
+	autoclicker_control.autoclicker_current_pattern(pattern)

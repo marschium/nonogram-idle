@@ -20,6 +20,9 @@ func autoclicker_running():
 	
 func autoclicker_stopped():
 	$VBoxContainer/AutoclickerButton.pressed = false
+	
+func autoclicker_current_pattern(pattern):
+	$VBoxContainer/PatternsControl.set_current_active(pattern)
 
 func add_pattern(pattern):
 	$VBoxContainer/PatternsControl.add_pattern(pattern)
