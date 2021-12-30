@@ -11,6 +11,7 @@ func _ready():
 
 func enable_autoclick():
 	$VBoxContainer/AutoclickerButton.visible = true
+	$VBoxContainer/PatternsControl.enable_autoclick()
 	
 func enable_pattern_select():
 	$VBoxContainer/PatternsControl.visible = true

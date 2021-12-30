@@ -16,7 +16,8 @@ onready var active_pattern_container = $VBoxContainer/ActivePatternVBoxContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	if cheat:
+		enable_autoclick()
 
 func show_pattern(pattern):
 	for c in pattern.colors:
@@ -31,6 +32,10 @@ func add_pattern(pattern):
 	l.connect("set_selected", self, "_on_PatternSelect_set_selected")
 	l.visible = show_pattern(pattern)
 	pattern_select_vbox.add_child(l)
+	
+func enable_autoclick():
+	for pc in pattern_select_vbox.get_children():
+		pc.enable_autoclick()
 	
 func add_color(color):
 	unlocked_colors.append(color)

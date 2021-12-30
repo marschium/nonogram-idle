@@ -22,7 +22,7 @@ func toggle_autoclicker(enabled):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Score.add(99999)
+	Score.add(1000)
 	Combo.connect("combo_complete", self, "_on_Combo_complete")
 	$CanvasLayer/AutoclickerControl.add_color(current_color)
 	$CanvasLayer/ColorMenu.add_color(current_color)
@@ -48,7 +48,7 @@ func _on_Gameboard_complete_late():
 	var was_autoclicked = autoclicker.running
 	autoclicker.stop()
 	for p in $Patterns.get_macthes():
-		Score.add(p.bonus)
+		# Score.add(p.bonus)
 		Combo.add(p)
 	$Patterns.reset_matches()
 	Combo.tick()
@@ -151,6 +151,7 @@ func _on_AutoclickerControl_guide_toggled(enabled, pattern):
 
 func _on_Combo_complete(words, num):
 	print("Combo finished")
+	Score.add(256 * num) # TODO score per keyword?
 
 func _on_Autoclicker_pattern_changed(pattern):
 	autoclicker_control.autoclicker_current_pattern(pattern)
