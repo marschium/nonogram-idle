@@ -14,7 +14,7 @@ func _ready():
 
 
 func add(pattern):
-	for k in [pattern.pattern_name, "test"]: # TODO keywords
+	for k in pattern.tags:
 		if not tracked.has(k):
 			tracked[k] = 0
 		tracked[k] += 1

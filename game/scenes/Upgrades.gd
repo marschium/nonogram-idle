@@ -6,9 +6,9 @@ signal expand_board_upgrade_available(size, cost)
 signal expand_board_upgrade_active(size)
 signal expand_board_upgrade_unavailable()
 
-signal expand_autoclicker_available(speed, cost)
-signal expand_autoclicker_active(speed)
-signal expand_autoclicker_unavailable(speed)
+signal autoclicker_available(speed, cost)
+signal autoclicker_active(speed)
+signal autoclicker_unavailable(speed)
 
 signal color_available(color, cost)
 signal color_active(color)
@@ -32,6 +32,12 @@ var unavilable_autoclick_upgrades = Dictionary()  # per sec -> cost
 var available_autoclick_upgrades = Dictionary()  # per sec -> cost
 var unavilable_color_upgrades = Dictionary()  # per sec -> cost
 var available_color_upgrades = Dictionary()  # per sec -> cost
+
+func loadgame(savedata):
+	for x in savedata["upgrades"]["size"]:
+		unavilable_expand_upgrades.erase(x)
+		available_expand_upgrades.erase(x)
+		emit_signal("expand_board_upgrade_active", x)
 
 func _ready():	
 	Score.connect("changed", self, "_on_Score_changed")
@@ -64,7 +70,7 @@ func _on_Score_changed(old, new):
 		for sz_cost in autoclick_unlocked:
 			unavilable_autoclick_upgrades.erase(sz_cost[0])
 			available_autoclick_upgrades[sz_cost[0]] = sz_cost[1]
-			emit_signal("expand_autoclicker_available", sz_cost[0], sz_cost[1])
+			emit_signal("autoclicker_available", sz_cost[0], sz_cost[1])
 		
 	# colors can only be unlocked after patterns
 	if patterns_activated:
@@ -86,6 +92,7 @@ func buy_expand_upgrade(size):
 		return false
 	
 	Score.sub(cost)
+
 	# disable anything that is smaller
 	var just_disabled = []
 	for sz in available_expand_upgrades.keys():
