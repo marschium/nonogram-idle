@@ -44,20 +44,25 @@ func _on_Gameboard_tile_clicked(tile):
 	$CanvasLayer/AutoclickerControl.autoclicker_stopped()
 	tile.change(current_color)
 
+var cleared = false
 func _on_Gameboard_complete_late():
-	var was_autoclicked = autoclicker.running
-	autoclicker.stop()
-	for p in $Patterns.get_macthes():
-		# Score.add(p.bonus)
-		Combo.add(p)
-	$Patterns.reset_matches()
-	Combo.tick()
-	$ScoreLabel.text = "dots: %s" % Score.val
-	yield(get_tree().create_timer(0.2), "timeout")
-	$Gameboard.reset()
-	if was_autoclicked:
-		autoclicker.next_clicker()
-		autoclicker.start(0, 0)
+	cleared = true
+	
+func _process(delta):
+	if cleared:
+		var was_autoclicked = autoclicker.running
+		autoclicker.stop()
+		for p in $Patterns.get_macthes():
+			# Score.add(p.bonus)
+			Combo.add(p)
+		$Patterns.reset_matches()
+		$Gameboard.reset()
+		Combo.tick()
+		#yield(get_tree().create_timer(0.2), "timeout")
+		cleared = false
+		if was_autoclicked:
+			autoclicker.next_clicker()
+			autoclicker.start(0, 0)
 
 func _on_UpgradeControl_expand_grid_upgrade(new_size, cost, control):
 	if $Upgrades.buy_expand_upgrade(new_size):
@@ -76,7 +81,7 @@ func _on_UpgradeControl_pattern_upgrade(control):
 		$CanvasLayer/AutoclickerControl.enable_pattern_select()
 
 func _on_Upgrades_score_increased(new_value):
-	$ScoreLabel.text = "dots: %s" % new_value
+	pass
 
 func _on_Upgrades_expand_board_upgrade_unavailable(size):
 	print_debug("unavailable %d" % size)
@@ -88,7 +93,6 @@ func _on_Upgrades_expand_board_upgrade_available(size, cost):
 
 func _on_Gameboard_tile_changed(tile):
 	Score.add(1)
-	$ScoreLabel.text = "dots: %s" % Score.val # TODO ScoreLabel can just poll
 
 func _on_Upgrades_expand_board_upgrade_active(size):
 	pass
