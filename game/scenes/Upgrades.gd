@@ -24,10 +24,30 @@ var pattern_activation_cost = 96
 # TODO these would be in a save file or something
 onready var unavilable_expand_upgrades = {} # size -> cost
 onready var available_expand_upgrades = {}  # size -> cost
+onready var active_expand_upgrades = []
 onready var unavilable_autoclick_upgrades = {} # per sec -> cost
 onready var available_autoclick_upgrades = {}  # per sec -> cost
+onready var active_autoclick_upgrades = []
 onready var unavilable_color_upgrades = {}  # per sec -> cost
-onready var available_color_upgrades = {} # per sec -> cost
+onready var available_color_upgrades = {} # per sec -> costcost
+onready var active_color_upgrades = []
+
+func savegame(savedata):
+	savedata["upgrades"] = {}
+	savedata["upgrades"]["patterns_enabled"] = patterns_activated
+
+	savedata["upgrades"]["gameboard_sizes"] = []
+	for sz in active_expand_upgrades:
+		savedata["upgrades"]["gameboard_sizes"].append(sz)
+		
+	savedata["upgrades"]["autoclicker_speeds"] = []
+	for sp in active_autoclick_upgrades:
+		savedata["upgrades"]["autoclicker_speeds"].append(sp)
+		
+	savedata["upgrades"]["colors"] = []
+	for c in active_color_upgrades:
+		var x = c.to_html();
+		savedata["upgrades"]["colors"].append(c.to_html())
 
 func loadgame(savedata):
 	if not savedata.has("upgrades"):
@@ -36,6 +56,7 @@ func loadgame(savedata):
 	for x in savedata["upgrades"]["gameboard_sizes"]:
 		unavilable_expand_upgrades.erase(int(x))
 		available_expand_upgrades.erase(int(x))
+		active_expand_upgrades.append(int(x))
 		emit_signal("expand_board_upgrade_active", x)
 		
 	if savedata["upgrades"]["patterns_enabled"]:
@@ -46,12 +67,14 @@ func loadgame(savedata):
 	for x in savedata["upgrades"]["autoclicker_speeds"]:
 		unavilable_autoclick_upgrades.erase(int(x))
 		available_autoclick_upgrades.erase(int(x))
+		active_autoclick_upgrades.append(int(x))
 		emit_signal("autoclicker_active", x)
 		
 	for x in savedata["upgrades"]["colors"]:
-		var c = Color(x[0], x[1], x[2])
+		var c = Color(x)
 		unavilable_color_upgrades.erase(c)
 		available_color_upgrades.erase(c)
+		active_color_upgrades.append(c)
 		emit_signal("color_active", c)
 		
 
@@ -77,7 +100,7 @@ func _on_Score_changed(old, new):
 	var expand_unlocked = do_upgrade_dict(unavilable_expand_upgrades)
 	for sz_cost in expand_unlocked:
 		unavilable_expand_upgrades.erase(sz_cost[0])
-		available_expand_upgrades[sz_cost[0]] = sz_cost[1]
+		available_expand_upgrades[sz_cost[0]] = sz_cost[1]		
 		emit_signal("expand_board_upgrade_available", sz_cost[0], sz_cost[1])
 		
 	# autoclicker only after unlocking patterns
@@ -118,6 +141,7 @@ func buy_expand_upgrade(size):
 	for sz in just_disabled:
 		available_expand_upgrades.erase(sz)
 		emit_signal("expand_board_upgrade_unavailable", sz)
+	active_expand_upgrades.append(size)
 	emit_signal("expand_board_upgrade_active", size)
 	return true
 
@@ -136,6 +160,7 @@ func buy_autoclicker_upgrade(size):
 	for sz in just_disabled:
 		available_autoclick_upgrades.erase(sz)
 		emit_signal("autoclicker_unavailable", sz)
+	active_autoclick_upgrades.append(size)
 	emit_signal("autoclicker_active", size)
 	return true
 
@@ -157,5 +182,6 @@ func buy_color_upgrade(color):
 	Score.sub(cost)
 	available_color_upgrades.erase(color)
 	emit_signal("color_unavailable", color)
+	active_color_upgrades.append(color)
 	emit_signal("color_active", color)
 	return true

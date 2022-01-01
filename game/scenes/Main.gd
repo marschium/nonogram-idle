@@ -18,6 +18,18 @@ func read_json_file(file_path):
 	var content_as_dictionary = parse_json(content_as_text)
 	return content_as_dictionary
 	
+func savegame(filepath):
+	var d = {}
+	d["score"] = Score.val
+	$Upgrades.savegame(d)
+	$Patterns.savegame(d)
+	
+	var file = File.new()
+	file.open(filepath, File.WRITE)
+	file.store_line(to_json(d))
+	file.close()
+	
+	
 func loadgame(filepath):
 	var d = read_json_file(filepath)
 	Score.add(d["score"]) # TODO might need to avoid generating signals
@@ -68,6 +80,7 @@ func _process(delta):
 	if not loaded:
 		loaded = true
 		loadgame(test_save_file)
+		savegame(test_save_file)
 	if cleared:
 		var was_autoclicked = autoclicker.running
 		autoclicker.stop()

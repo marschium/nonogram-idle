@@ -5,6 +5,12 @@ var Pattern = preload("res://scenes/Pattern.tscn")
 
 var matched = []
 
+func savegame(savedata):
+	savedata["patterns"] = []
+	for c in get_children():
+		if c.unlocked:
+			savedata["patterns"].append(c.pattern_name)
+
 func loadgame(savedata):
 	for x in savedata["patterns"]:
 		for c in get_children():

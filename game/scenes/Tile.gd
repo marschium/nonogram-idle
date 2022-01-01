@@ -3,7 +3,7 @@ extends Node2D
 signal clicked()
 signal changed()
 
-var base_color = Color(0.1, 0.1, 0.1)
+var base_color = Color(0.1, 0.1, 0.1, 0.5)
 var x :int = 0
 var y :int = 0
 
