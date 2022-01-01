@@ -2308,5 +2308,8 @@
     "name": "japan",
     "w": 16,
     "h": 16,
-    "bonus": 128
+    "bonus": 128,
+    "tags": [
+        "flag"
+    ]
 }

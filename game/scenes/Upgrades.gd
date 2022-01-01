@@ -1,7 +1,5 @@
 extends Node2D
 
-signal score_increased(new_value)
-
 signal expand_board_upgrade_available(size, cost)
 signal expand_board_upgrade_active(size)
 signal expand_board_upgrade_unavailable()
@@ -14,8 +12,6 @@ signal color_available(color, cost)
 signal color_active(color)
 signal color_unavailable(color)
 
-# TODO parameterize with pattern file/def?
-# TODO maybe have patterns stored somewhere else?
 signal patterns_available()
 signal patterns_unavailable()
 signal patterns_active()
@@ -26,18 +22,38 @@ var pattern_activation_cost = 96
 
 
 # TODO these would be in a save file or something
-var unavilable_expand_upgrades = Dictionary()  # size -> cost
-var available_expand_upgrades = Dictionary()  # size -> cost
-var unavilable_autoclick_upgrades = Dictionary()  # per sec -> cost
-var available_autoclick_upgrades = Dictionary()  # per sec -> cost
-var unavilable_color_upgrades = Dictionary()  # per sec -> cost
-var available_color_upgrades = Dictionary()  # per sec -> cost
+onready var unavilable_expand_upgrades = {} # size -> cost
+onready var available_expand_upgrades = {}  # size -> cost
+onready var unavilable_autoclick_upgrades = {} # per sec -> cost
+onready var available_autoclick_upgrades = {}  # per sec -> cost
+onready var unavilable_color_upgrades = {}  # per sec -> cost
+onready var available_color_upgrades = {} # per sec -> cost
 
 func loadgame(savedata):
-	for x in savedata["upgrades"]["size"]:
-		unavilable_expand_upgrades.erase(x)
-		available_expand_upgrades.erase(x)
+	if not savedata.has("upgrades"):
+		return
+	
+	for x in savedata["upgrades"]["gameboard_sizes"]:
+		unavilable_expand_upgrades.erase(int(x))
+		available_expand_upgrades.erase(int(x))
 		emit_signal("expand_board_upgrade_active", x)
+		
+	if savedata["upgrades"]["patterns_enabled"]:
+		patterns_available = true
+		patterns_activated = true
+		emit_signal("patterns_active")
+		
+	for x in savedata["upgrades"]["autoclicker_speeds"]:
+		unavilable_autoclick_upgrades.erase(int(x))
+		available_autoclick_upgrades.erase(int(x))
+		emit_signal("autoclicker_active", x)
+		
+	for x in savedata["upgrades"]["colors"]:
+		var c = Color(x[0], x[1], x[2])
+		unavilable_color_upgrades.erase(c)
+		available_color_upgrades.erase(c)
+		emit_signal("color_active", c)
+		
 
 func _ready():	
 	Score.connect("changed", self, "_on_Score_changed")
@@ -119,8 +135,8 @@ func buy_autoclicker_upgrade(size):
 				
 	for sz in just_disabled:
 		available_autoclick_upgrades.erase(sz)
-		emit_signal("expand_autoclicker_unavailable", sz)
-	emit_signal("expand_autoclicker_active", size)
+		emit_signal("autoclicker_unavailable", sz)
+	emit_signal("autoclicker_active", size)
 	return true
 
 func buy_patterns_upgrade():

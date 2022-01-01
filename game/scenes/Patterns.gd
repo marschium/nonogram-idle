@@ -5,6 +5,12 @@ var Pattern = preload("res://scenes/Pattern.tscn")
 
 var matched = []
 
+func loadgame(savedata):
+	for x in savedata["patterns"]:
+		for c in get_children():
+			if c.pattern_name == x:
+				c.unlock()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var d = Directory.new()

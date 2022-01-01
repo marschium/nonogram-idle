@@ -221,14 +221,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="color_available" from="Upgrades" to="." method="_on_Upgrades_color_available"]
+[connection signal="autoclicker_active" from="Upgrades" to="." method="_on_Upgrades_autoclicker_active"]
+[connection signal="color_active" from="Upgrades" to="." method="_on_Upgrades_color_active"]
 [connection signal="expand_board_upgrade_active" from="Upgrades" to="." method="_on_Upgrades_expand_board_upgrade_active"]
-[connection signal="expand_board_upgrade_available" from="Upgrades" to="." method="_on_Upgrades_expand_board_upgrade_available"]
-[connection signal="expand_board_upgrade_unavailable" from="Upgrades" to="." method="_on_Upgrades_expand_board_upgrade_unavailable"]
 [connection signal="patterns_active" from="Upgrades" to="." method="_on_Upgrades_patterns_active"]
-[connection signal="patterns_available" from="Upgrades" to="." method="_on_Upgrades_patterns_available"]
-[connection signal="patterns_unavailable" from="Upgrades" to="." method="_on_Upgrades_patterns_unavailable"]
-[connection signal="score_increased" from="Upgrades" to="." method="_on_Upgrades_score_increased"]
 [connection signal="complete_late" from="Gameboard" to="." method="_on_Gameboard_complete_late"]
 [connection signal="tile_changed" from="Gameboard" to="." method="_on_Gameboard_tile_changed"]
 [connection signal="tile_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_clicked"]

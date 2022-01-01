@@ -2308,5 +2308,8 @@
     "name": "red",
     "w": 16,
     "h": 16,
-    "bonus": 64
+    "bonus": 64,
+    "tags": [
+        "color"
+    ]
 }

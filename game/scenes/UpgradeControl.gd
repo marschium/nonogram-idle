@@ -19,7 +19,7 @@ func _ready():
 	upgrades.connect("patterns_available", self, "add_pattern_upgrade")
 	upgrades.connect("expand_board_upgrade_active", self, "_on_Upgrades_expand_board_upgrade_active")
 	upgrades.connect("autoclicker_active", self, "_on_Upgrades_expand_autoclicker_active")
-	upgrades.connect("expand_board_upgrade_active", self, "_on_Upgrades_color_active")
+	upgrades.connect("color_active", self, "_on_Upgrades_color_active")
 	upgrades.connect("patterns_active", self, "_on_Upgrades_patterns_active")
 
 func add_expand_grid_upgrade(size, cost):
@@ -67,7 +67,7 @@ func _on_ExpandGridButton_pressed(button, new_size, cost):
 	upgrades.buy_expand_upgrade(new_size)
 
 func _on_AutoclickerButton_pressed(button, new_speed, cost):
-	upgrades.buy_expand_upgrade(new_speed)
+	upgrades.buy_autoclicker_upgrade(new_speed)
 	
 func _on_PatternButton_pressed(button):
 	upgrades.buy_patterns_upgrade()

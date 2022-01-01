@@ -1,0 +1,18 @@
+{
+    "score": 666,
+    "upgrades": {
+        "gameboard_sizes": [2, 4, 8, 16],
+        "patterns_enabled": true,
+        "autoclicker_speeds": [1],
+        "colors": [
+            [1, 0, 0]
+        ]
+    },
+    "patterns": [
+        "white",
+        "red",
+        "heart",
+        "england",
+        "japan"
+    ]
+}

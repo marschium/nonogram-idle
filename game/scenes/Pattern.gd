@@ -18,6 +18,11 @@ func read_json_file(file_path):
 	var content_as_text = file.get_as_text()
 	var content_as_dictionary = parse_json(content_as_text)
 	return content_as_dictionary
+	
+func unlock():	
+	if not unlocked:
+		unlocked = true
+		emit_signal("unlocked")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,7 +38,8 @@ func _ready():
 		tiles[x][y] = color
 		colors[color] = true
 	tiles_unmatched = tiles.duplicate(true)
-	tags = [ "test1", "test2" ] # TODO read from file
+	if pattern_def.has("tags"):
+		tags = pattern_def["tags"]
 
 func _on_Gameboard_tile_changed(tile):
 	if tiles.get(tile.x).get(tile.y) == tile.sprite.modulate:
@@ -45,7 +51,5 @@ func _on_Gameboard_complete():
 	if tiles_unmatched.empty():
 		print_debug("pattern matched %s" % file)
 		emit_signal("matched", bonus)
-		if not unlocked:
-			unlocked = true
-			emit_signal("unlocked")
+		unlock()
 	tiles_unmatched = tiles.duplicate(true)

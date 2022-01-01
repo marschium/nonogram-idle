@@ -8,7 +8,8 @@ onready var upgrade_control = $CanvasLayer/UpgradeControl
 onready var autoclicker_control = $CanvasLayer/AutoclickerControl
 onready var color_control = $CanvasLayer/ColorMenu
 
-var test_save_file = "/home/c/Documents/site/test_save.json"
+var test_save_file = "/home/c/Documents/dots/test_save.json"
+var loaded = false
 
 func read_json_file(file_path):
 	var file = File.new()
@@ -21,6 +22,7 @@ func loadgame(filepath):
 	var d = read_json_file(filepath)
 	Score.add(d["score"]) # TODO might need to avoid generating signals
 	$Upgrades.loadgame(d)
+	$Patterns.loadgame(d)
 
 func toggle_autoclicker(enabled):
 	autoclicker.set_process(enabled)
@@ -37,8 +39,6 @@ func toggle_autoclicker(enabled):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# $CanvasLayer/UpgradeControl.upgrades = $Upgrades
-	
-	loadgame(test_save_file)
 	Combo.connect("combo_complete", self, "_on_Combo_complete")
 	$CanvasLayer/AutoclickerControl.add_color(current_color)
 	$CanvasLayer/ColorMenu.add_color(current_color)
@@ -65,6 +65,9 @@ func _on_Gameboard_complete_late():
 	cleared = true
 	
 func _process(delta):
+	if not loaded:
+		loaded = true
+		loadgame(test_save_file)
 	if cleared:
 		var was_autoclicked = autoclicker.running
 		autoclicker.stop()
@@ -80,22 +83,24 @@ func _process(delta):
 			autoclicker.next_clicker()
 			autoclicker.start(0, 0)
 
-func _on_Upgrades_score_increased(new_value):
-	pass
-
 func _on_Gameboard_tile_changed(tile):
 	Score.add(1)
 
 func _on_Upgrades_expand_board_upgrade_active(size):	
 	$Gameboard.reset_board(size)	
 
-func _on_Upgrades_expand_autoclicker_active(speed):
+func _on_Upgrades_autoclicker_active(speed):
 	# TODO move to autoclicker control?
 	$CanvasLayer/AutoclickerControl.enable_autoclick()
 	
 func _on_Upgrades_patterns_active():
 	# TODO move to autoclicker control?
 	$CanvasLayer/AutoclickerControl.enable_pattern_select()
+
+func _on_Upgrades_color_active(color):
+	# TODO move to color control?
+	$CanvasLayer/ColorMenu.add_color(color)
+	$CanvasLayer/AutoclickerControl.add_color(color)
 
 func _on_ColorMenu_color_select(color):
 	current_color = color
@@ -127,3 +132,4 @@ func _on_Combo_complete(words, num):
 
 func _on_Autoclicker_pattern_changed(pattern):
 	autoclicker_control.autoclicker_current_pattern(pattern)
+
