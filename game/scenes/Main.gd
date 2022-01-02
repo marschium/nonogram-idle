@@ -64,7 +64,14 @@ func _ready():
 		$CanvasLayer/AutoclickerControl.add_pattern(p)
 
 func _on_Autoclicker_click(x, y, color):
-	$Gameboard.change_dot(x, y, color)    
+	# TODO this is a nightmare
+	if $Gameboard.get_dot(x, y).changed:
+		var t = $Gameboard.next_unchanged()
+		autoclicker.set_pos(t.x, t.y)
+		var v = autoclicker.get_current()
+		$Gameboard.change_dot(t.x, t.y, v)    
+	else:
+		$Gameboard.change_dot(x, y, color)    
 
 func _on_Autoclicker_click_any(color):
 	$Gameboard.next_unchanged().change(current_color)

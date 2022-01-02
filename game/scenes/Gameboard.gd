@@ -27,6 +27,9 @@ func check_cleared():
 		emit_signal("complete")
 		emit_signal("complete_late")
 		
+func get_dot(x, y):
+	return dots_lookup.get(x).get(y)
+		
 func change_dot(x, y, color):
 	dots_lookup.get(x).get(y).change(color)
 		

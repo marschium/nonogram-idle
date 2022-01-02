@@ -12,7 +12,7 @@ signal color_available(color, cost)
 signal color_active(color)
 signal color_unavailable(color)
 
-signal patterns_available()
+signal patterns_available(cost)
 signal patterns_unavailable()
 signal patterns_active()
 
@@ -84,7 +84,7 @@ func _ready():
 	unavilable_expand_upgrades[4] = 16
 	unavilable_expand_upgrades[8] = 32
 	unavilable_expand_upgrades[16] = 64
-	unavilable_autoclick_upgrades[1] = 256
+	unavilable_autoclick_upgrades[2] = 256
 	unavilable_color_upgrades[Color(1, 0, 0)] = 1024
 	
 func do_upgrade_dict(upgrades):
@@ -123,7 +123,7 @@ func _on_Score_changed(old, new):
 	var all_expand_bought = unavilable_expand_upgrades.empty() and available_expand_upgrades.empty()
 	if not patterns_available and Score.val > pattern_activation_cost and all_expand_bought:
 		patterns_available = true
-		emit_signal("patterns_available")
+		emit_signal("patterns_available", pattern_activation_cost)
 		
 func buy_expand_upgrade(size):
 	var cost = available_expand_upgrades[size]

@@ -45,6 +45,12 @@ func stop():
 	if current_clicker() == null:
 		return
 	current_clicker().stop()
+	
+func set_pos(x, y):
+	current_clicker().set_pos(x, y)
+	
+func get_current():
+	return current_clicker().get_current()[2]
 
 func clear():
 	for c in $PatternClickers.get_children():

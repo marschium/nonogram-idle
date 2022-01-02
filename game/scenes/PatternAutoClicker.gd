@@ -43,6 +43,15 @@ func start(x, y):
 func stop():
 	$Timer.stop()
 
+func set_pos(x, y):
+	click_idx = y + (x * 16)
+	
+func get_current():
+	if click_idx >= len(clicks):
+		click_idx = 0
+	var v = clicks[click_idx]
+	return v
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if file != "":
@@ -53,8 +62,6 @@ func _process(delta):
 	pass
 
 func _on_Timer_timeout():
-	if click_idx >= len(clicks):
-		click_idx = 0
-	var v = clicks[click_idx]
+	var v = get_current()
 	emit_signal("click", v[0], v[1], v[2])
 	click_idx += 1

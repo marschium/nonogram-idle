@@ -7,6 +7,8 @@ signal autoclicker_upgrade(new_speed, cost, control)
 signal color_upgrade(color, cost, control)
 signal pattern_upgrade(control)
 
+var UpgradeBuyControl = preload("res://scenes/ui/UpgradeBuyControl.tscn")
+
 export(NodePath) var upgrades_np = null
 var upgrades = upgrades_np
 
@@ -27,13 +29,14 @@ func _ready():
 	upgrades.connect("patterns_active", self, "remove_patterns_active")
 
 func add_expand_grid_upgrade(size, cost):
-	var b = Button.new()
-	b.name = "expand_%s" % size
-	b.text = "Expand %d (%d)" % [size, cost]
-	b.set_meta("upgrade_tag", UpgradeTag.EXPAND)
-	b.set_meta("upgrade_tag_v", size)
-	b.connect("pressed", self, "_on_ExpandGridButton_pressed", [b, size, cost])
-	$ScrollContainer/VBoxContainer.add_child(b)
+	var x = UpgradeBuyControl.instance()
+	x.title = "Board size increase"
+	x.description = "Expand board to %d x %d" % [size, size]
+	x.cost = cost
+	x.set_meta("upgrade_tag", UpgradeTag.EXPAND)
+	x.set_meta("upgrade_tag_v", size)
+	$ScrollContainer/VBoxContainer.add_child(x)
+	x.connect("selected", self, "_on_ExpandGridButton_pressed", [size])
 	
 func remove_buy_button(tag, v):
 	for b in $ScrollContainer/VBoxContainer.get_children():
@@ -41,42 +44,46 @@ func remove_buy_button(tag, v):
 			b.queue_free()
 			
 func add_autoclicker_upgrade(speed, cost):	
-	var b = Button.new()
-	b.name = "autoclick_%s" % speed
-	b.text = "Autoclicker %d" % [speed]
-	b.set_meta("upgrade_tag", UpgradeTag.AUTOCLICK)
-	b.set_meta("upgrade_tag_v", speed)
-	b.connect("pressed", self, "_on_AutoclickerButton_pressed", [b, speed, cost])
-	$ScrollContainer/VBoxContainer.add_child(b)
+	var x = UpgradeBuyControl.instance()
+	x.title = "Autoclicker speed increase"
+	x.description = "Increase Autoclicker speed to %s dots per second" % [speed]
+	x.cost = cost
+	x.set_meta("upgrade_tag", UpgradeTag.AUTOCLICK)
+	x.set_meta("upgrade_tag_v", speed)
+	$ScrollContainer/VBoxContainer.add_child(x)
+	x.connect("selected", self, "_on_AutoclickerButton_pressed", [speed])
 			
-func add_pattern_upgrade():
-	var b = Button.new()
-	b.name = "pattern"
-	b.text = "Autoclicker Patterns"
-	b.set_meta("upgrade_tag", UpgradeTag.PATTERN)
-	b.set_meta("upgrade_tag_v", null)
-	b.connect("pressed", self, "_on_PatternButton_pressed", [b])
-	$ScrollContainer/VBoxContainer.add_child(b)
+func add_pattern_upgrade(cost):
+	var x = UpgradeBuyControl.instance()
+	x.title = "Enable Patterns"
+	x.description = "Matching patterns with dots provides bonuses"
+	x.cost = cost
+	x.set_meta("upgrade_tag", UpgradeTag.PATTERN)
+	x.set_meta("upgrade_tag_v", null)
+	$ScrollContainer/VBoxContainer.add_child(x)
+	x.connect("selected", self, "_on_PatternButton_pressed")
 			
 func add_color_upgrade(color, cost):	
-	var b = Button.new() # TODO Button with texture
-	b.name = "color"
-	b.text = "Color %s" % [color]	
-	b.set_meta("upgrade_tag", UpgradeTag.COLOR)
-	b.set_meta("upgrade_tag_v", color)
-	b.connect("pressed", self, "_on_ColorButton_pressed", [b, color, cost])
-	$ScrollContainer/VBoxContainer.add_child(b)
+	# TODO show the color
+	var x = UpgradeBuyControl.instance()
+	x.title = "New dot color"
+	x.description = "Create dots in a new color"
+	x.cost = cost
+	x.set_meta("upgrade_tag", UpgradeTag.COLOR)
+	x.set_meta("upgrade_tag_v", color)
+	$ScrollContainer/VBoxContainer.add_child(x)
+	x.connect("selected", self, "_on_ColorButton_pressed", [color])
 
-func _on_ExpandGridButton_pressed(button, new_size, cost):
+func _on_ExpandGridButton_pressed(new_size):
 	upgrades.buy_expand_upgrade(new_size)
 
-func _on_AutoclickerButton_pressed(button, new_speed, cost):
+func _on_AutoclickerButton_pressed(new_speed):
 	upgrades.buy_autoclicker_upgrade(new_speed)
 	
-func _on_PatternButton_pressed(button):
+func _on_PatternButton_pressed():
 	upgrades.buy_patterns_upgrade()
 
-func _on_ColorButton_pressed(button, color, cost):
+func _on_ColorButton_pressed(color):
 	upgrades.buy_color_upgrade(color)
 
 func remove_expand_board(size):
