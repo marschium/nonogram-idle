@@ -12,7 +12,7 @@ func savegame(savedata):
 			savedata["patterns"].append(c.pattern_name)
 
 func loadgame(savedata):
-	for x in savedata["patterns"]:
+	for x in savedata.get("patterns", []):
 		for c in get_children():
 			if c.pattern_name == x:
 				c.unlock()

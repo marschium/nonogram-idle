@@ -8,7 +8,7 @@ onready var upgrade_control = $CanvasLayer/UpgradeControl
 onready var autoclicker_control = $CanvasLayer/AutoclickerControl
 onready var color_control = $CanvasLayer/ColorMenu
 
-var test_save_file = "/home/c/Documents/dots/test_save.json"
+var save_file = "user://save.json"
 var loaded = false
 
 func read_json_file(file_path):
@@ -32,7 +32,9 @@ func savegame(filepath):
 	
 func loadgame(filepath):
 	var d = read_json_file(filepath)
-	Score.add(d["score"]) # TODO might need to avoid generating signals
+	if d == null:
+		return
+	Score.add(d.get("score", 0)) # TODO might need to avoid generating signals
 	$Upgrades.loadgame(d)
 	$Patterns.loadgame(d)
 
@@ -79,8 +81,8 @@ func _on_Gameboard_complete_late():
 func _process(delta):
 	if not loaded:
 		loaded = true
-		loadgame(test_save_file)
-		savegame(test_save_file)
+		loadgame(save_file)
+		$AutosaveTimer.start()
 	if cleared:
 		var was_autoclicked = autoclicker.running
 		autoclicker.stop()
@@ -146,3 +148,8 @@ func _on_Combo_complete(words, num):
 func _on_Autoclicker_pattern_changed(pattern):
 	autoclicker_control.autoclicker_current_pattern(pattern)
 
+
+
+func _on_AutosaveTimer_timeout():
+	print_debug("Saving")
+	savegame(save_file)

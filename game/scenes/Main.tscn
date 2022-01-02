@@ -226,6 +226,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="AutosaveTimer" type="Timer" parent="."]
+wait_time = 10.0
+
 [connection signal="autoclicker_active" from="Upgrades" to="." method="_on_Upgrades_autoclicker_active"]
 [connection signal="color_active" from="Upgrades" to="." method="_on_Upgrades_color_active"]
 [connection signal="expand_board_upgrade_active" from="Upgrades" to="." method="_on_Upgrades_expand_board_upgrade_active"]
@@ -247,3 +250,4 @@ __meta__ = {
 [connection signal="pattern_selected" from="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl" to="CanvasLayer/AutoclickerControl" method="_on_PatternsControl_pattern_selected"]
 [connection signal="pressed" from="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl/VBoxContainer/VBoxContainer/Button" to="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl" method="_on_Button_pressed"]
 [connection signal="color_select" from="CanvasLayer/ColorMenu" to="." method="_on_ColorMenu_color_select"]
+[connection signal="timeout" from="AutosaveTimer" to="." method="_on_AutosaveTimer_timeout"]

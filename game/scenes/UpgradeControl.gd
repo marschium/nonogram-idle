@@ -17,10 +17,14 @@ func _ready():
 	upgrades.connect("autoclicker_available", self, "add_autoclicker_upgrade")
 	upgrades.connect("color_available", self, "add_color_upgrade")
 	upgrades.connect("patterns_available", self, "add_pattern_upgrade")
-	upgrades.connect("expand_board_upgrade_active", self, "_on_Upgrades_expand_board_upgrade_active")
-	upgrades.connect("autoclicker_active", self, "_on_Upgrades_expand_autoclicker_active")
-	upgrades.connect("color_active", self, "_on_Upgrades_color_active")
-	upgrades.connect("patterns_active", self, "_on_Upgrades_patterns_active")
+	upgrades.connect("expand_board_upgrade_unavailable", self, "remove_expand_board")
+	upgrades.connect("autoclicker_unavailable", self, "remove_autoclicker_speed")
+	upgrades.connect("color_unavailable", self, "remove_color")
+	upgrades.connect("patterns_unavailable", self, "remove_patterns_active")
+	upgrades.connect("expand_board_upgrade_active", self, "remove_expand_board")
+	upgrades.connect("autoclicker_active", self, "remove_autoclicker_speed")
+	upgrades.connect("color_active", self, "remove_color")
+	upgrades.connect("patterns_active", self, "remove_patterns_active")
 
 func add_expand_grid_upgrade(size, cost):
 	var b = Button.new()
@@ -75,14 +79,14 @@ func _on_PatternButton_pressed(button):
 func _on_ColorButton_pressed(button, color, cost):
 	upgrades.buy_color_upgrade(color)
 
-func _on_Upgrades_expand_board_upgrade_active(size):
+func remove_expand_board(size):
 	remove_buy_button(UpgradeTag.EXPAND, size)
 
-func _on_Upgrades_expand_autoclicker_active(speed):
+func remove_autoclicker_speed(speed):
 	remove_buy_button(UpgradeTag.AUTOCLICK, speed)
 	
-func _on_Upgrades_color_active(color):
+func remove_color(color):
 	remove_buy_button(UpgradeTag.COLOR, color)
 	
-func _on_Upgrades_patterns_active():
+func remove_patterns_active():
 	remove_buy_button(UpgradeTag.PATTERN, null)
