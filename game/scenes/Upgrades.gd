@@ -139,6 +139,7 @@ func buy_expand_upgrade(size):
 			just_disabled.append(sz)
 				
 	for sz in just_disabled:
+		active_expand_upgrades.append(sz)
 		available_expand_upgrades.erase(sz)
 		emit_signal("expand_board_upgrade_unavailable", sz)
 	active_expand_upgrades.append(size)

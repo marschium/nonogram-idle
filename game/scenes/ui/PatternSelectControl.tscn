@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/ui/PatternSelectControl.gd" type="Script" id=1]
+[ext_resource path="res://resources/kenneyUI.tres" type="Theme" id=3]
 
 [node name="PatternSelectControl" type="CenterContainer"]
 anchor_right = 0.089
@@ -14,14 +15,14 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 91.0
-margin_bottom = 38.0
+margin_right = 142.0
+margin_bottom = 68.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="NameLabel" type="Label" parent="VBoxContainer"]
-margin_right = 91.0
+margin_right = 142.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
@@ -33,19 +34,21 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 18.0
-margin_right = 91.0
-margin_bottom = 38.0
+margin_right = 142.0
+margin_bottom = 68.0
 alignment = 1
 
 [node name="GuideButton" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_right = 54.0
-margin_bottom = 20.0
+margin_right = 81.3241
+margin_bottom = 50.251
+theme = ExtResource( 3 )
 text = "GUIDE"
 
 [node name="SetButton" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_left = 58.0
-margin_right = 91.0
-margin_bottom = 20.0
+margin_left = 85.0
+margin_right = 142.324
+margin_bottom = 50.251
+theme = ExtResource( 3 )
 text = "SET"
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/GuideButton" to="." method="_on_GuideButton_pressed"]
