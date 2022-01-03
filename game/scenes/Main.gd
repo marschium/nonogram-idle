@@ -62,6 +62,7 @@ func _ready():
 		$Gameboard.connect("tile_changed", p, "_on_Gameboard_tile_changed")
 		$Gameboard.connect("complete", p, "_on_Gameboard_complete")
 		$CanvasLayer/AutoclickerControl.add_pattern(p)
+	$Gameboard.pop_anchor = $CanvasLayer/ScoreControl.rect_global_position + ($CanvasLayer/ScoreControl.rect_size / 2)
 
 func _on_Autoclicker_click(x, y, color):
 	# TODO this is a nightmare

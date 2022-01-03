@@ -7,6 +7,7 @@ signal complete_late()
 
 var spacing = 34
 var offset = 0
+var pop_anchor = Vector2(0, 0)
 
 var PatternColorLabel = preload("res://scenes/ui/PatternColorLabel.tscn")
 
@@ -53,6 +54,7 @@ func reset_board(size):
 		for y in range(size):
 			var t = Tile.instance()
 			var pos = Vector2(spacing * x, spacing * y) + offset
+			t.anchor = pop_anchor
 			t.x = x
 			t.y = y
 			t.position = pos
