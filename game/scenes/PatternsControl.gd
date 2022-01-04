@@ -11,7 +11,7 @@ var unlocked_colors = []
 var PatternSelectControl = preload("res://scenes/ui/PatternSelectControl.tscn")
 var ActivePatternControl = preload("res://scenes/ui/ActivePatternControl.tscn")
 
-onready var pattern_select_vbox = $VBoxContainer/VBoxContainer/PatternSelectVBoxContainer
+onready var pattern_select_vbox = $VBoxContainer/VBoxContainer/PanelContainer/PatternSelectVBoxContainer
 onready var active_pattern_container = $VBoxContainer/ActivePatternVBoxContainer
 
 # Called when the node enters the scene tree for the first time.

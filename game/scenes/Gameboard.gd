@@ -1,15 +1,13 @@
 extends Node2D
 
 signal tile_clicked(tile)
-signal tile_changed(tile)
+signal tile_changed(tile) # only emitted if tie changed for first time
 signal complete()
 signal complete_late()
 
 var spacing = 34
 var offset = 0
 var pop_anchor = Vector2(0, 0)
-
-var PatternColorLabel = preload("res://scenes/ui/PatternColorLabel.tscn")
 
 export var size = 1
 var Tile = preload("res://scenes/Tile.tscn")
@@ -19,8 +17,10 @@ var dots_lookup = Dictionary()
 func reset():
 	for c in dots.get_children():
 		c.reset()
+	$Guide.reset()
 		
 func check_cleared():
+	# TODO what happens to the guide if the board is cleared? reset it?
 	var complete = true
 	for c in dots.get_children():
 		complete = complete and c.changed
@@ -64,49 +64,16 @@ func reset_board(size):
 			
 			if not dots_lookup.has(x):
 				dots_lookup[x] = Dictionary()
-			dots_lookup[x][y] = t
+			dots_lookup[x][y] = t		
+	
+	$Guide.offset = offset
+	$Guide.spacing = spacing
 			
 func hide_guide():
-	for c in $Guide.get_children():
-		c.queue_free()
+	$Guide.hide_guide()
 			
-func show_guide(pattern_tiles):
-	hide_guide()
-	for x in range(self.size):
-		var colors = {}
-		for y in range(self.size):
-			var t = pattern_tiles[x][y]
-			if not colors.has(t):
-				colors[t] = 1
-			else:
-				colors[t] += 1
-				
-		var yo = -38
-		for c in colors.keys():
-			var l = PatternColorLabel.instance()
-			l.color = c
-			l.count = colors[c]
-			l.position = Vector2(spacing * x, yo) + offset
-			$Guide.add_child(l)
-			yo -= 38
-	
-	for y in range(self.size):
-		var colors = {}
-		for x in range(self.size):
-			var t = pattern_tiles[x][y]
-			if not colors.has(t):
-				colors[t] = 1
-			else:
-				colors[t] += 1
-				
-		var xo = -38
-		for c in colors.keys():
-			var l = PatternColorLabel.instance()
-			l.color = c
-			l.count = colors[c]
-			l.position = Vector2(xo, spacing * y) + offset
-			$Guide.add_child(l)
-			xo -= 38
+func show_guide(pattern):
+	$Guide.show_guide(dots_lookup, pattern)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -115,6 +82,9 @@ func _ready():
 func _on_Tile_clicked(tile):
 	emit_signal("tile_clicked", tile)
 	
-func _on_Tile_changed(tile):
-	emit_signal("tile_changed", tile)
+func _on_Tile_changed(was_changed_before, tile):
+	$Guide.tile_changed(tile)
+	if not was_changed_before:
+		emit_signal("tile_changed", tile)
+		Score.add(1)
 	check_cleared()

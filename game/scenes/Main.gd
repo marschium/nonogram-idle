@@ -106,9 +106,6 @@ func _process(delta):
 			autoclicker.next_clicker()
 			autoclicker.start(0, 0)
 
-func _on_Gameboard_tile_changed(tile):
-	Score.add(1)
-
 func _on_Upgrades_expand_board_upgrade_active(size):	
 	$Gameboard.reset_board(size)	
 
@@ -145,7 +142,7 @@ func _on_AutoclickerControl_pattern_toggled(enabled, pattern):
 
 func _on_AutoclickerControl_guide_toggled(enabled, pattern):
 	if enabled:
-		$Gameboard.show_guide(pattern.tiles)
+		$Gameboard.show_guide(pattern)
 	else:
 		$Gameboard.hide_guide()
 

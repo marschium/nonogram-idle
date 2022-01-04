@@ -3,6 +3,9 @@ extends Control
 signal guide_selected(pattern)
 signal set_selected(pattern)
 
+onready var set_button = $PanelContainer/VBoxContainer/HBoxContainer/SetButton
+onready var name_label = $PanelContainer/VBoxContainer/NameLabel
+
 var pattern = null
 var autoclick_enabled = false
 
@@ -13,7 +16,7 @@ var autoclick_enabled = false
 func enable_autoclick():
 	autoclick_enabled = true
 	if pattern.unlocked:
-		$VBoxContainer/HBoxContainer/SetButton.disabled = false
+		set_button.disabled = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -21,22 +24,22 @@ func _ready():
 	# TODO only show set if unlocked
 	if pattern == null:
 		return
-	$VBoxContainer/HBoxContainer/SetButton.disabled = true
+	set_button.disabled = true
 	pattern.connect("unlocked", self, "_on_Pattern_unlocked")
 	if pattern.unlocked:
 		# TODO only enable auto click button if auto clicker upgrade purchased
-		$VBoxContainer/NameLabel.text = pattern.pattern_name
-		$VBoxContainer/HBoxContainer/SetButton.disabled = !autoclick_enabled
+		name_label.text = pattern.pattern_name
+		set_button.disabled = !autoclick_enabled
 
 
 func force_toggle_set_button(pressed):
-	$VBoxContainer/HBoxContainer/SetButton.pressed = pressed
+	set_button.pressed = pressed
 
 
 func _on_Pattern_unlocked():	
-	$VBoxContainer/HBoxContainer/SetButton.disabled = !autoclick_enabled
-	$VBoxContainer/NameLabel.text = pattern.pattern_name
-	$VBoxContainer/NameLabel.modulate = Color(0, 1, 0)
+	set_button.disabled = !autoclick_enabled
+	name_label.text = pattern.pattern_name
+	name_label.modulate = Color(0, 1, 0)
 
 
 func _on_SetButton_pressed():	

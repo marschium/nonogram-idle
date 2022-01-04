@@ -1,9 +1,11 @@
 extends Node2D
 
 signal clicked()
-signal changed()
+signal changed(was_changed_before)
 
 var base_color = Color(0.1, 0.1, 0.1, 0.5)
+var previous_color = null
+var current_color = null
 var x :int = 0
 var y :int = 0
 
@@ -18,15 +20,19 @@ onready var sprite = $Sprite
 onready var sprite_pop = $SpritePop
 
 func reset():
+	current_color == null
 	sprite.modulate = base_color
 	sprite_pop.modulate = Color(1, 1, 1, 0.0)
 	changed = false
 	
 func change(color):
-	if not changed:
+	if color != current_color:
+		var already_changed = changed
+		previous_color = current_color
+		current_color = color
 		sprite.modulate = color
 		changed = true
-		emit_signal("changed")
+		emit_signal("changed", already_changed)
 		pop()
 	
 func click():
@@ -62,7 +68,7 @@ func _ready():
 	reset()
 	
 func _process(delta):    
-	if not just_clicked and not changed and mouse_over and Input.is_mouse_button_pressed(BUTTON_LEFT):
+	if not just_clicked and mouse_over and Input.is_mouse_button_pressed(BUTTON_LEFT):
 		click()
 	if just_clicked and not Input.is_mouse_button_pressed(BUTTON_LEFT):
 		just_clicked = false

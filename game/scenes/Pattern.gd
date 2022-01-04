@@ -11,6 +11,8 @@ var tiles_unmatched = Dictionary()
 var unlocked = false
 var colors = Dictionary()
 var tags = []
+var width = 0
+var height = 0
 
 func read_json_file(file_path):
 	var file = File.new()
@@ -29,6 +31,8 @@ func _ready():
 	var pattern_def = read_json_file(file)
 	pattern_name = pattern_def.get("name", "test")
 	bonus = pattern_def["bonus"]
+	width = int(pattern_def["w"])
+	height = int(pattern_def["h"])
 	for t in pattern_def["tiles"]:
 		var x = int(t["x"])
 		var y = int(t["y"])
