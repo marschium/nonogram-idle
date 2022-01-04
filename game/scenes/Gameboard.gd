@@ -84,7 +84,7 @@ func _on_Tile_clicked(tile):
 	
 func _on_Tile_changed(was_changed_before, tile):
 	$Guide.tile_changed(tile)
+	emit_signal("tile_changed", tile)
 	if not was_changed_before:
-		emit_signal("tile_changed", tile)
 		Score.add(1)
 	check_cleared()

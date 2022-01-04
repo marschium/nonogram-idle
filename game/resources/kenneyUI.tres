@@ -117,7 +117,7 @@ region_rect = Rect2( 1, 310, 100, 100 )
 margin_left = 12.0
 margin_right = 13.0
 margin_top = 13.0
-margin_bottom = 11.0
+margin_bottom = 13.0
 
 [sub_resource type="AtlasTexture" id=24]
 flags = 4
