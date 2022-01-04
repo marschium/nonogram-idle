@@ -15,6 +15,8 @@ func _on_Button_pressed():
 
 func mark_inactive():
 	$HBoxContainer/Label.modulate = Color(0.5, 0.5, 0.5)
+	$HBoxContainer/PlayingLabel.visible = false
 
 func mark_active():
 	$HBoxContainer/Label.modulate = Color(0.1, 1.0, 0.1)
+	$HBoxContainer/PlayingLabel.visible = true

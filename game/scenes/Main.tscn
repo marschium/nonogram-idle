@@ -89,29 +89,41 @@ __meta__ = {
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/AutoclickerControl/VBoxContainer"]
 margin_right = 173.0
-margin_bottom = 76.0
+margin_bottom = 70.0
 theme = ExtResource( 15 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/AutoclickerControl/VBoxContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/AutoclickerControl/VBoxContainer/PanelContainer"]
 margin_left = 12.0
-margin_top = 13.0
+margin_top = 8.0
 margin_right = 160.0
-margin_bottom = 63.0
+margin_bottom = 62.0
 
-[node name="PauseButton" type="Button" parent="CanvasLayer/AutoclickerControl/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/AutoclickerControl/VBoxContainer/PanelContainer/VBoxContainer"]
+margin_right = 148.0
+margin_bottom = 50.0
+
+[node name="PauseButton" type="Button" parent="CanvasLayer/AutoclickerControl/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_right = 81.3241
 margin_bottom = 50.251
 theme = ExtResource( 15 )
 group = ExtResource( 17 )
 text = "Pause"
 
-[node name="PlayButton" type="Button" parent="CanvasLayer/AutoclickerControl/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="PlayButton" type="Button" parent="CanvasLayer/AutoclickerControl/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_left = 85.0
 margin_right = 148.324
 margin_bottom = 50.251
 theme = ExtResource( 15 )
 group = ExtResource( 17 )
 text = "Play"
+
+[node name="ActivePatternVBoxContainer" type="VBoxContainer" parent="CanvasLayer/AutoclickerControl/VBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 148.0
+margin_bottom = 54.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PatternsControl" type="Control" parent="CanvasLayer/AutoclickerControl/VBoxContainer"]
 visible = false
@@ -123,38 +135,24 @@ size_flags_vertical = 3
 script = ExtResource( 8 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl"]
-margin_right = 175.0
-margin_bottom = 300.0
-size_flags_horizontal = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ActivePatternVBoxContainer" type="VBoxContainer" parent="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl/VBoxContainer"]
-margin_right = 175.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl/VBoxContainer"]
 margin_top = 4.0
 margin_right = 175.0
 margin_bottom = 54.0
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl/VBoxContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl/VBoxContainer"]
 margin_right = 175.0
 margin_bottom = 20.0
 text = "CLEAR GUIDE"
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl/VBoxContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl/VBoxContainer"]
 margin_top = 24.0
 margin_right = 175.0
 margin_bottom = 50.0
 size_flags_horizontal = 3
 theme = ExtResource( 15 )
 
-[node name="PatternSelectVBoxContainer" type="VBoxContainer" parent="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl/VBoxContainer/VBoxContainer/PanelContainer"]
+[node name="PatternSelectVBoxContainer" type="VBoxContainer" parent="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl/VBoxContainer/PanelContainer"]
 margin_left = 12.0
 margin_top = 13.0
 margin_right = 162.0
@@ -279,12 +277,12 @@ wait_time = 10.0
 [connection signal="autoclick_toggled" from="CanvasLayer/AutoclickerControl" to="." method="_on_AutoclickerControl_autoclick_toggled"]
 [connection signal="guide_toggled" from="CanvasLayer/AutoclickerControl" to="." method="_on_AutoclickerControl_guide_toggled"]
 [connection signal="pattern_toggled" from="CanvasLayer/AutoclickerControl" to="." method="_on_AutoclickerControl_pattern_toggled"]
-[connection signal="pressed" from="CanvasLayer/AutoclickerControl/VBoxContainer/PanelContainer/HBoxContainer/PauseButton" to="CanvasLayer/AutoclickerControl" method="_on_PauseButton_pressed"]
-[connection signal="pressed" from="CanvasLayer/AutoclickerControl/VBoxContainer/PanelContainer/HBoxContainer/PlayButton" to="CanvasLayer/AutoclickerControl" method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/AutoclickerControl/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/PauseButton" to="CanvasLayer/AutoclickerControl" method="_on_PauseButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/AutoclickerControl/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/PlayButton" to="CanvasLayer/AutoclickerControl" method="_on_PlayButton_pressed"]
 [connection signal="guide_cleared" from="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl" to="CanvasLayer/AutoclickerControl" method="_on_PatternsControl_guide_cleared"]
 [connection signal="guide_selected" from="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl" to="CanvasLayer/AutoclickerControl" method="_on_PatternsControl_guide_selected"]
 [connection signal="pattern_cleared" from="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl" to="CanvasLayer/AutoclickerControl" method="_on_PatternsControl_pattern_cleared"]
 [connection signal="pattern_selected" from="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl" to="CanvasLayer/AutoclickerControl" method="_on_PatternsControl_pattern_selected"]
-[connection signal="pressed" from="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl/VBoxContainer/VBoxContainer/Button" to="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl" method="_on_Button_pressed"]
+[connection signal="pressed" from="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl/VBoxContainer/Button" to="CanvasLayer/AutoclickerControl/VBoxContainer/PatternsControl" method="_on_Button_pressed"]
 [connection signal="color_select" from="CanvasLayer/ColorMenu" to="." method="_on_ColorMenu_color_select"]
 [connection signal="timeout" from="AutosaveTimer" to="." method="_on_AutosaveTimer_timeout"]

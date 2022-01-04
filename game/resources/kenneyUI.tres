@@ -2,6 +2,7 @@
 
 [ext_resource path="res://resources/UIpack_vector.svg" type="Texture" id=1]
 [ext_resource path="res://resources/m5x7.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://resources/styles/ActivePatternControlStyle.tres" type="StyleBox" id=3]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 1 )
@@ -110,14 +111,6 @@ margin_left = 12.3202
 margin_right = 13.3469
 margin_top = 13.3469
 margin_bottom = 11.2935
-
-[sub_resource type="StyleBoxTexture" id=23]
-texture = ExtResource( 1 )
-region_rect = Rect2( 1, 310, 100, 100 )
-margin_left = 12.0
-margin_right = 13.0
-margin_top = 13.0
-margin_bottom = 13.0
 
 [sub_resource type="AtlasTexture" id=24]
 flags = 4
@@ -283,7 +276,7 @@ OptionButton/styles/hover = null
 OptionButton/styles/normal = null
 OptionButton/styles/pressed = null
 Panel/styles/panel = SubResource( 22 )
-PanelContainer/styles/panel = SubResource( 23 )
+PanelContainer/styles/panel = ExtResource( 3 )
 PopupMenu/colors/font_color = Color( 0, 0, 0, 1 )
 PopupMenu/colors/font_color_accel = Color( 0.701961, 0.701961, 0.701961, 0.8 )
 PopupMenu/colors/font_color_disabled = Color( 0.4, 0.4, 0.4, 0.8 )
