@@ -1,7 +1,7 @@
 extends Label
 
 
-var font_max = 64
+var font_max = 32
 var font_min = 16
 
 
@@ -11,7 +11,7 @@ func _ready():
 	if v > 0:
 		text = "+%s" % [v]
 	var f = 16 + ((abs(v) / 512.0) * 64)
-	get("custom_fonts/font").set_size(f)
+	get("custom_fonts/font").set_size(32) # TODO change size
 	$AnimationPlayer.play("ScoreToastAnimation")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -20,7 +20,8 @@ onready var sprite = $Sprite
 onready var sprite_pop = $SpritePop
 
 func reset():
-	current_color == null
+	previous_color = null
+	current_color = null
 	sprite.modulate = base_color
 	sprite_pop.modulate = Color(1, 1, 1, 0.0)
 	changed = false

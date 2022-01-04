@@ -8,6 +8,7 @@ var pattern_name = ""
 var bonus = 0
 var tiles = Dictionary()
 var tiles_unmatched = Dictionary()
+var unmatched = true
 var unlocked = false
 var colors = Dictionary()
 var tags = []
@@ -41,19 +42,20 @@ func _ready():
 		var color = Color(float(t["c"][0]) / 255.0, float(t["c"][1]) / 255.0, float(t["c"][2]) / 255.0)
 		tiles[x][y] = color
 		colors[color] = true
-	tiles_unmatched = tiles.duplicate(true)
 	if pattern_def.has("tags"):
 		tags = pattern_def["tags"]
 
 func _on_Gameboard_tile_changed(tile):
-	if tiles.get(tile.x).get(tile.y) == tile.sprite.modulate:
-		tiles_unmatched.get(tile.x).erase(tile.y)
-		if tiles_unmatched.get(tile.x).empty():
-			tiles_unmatched.erase(tile.x)
+	var v = Vector2(tile.x, tile.y)
+	if tiles[tile.x][tile.y] != tile.current_color:
+		tiles_unmatched[v] = true
+	else:
+		if tiles_unmatched.has(v):
+			tiles_unmatched.erase(v)
 
 func _on_Gameboard_complete():
 	if tiles_unmatched.empty():
 		print_debug("pattern matched %s" % file)
 		emit_signal("matched", bonus)
 		unlock()
-	tiles_unmatched = tiles.duplicate(true)
+	tiles_unmatched = {}

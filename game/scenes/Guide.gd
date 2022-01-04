@@ -66,9 +66,9 @@ func show_guide(tiles, pattern):
 			
 			if current_tile != null:
 				if not current_colors.has(current_tile):
-					current_colors[t] = 1
+					current_colors[current_tile] = 1
 				else:
-					current_colors[t] += 1
+					current_colors[current_tile] += 1
 				
 		columns.append([])
 		var yo = -38
@@ -95,9 +95,9 @@ func show_guide(tiles, pattern):
 				
 			if current_tile != null:
 				if not current_colors.has(current_tile):
-					current_colors[t] = 1
+					current_colors[current_tile] = 1
 				else:
-					current_colors[t] += 1
+					current_colors[current_tile] += 1
 		
 		rows.append([])
 		var xo = -38
