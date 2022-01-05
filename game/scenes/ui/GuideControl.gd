@@ -1,0 +1,16 @@
+extends PanelContainer
+
+signal cleared()
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+func set_guide(pattern):
+	$VBoxContainer/Label.text = pattern.pattern_name
+
+
+func _on_Button_pressed():
+	$VBoxContainer/Label.text = "NO ACTIVE GUIDE"
+	emit_signal("cleared")

@@ -22,7 +22,7 @@ func add_color(color):
 	var b = ColorPickButton.instance()
 	b.modulate = color
 	b.connect("pressed", self, "_on_ColorPickButton_pressed", [color])
-	$CenterContainer/HBoxContainer.add_child(b)
+	$CenterContainer/PanelContainer/VBoxContainer/HBoxContainer.add_child(b)
 
 func _on_ColorPickButton_pressed(color):
 	emit_signal("color_select", color)

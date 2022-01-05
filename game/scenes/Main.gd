@@ -5,7 +5,7 @@ export var enable_autoclicker = false
 
 onready var autoclicker = $Autoclicker
 onready var upgrade_control = $CanvasLayer/UpgradeControl
-onready var autoclicker_control = $CanvasLayer/AutoclickerControl
+onready var game_control = $CanvasLayer/GameControl
 onready var color_control = $CanvasLayer/ColorMenu
 
 var save_file = "user://save.json"
@@ -45,23 +45,23 @@ func toggle_autoclicker(enabled):
 		autoclicker.start()
 	# autoclicker_button.visible = autoclicker.running
 	if autoclicker.running:
-		$CanvasLayer/AutoclickerControl.autoclicker_running()
+		$CanvasLayer/GameControl.autoclicker_running()
 	else:
-		$CanvasLayer/AutoclickerControl.autoclicker_stopped()
+		$CanvasLayer/GameControl.autoclicker_stopped()
 		
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# $CanvasLayer/UpgradeControl.upgrades = $Upgrades
 	Combo.connect("combo_complete", self, "_on_Combo_complete")
-	$CanvasLayer/AutoclickerControl.add_color(current_color)
+	$CanvasLayer/GameControl.add_color(current_color)
 	$CanvasLayer/ColorMenu.add_color(current_color)
 	# TODO should the Patterns be responsible for multiplexing?
 	toggle_autoclicker(enable_autoclicker) # TODO remove
 	for p in $Patterns.get_children():
 		$Gameboard.connect("tile_changed", p, "_on_Gameboard_tile_changed")
 		$Gameboard.connect("complete", p, "_on_Gameboard_complete")
-		$CanvasLayer/AutoclickerControl.add_pattern(p)
+		$CanvasLayer/GameControl.add_pattern(p)
 	$Gameboard.pop_anchor = $CanvasLayer/ScoreControl.rect_global_position + ($CanvasLayer/ScoreControl.rect_size / 2)
 
 func _on_Autoclicker_click(x, y, color):
@@ -79,7 +79,7 @@ func _on_Autoclicker_click_any(color):
 
 func _on_Gameboard_tile_clicked(tile):
 	autoclicker.stop()
-	$CanvasLayer/AutoclickerControl.autoclicker_stopped()
+	$CanvasLayer/GameControl.autoclicker_stopped()
 	tile.change(current_color)
 
 var cleared = false
@@ -111,50 +111,52 @@ func _on_Upgrades_expand_board_upgrade_active(size):
 
 func _on_Upgrades_autoclicker_active(speed):
 	# TODO move to autoclicker control?
-	$CanvasLayer/AutoclickerControl.enable_autoclick()
+	$CanvasLayer/GameControl.enable_autoclick()
 	
 func _on_Upgrades_patterns_active():
 	# TODO move to autoclicker control?
-	$CanvasLayer/AutoclickerControl.enable_pattern_select()
+	$CanvasLayer/GameControl.enable_pattern_select()
 
 func _on_Upgrades_color_active(color):
 	# TODO move to color control?
 	$CanvasLayer/ColorMenu.add_color(color)
-	$CanvasLayer/AutoclickerControl.add_color(color)
+	$CanvasLayer/GameControl.add_color(color)
 
 func _on_ColorMenu_color_select(color):
 	current_color = color
 
-func _on_AutoclickerControl_autoclick_toggled(enabled):
-	if enabled and autoclicker.can_run():
-		var d = $Gameboard.next_unchanged()
-		autoclicker.start(d.x, d.y)
-	else:
-		toggle_autoclicker(false)
-
-func _on_AutoclickerControl_pattern_toggled(enabled, pattern):	
-	if enabled:
-		autoclicker.add_pattern(pattern)
-	else:
-		autoclicker.remove_pattern(pattern)
-		if not autoclicker.running:
-			toggle_autoclicker(false)
-
-func _on_AutoclickerControl_guide_toggled(enabled, pattern):
-	if enabled:
-		$Gameboard.show_guide(pattern)
-	else:
-		$Gameboard.hide_guide()
 
 func _on_Combo_complete(words, num):
 	print("Combo finished")
 	Score.add(256 * num) # TODO score per keyword?
 
 func _on_Autoclicker_pattern_changed(pattern):
-	autoclicker_control.autoclicker_current_pattern(pattern)
-
-
+	game_control.autoclicker_current_pattern(pattern)
 
 func _on_AutosaveTimer_timeout():
 	print_debug("Saving")
 	savegame(save_file)
+
+
+func _on_GameControl_autoclick_toggled(enabled):	
+	if enabled and autoclicker.can_run():
+		var d = $Gameboard.next_unchanged()
+		autoclicker.start(d.x, d.y)
+	else:
+		toggle_autoclicker(false)
+
+
+func _on_GameControl_guide_toggled(enabled, pattern):
+	if enabled:
+		$Gameboard.show_guide(pattern)
+	else:
+		$Gameboard.hide_guide()
+
+
+func _on_GameControl_pattern_toggled(enabled, pattern):
+	if enabled:
+		autoclicker.add_pattern(pattern)
+	else:
+		autoclicker.remove_pattern(pattern)
+		if not autoclicker.running:
+			toggle_autoclicker(false)

@@ -35,11 +35,11 @@ func add_expand_grid_upgrade(size, cost):
 	x.cost = cost
 	x.set_meta("upgrade_tag", UpgradeTag.EXPAND)
 	x.set_meta("upgrade_tag_v", size)
-	$ScrollContainer/VBoxContainer.add_child(x)
+	$PanelContainer/VBoxContainer.add_child(x)
 	x.connect("selected", self, "_on_ExpandGridButton_pressed", [size])
 	
 func remove_buy_button(tag, v):
-	for b in $ScrollContainer/VBoxContainer.get_children():
+	for b in $PanelContainer/VBoxContainer.get_children():
 		if b.get_meta("upgrade_tag") == tag and b.get_meta("upgrade_tag_v") == v:
 			b.queue_free()
 			
@@ -50,7 +50,7 @@ func add_autoclicker_upgrade(speed, cost):
 	x.cost = cost
 	x.set_meta("upgrade_tag", UpgradeTag.AUTOCLICK)
 	x.set_meta("upgrade_tag_v", speed)
-	$ScrollContainer/VBoxContainer.add_child(x)
+	$PanelContainer/VBoxContainer.add_child(x)
 	x.connect("selected", self, "_on_AutoclickerButton_pressed", [speed])
 			
 func add_pattern_upgrade(cost):
@@ -60,7 +60,7 @@ func add_pattern_upgrade(cost):
 	x.cost = cost
 	x.set_meta("upgrade_tag", UpgradeTag.PATTERN)
 	x.set_meta("upgrade_tag_v", null)
-	$ScrollContainer/VBoxContainer.add_child(x)
+	$PanelContainer/VBoxContainer.add_child(x)
 	x.connect("selected", self, "_on_PatternButton_pressed")
 			
 func add_color_upgrade(color, cost):	
@@ -71,7 +71,7 @@ func add_color_upgrade(color, cost):
 	x.cost = cost
 	x.set_meta("upgrade_tag", UpgradeTag.COLOR)
 	x.set_meta("upgrade_tag_v", color)
-	$ScrollContainer/VBoxContainer.add_child(x)
+	$PanelContainer/VBoxContainer.add_child(x)
 	x.connect("selected", self, "_on_ColorButton_pressed", [color])
 
 func _on_ExpandGridButton_pressed(new_size):

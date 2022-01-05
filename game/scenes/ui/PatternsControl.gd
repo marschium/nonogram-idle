@@ -1,15 +1,13 @@
 extends Control
 
-signal pattern_cleared(pattern)
 signal pattern_selected(pattern)
 signal guide_selected(pattern)
-signal guide_cleared()
 
 var unlocked_colors = []
 
 var PatternSelectControl = preload("res://scenes/ui/PatternSelectControl.tscn")
 
-onready var pattern_select_vbox = $VBoxContainer/PanelContainer/PatternSelectVBoxContainer
+onready var pattern_select_vbox = $VBoxContainer/ScrollContainer/PatternSelectVBoxContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -43,8 +41,3 @@ func _on_PatternSelect_guide_selected(pattern):
 
 func _on_PatternSelect_set_selected(pattern):
 	emit_signal("pattern_selected", pattern)
-
-func _on_Button_pressed():
-	emit_signal("guide_cleared")
-
-	

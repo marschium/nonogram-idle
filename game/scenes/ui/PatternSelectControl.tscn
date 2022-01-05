@@ -6,6 +6,7 @@
 [node name="PatternSelectControl" type="PanelContainer"]
 margin_right = 167.0
 margin_bottom = 110.0
+size_flags_vertical = 3
 theme = ExtResource( 3 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -14,7 +15,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 12.0
-margin_top = 2.0
+margin_top = 8.0
 margin_right = 154.0
 margin_bottom = 102.0
 __meta__ = {
@@ -22,9 +23,9 @@ __meta__ = {
 }
 
 [node name="NameLabel" type="Label" parent="VBoxContainer"]
-margin_top = 8.0
+margin_top = 5.0
 margin_right = 142.0
-margin_bottom = 34.0
+margin_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
 text = "??????"
@@ -34,18 +35,14 @@ __meta__ = {
 }
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
-margin_top = 46.0
+margin_top = 40.0
 margin_right = 142.0
-margin_bottom = 46.0
-theme = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_bottom = 40.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 50.0
+margin_top = 44.0
 margin_right = 142.0
-margin_bottom = 100.0
+margin_bottom = 94.0
 size_flags_horizontal = 3
 alignment = 1
 
