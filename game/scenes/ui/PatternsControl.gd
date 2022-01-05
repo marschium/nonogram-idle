@@ -35,6 +35,10 @@ func add_color(color):
 	unlocked_colors.append(color)
 	for pc in pattern_select_vbox.get_children():
 		pc.visible = show_pattern(pc.pattern)
+		
+func reveal():
+	$AnimationPlayer.play("FadeIn")
+	visible = true
 
 func _on_PatternSelect_guide_selected(pattern):
 	emit_signal("guide_selected", pattern)

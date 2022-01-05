@@ -1,7 +1,22 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://resources/kenneyUI.tres" type="Theme" id=1]
 [ext_resource path="res://scenes/ui/GuideControl.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "FadeIn"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="GuideControl" type="PanelContainer"]
 margin_right = 14.0
@@ -37,5 +52,8 @@ margin_top = 60.0
 margin_right = 176.0
 margin_bottom = 110.251
 text = "REMOVE"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FadeIn = SubResource( 1 )
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_Button_pressed"]

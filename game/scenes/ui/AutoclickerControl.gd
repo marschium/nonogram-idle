@@ -31,6 +31,10 @@ func autoclicker_current_pattern(pattern):
 			c.mark_active()
 		else:
 			c.mark_inactive()
+			
+func reveal():
+	visible = true
+	$AnimationPlayer.play("FadeIn")
 
 func _on_ActivePatternControl_removed(pattern):
 	emit_signal("pattern_removed", pattern)

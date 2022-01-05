@@ -11,6 +11,7 @@ var UpgradeBuyControl = preload("res://scenes/ui/UpgradeBuyControl.tscn")
 
 export(NodePath) var upgrades_np = null
 var upgrades = upgrades_np
+var revealed = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,8 +28,15 @@ func _ready():
 	upgrades.connect("autoclicker_active", self, "remove_autoclicker_speed")
 	upgrades.connect("color_active", self, "remove_color")
 	upgrades.connect("patterns_active", self, "remove_patterns_active")
+	
+func reveal():
+	if not revealed:
+		revealed = true
+		visible = true
+		$AnimationPlayer.play("FadeIn")
 
 func add_expand_grid_upgrade(size, cost):
+	reveal()
 	var x = UpgradeBuyControl.instance()
 	x.title = "Board size increase"
 	x.description = "Expand board to %d x %d" % [size, size]
@@ -43,7 +51,8 @@ func remove_buy_button(tag, v):
 		if b.get_meta("upgrade_tag") == tag and b.get_meta("upgrade_tag_v") == v:
 			b.queue_free()
 			
-func add_autoclicker_upgrade(speed, cost):	
+func add_autoclicker_upgrade(speed, cost):
+	reveal()
 	var x = UpgradeBuyControl.instance()
 	x.title = "Autoclicker speed increase"
 	x.description = "Increase Autoclicker speed to %s dots per second" % [speed]
@@ -54,6 +63,7 @@ func add_autoclicker_upgrade(speed, cost):
 	x.connect("selected", self, "_on_AutoclickerButton_pressed", [speed])
 			
 func add_pattern_upgrade(cost):
+	reveal()
 	var x = UpgradeBuyControl.instance()
 	x.title = "Enable Patterns"
 	x.description = "Matching patterns with dots provides bonuses"
@@ -63,9 +73,9 @@ func add_pattern_upgrade(cost):
 	$PanelContainer/VBoxContainer.add_child(x)
 	x.connect("selected", self, "_on_PatternButton_pressed")
 			
-func add_color_upgrade(color, cost):	
-	# TODO show the color
-	var x = UpgradeBuyControl.instance()
+func add_color_upgrade(color, cost):
+	reveal()
+	var x = UpgradeBuyControl.instance() # TODO show color
 	x.title = "New dot color"
 	x.description = "Create dots in a new color"
 	x.cost = cost
