@@ -59,8 +59,6 @@ func _ready():
 	# TODO should the Patterns be responsible for multiplexing?
 	toggle_autoclicker(enable_autoclicker) # TODO remove
 	for p in $Patterns.get_children():
-		$Gameboard.connect("tile_changed", p, "_on_Gameboard_tile_changed")
-		$Gameboard.connect("complete", p, "_on_Gameboard_complete")
 		$CanvasLayer/GameControl.add_pattern(p)
 	$Gameboard.pop_anchor = $CanvasLayer/ScoreControl.rect_global_position + ($CanvasLayer/ScoreControl.rect_size / 2)
 
@@ -94,7 +92,7 @@ func _process(delta):
 	if cleared:
 		var was_autoclicked = autoclicker.running
 		autoclicker.stop()
-		for p in $Patterns.get_macthes():
+		for p in $Patterns.get_matches():
 			# Score.add(p.bonus)
 			Combo.add(p)
 		$Patterns.reset_matches()
@@ -108,6 +106,10 @@ func _process(delta):
 
 func _on_Upgrades_expand_board_upgrade_active(size):	
 	$Gameboard.reset_board(size)	
+	if size == 16:		
+		for p in $Patterns.get_children():
+			$Gameboard.connect("tile_changed", p, "_on_Gameboard_tile_changed")
+			$Gameboard.connect("complete", p, "_on_Gameboard_complete")
 
 func _on_Upgrades_autoclicker_active(speed):
 	# TODO move to autoclicker control?

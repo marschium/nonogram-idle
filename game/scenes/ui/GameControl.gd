@@ -9,10 +9,11 @@ func _ready():
 	pass # Replace with function body.
 
 func enable_autoclick():
-	#$VBoxContainer/AutoclickerButton.visible = true
+	# TODO reveal panel
 	$VBoxContainer/PatternsControl.enable_autoclick()
 	
 func enable_pattern_select():
+	# TODO reveal panel
 	$VBoxContainer/PatternsControl.visible = true
 	
 func autoclicker_running():
@@ -24,12 +25,11 @@ func autoclicker_stopped():
 func autoclicker_current_pattern(pattern):
 	$VBoxContainer/AutoclickerControl.autoclicker_current_pattern(pattern)
 
-
 func add_pattern(pattern):
 	$VBoxContainer/PatternsControl.add_pattern(pattern)
 	
-
-func add_color(color):
+func add_color(color):	
+	# TODO reveal panel on first
 	$VBoxContainer/PatternsControl.add_color(color)	
 
 

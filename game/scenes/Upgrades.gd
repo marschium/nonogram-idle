@@ -111,31 +111,24 @@ func loadgame(savedata):
 
 func _ready():	
 	Score.connect("changed", self, "_on_Score_changed")
-	unavilable_expand_upgrades.append(UpgradeInfo.new(2, 2, 2))
-	unavilable_expand_upgrades.append(UpgradeInfo.new(14, 16, 4))
-	unavilable_expand_upgrades.append(UpgradeInfo.new(30, 32, 8))
-	unavilable_expand_upgrades.append(UpgradeInfo.new(60, 54, 16))
+	unavilable_expand_upgrades.append(UpgradeInfo.new(4, 8, 2))
+	unavilable_expand_upgrades.append(UpgradeInfo.new(16, 32, 4))
+	unavilable_expand_upgrades.append(UpgradeInfo.new(48, 64, 8))
+	unavilable_expand_upgrades.append(UpgradeInfo.new(96, 126, 16))
 	unavilable_autoclick_upgrades.append(UpgradeInfo.new(128, 256, 2))
 	unavilable_color_upgrades.append(UpgradeInfo.new(512, 1024, Color(1, 0, 0)))
 	
 func do_upgrade_list(upgrades):
 	var just_unlocked = []
 	for i in upgrades:
-		if i.cost <= Score.val:
+		if i.available_at <= Score.val:
 			just_unlocked.append(i)
 	return just_unlocked
-	
-func do_upgrade_dict(upgrades):
-	var just_unlocked = []
-	for sz in upgrades.keys():
-		var cost = upgrades[sz]
-		if cost <= Score.val:
-			just_unlocked.append([sz, cost])
-	return just_unlocked
+
 
 func _on_Score_changed(old, new):
 	
-	var expand_unlocked = do_upgrade_dict(unavilable_expand_upgrades)
+	var expand_unlocked = do_upgrade_list(unavilable_expand_upgrades)
 	for e in expand_unlocked:
 		erase(unavilable_expand_upgrades, e.val)
 		available_expand_upgrades.append(e)

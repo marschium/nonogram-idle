@@ -6,7 +6,6 @@
 [node name="PatternSelectControl" type="PanelContainer"]
 margin_right = 167.0
 margin_bottom = 110.0
-size_flags_vertical = 3
 theme = ExtResource( 3 )
 script = ExtResource( 1 )
 __meta__ = {

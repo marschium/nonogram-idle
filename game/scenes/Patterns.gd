@@ -38,7 +38,7 @@ func _ready():
 func _on_Pattern_matched(bonus, pattern):
 	matched.append(pattern)
 
-func get_macthes():
+func get_matches():
 	return matched
 	
 func reset_matches():

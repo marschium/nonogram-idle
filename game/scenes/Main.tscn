@@ -108,15 +108,19 @@ margin_right = 201.0
 margin_bottom = 230.0
 
 [node name="PatternsControl" parent="CanvasLayer/GameControl/VBoxContainer" instance=ExtResource( 8 )]
+visible = false
 margin_top = 234.0
 margin_right = 201.0
 margin_bottom = 1014.0
 
 [node name="ColorMenu" type="Control" parent="CanvasLayer"]
-anchor_top = 0.918
-anchor_right = 1.0
+anchor_left = 0.131
+anchor_top = 1.0
+anchor_right = 0.895
 anchor_bottom = 1.0
-margin_top = 0.199951
+margin_left = 0.47998
+margin_top = -88.0
+margin_right = -0.400024
 grow_vertical = 0
 script = ExtResource( 7 )
 __meta__ = {
@@ -131,9 +135,9 @@ __meta__ = {
 }
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/ColorMenu/CenterContainer"]
-margin_left = 917.0
+margin_left = 690.0
 margin_top = 21.0
-margin_right = 1002.0
+margin_right = 775.0
 margin_bottom = 67.0
 theme = ExtResource( 15 )
 __meta__ = {

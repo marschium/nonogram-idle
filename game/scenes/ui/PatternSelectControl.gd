@@ -40,6 +40,7 @@ func _ready():
 		set_button.disabled = !autoclick_enabled
 		show_tags()
 
+
 func force_toggle_set_button(pressed):
 	set_button.pressed = pressed
 
@@ -51,8 +52,10 @@ func _on_Pattern_unlocked():
 	name_label.modulate = Color(0, 1, 0)
 	show_tags()
 
+
 func _on_SetButton_pressed():	
 	emit_signal("set_selected", pattern)
+
 
 func _on_GuideButton_pressed():
 	emit_signal("guide_selected", pattern)

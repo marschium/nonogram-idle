@@ -8,7 +8,10 @@ func _ready():
 
 
 func set_guide(pattern):
-	$VBoxContainer/Label.text = pattern.pattern_name
+	if not pattern.unlocked:
+		$VBoxContainer/Label.text = "??????"
+	else:
+		$VBoxContainer/Label.text = pattern.pattern_name
 
 
 func _on_Button_pressed():
