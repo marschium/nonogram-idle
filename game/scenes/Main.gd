@@ -112,7 +112,7 @@ func _on_Upgrades_expand_board_upgrade_active(size):
 			$Gameboard.connect("complete", p, "_on_Gameboard_complete")
 
 func _on_Upgrades_autoclicker_active(speed):
-	# TODO move to autoclicker control?
+	$Autoclicker.set_speed(speed)
 	$CanvasLayer/GameControl.enable_autoclick()
 	
 func _on_Upgrades_patterns_active():

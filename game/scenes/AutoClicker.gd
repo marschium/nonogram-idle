@@ -10,6 +10,7 @@ var PatternAutoClicker = preload("res://scenes/PatternAutoClicker.tscn")
 
 var single = false
 var current_clicker_idx = 0
+var speed = 1
 
 func _ready():
 	$PatternAutoClicker.stop()
@@ -27,6 +28,7 @@ func next_clicker():
 		current_clicker_idx = 0
 	if $PatternClickers.get_child_count() > 0:
 		emit_signal("pattern_changed", current_clicker().pattern)
+	current_clicker().set_speed(speed)
 	
 func can_run():
 	return !running and has_clicker() and len(current_clicker().clicks) != 0
@@ -47,10 +49,16 @@ func stop():
 	current_clicker().stop()
 	
 func set_pos(x, y):
-	current_clicker().set_pos(x, y)
+	if current_clicker() != null:
+		current_clicker().set_pos(x, y)
 	
 func get_current():
 	return current_clicker().get_current()[2]
+	
+func set_speed(speed):
+	self.speed = speed
+	if current_clicker() != null:
+		current_clicker().set_speed(speed)
 
 func clear():
 	for c in $PatternClickers.get_children():
@@ -71,6 +79,7 @@ func add_pattern(pattern):
 	p.setup()
 	p.stop()
 	p.connect("click", self, "_on_PatternAutoClicker_click")
+	p.set_speed(speed)
 	$PatternClickers.add_child(p)
 	
 func remove_pattern(pattern):

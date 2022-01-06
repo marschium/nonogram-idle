@@ -46,6 +46,9 @@ func stop():
 func set_pos(x, y):
 	click_idx = y + (x * 16)
 	
+func set_speed(speed):
+	$Timer.wait_time = 1.0 / float(speed)
+	
 func get_current():
 	if click_idx >= len(clicks):
 		click_idx = 0

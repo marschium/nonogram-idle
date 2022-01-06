@@ -21,7 +21,7 @@ func autoclicker_running():
 	pass # $VBoxContainer/AutoclickerButton.pressed = true
 	
 func autoclicker_stopped():
-	pass  # $VBoxContainer/AutoclickerButton.pressed = false
+	$VBoxContainer/AutoclickerControl.autoclicker_stopped()
 	
 func autoclicker_current_pattern(pattern):
 	$VBoxContainer/AutoclickerControl.autoclicker_current_pattern(pattern)

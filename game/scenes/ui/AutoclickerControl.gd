@@ -13,6 +13,10 @@ onready var active_pattern_container = $VBoxContainer/ActivePatternVBoxContainer
 func _ready():
 	pass # Replace with function body.
 
+	
+func autoclicker_stopped():
+	$VBoxContainer/HBoxContainer/PauseButton.pressed = true
+
 func add_pattern(pattern):
 	for c in active_pattern_container.get_children():
 		if c.pattern == pattern:
@@ -22,7 +26,6 @@ func add_pattern(pattern):
 	b.pattern = pattern
 	b.connect("removed", self, "_on_ActivePatternControl_removed", [pattern])
 	active_pattern_container.add_child(b)
-	emit_signal("pattern_toggled", true, pattern)
 
 
 func autoclicker_current_pattern(pattern):
