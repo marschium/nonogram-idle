@@ -55,5 +55,4 @@ text = "REMOVE"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeIn = SubResource( 1 )
-
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_Button_pressed"]
