@@ -21,9 +21,18 @@ def gen(src, dest):
             colors.add(rgb)
     out["bonus"] = BONUS_BASE * len(colors)
 
-    with open(dest, "w+") as f:
-        json.dump(out, f, indent=4)
-        f.truncate()
+    # if file already exists only overrwite the tiles
+    if os.path.exists(dest):
+        with open(dest, "r+") as f:
+            j = json.load(f)
+            j["tiles"] = out["tiles"]
+            f.seek(0)
+            json.dump(j, f, indent=4)
+            f.truncate()
+    else:
+        with open(dest, "w+") as f:
+            json.dump(out, f, indent=4)
+            f.truncate()
 
 if __name__ == "__main__":
     import sys
