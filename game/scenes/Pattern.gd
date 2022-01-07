@@ -7,8 +7,8 @@ var file = ""
 var pattern_name = ""
 var bonus = 0
 var tiles = Dictionary()
+var tiles_to_match = Dictionary()
 var tiles_unmatched = Dictionary()
-var unmatched = true
 var unlocked = false
 var colors = Dictionary()
 var tags = []
@@ -26,6 +26,14 @@ func unlock():
 	if not unlocked:
 		unlocked = true
 		emit_signal("unlocked")
+		
+func has(x, y):
+	var v = Vector2(x, y)
+	return tiles.has(v) and tiles[v] != null
+	
+func tile(x, y):
+	var v = Vector2(x, y)
+	return tiles[v]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,28 +42,34 @@ func _ready():
 	bonus = pattern_def["bonus"]
 	width = int(pattern_def["w"])
 	height = int(pattern_def["h"])
+	for x in range(width):
+		for y in range(height):
+			tiles[Vector2(x, y)] = null
 	for t in pattern_def["tiles"]:
 		var x = int(t["x"])
 		var y = int(t["y"])
-		if not tiles.has(x):
-			tiles[x] = {}
 		var color = Color(float(t["c"][0]) / 255.0, float(t["c"][1]) / 255.0, float(t["c"][2]) / 255.0)
-		tiles[x][y] = color
+		tiles[Vector2(x, y)] = color
+		tiles_to_match[Vector2(x, y)] = true
 		colors[color] = true
 	if pattern_def.has("tags"):
 		tags = pattern_def["tags"]
+	tiles_unmatched = tiles_to_match.duplicate(true)
 
 func _on_Gameboard_tile_changed(tile):
 	var v = Vector2(tile.x, tile.y)
-	if tiles[tile.x][tile.y] != tile.current_color:
-		tiles_unmatched[v] = true
+	if tiles[v] == tile.current_color:
+		tiles_unmatched.erase(v)
+		if tiles_unmatched.empty():
+			print_debug("pattern matched %s" % file)
+			emit_signal("matched", bonus)
+			unlock()
 	else:
-		if tiles_unmatched.has(v):
-			tiles_unmatched.erase(v)
+		tiles_unmatched[v] = true
 
 func _on_Gameboard_complete():
-	if tiles_unmatched.empty():
-		print_debug("pattern matched %s" % file)
-		emit_signal("matched", bonus)
-		unlock()
-	tiles_unmatched = {}
+#	if tiles_unmatched.empty():
+#		print_debug("pattern matched %s" % file)
+#		emit_signal("matched", bonus)
+#		unlock()
+	tiles_unmatched = tiles_to_match.duplicate(true)

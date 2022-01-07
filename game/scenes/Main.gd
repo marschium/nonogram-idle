@@ -60,6 +60,7 @@ func _ready():
 	toggle_autoclicker(enable_autoclicker) # TODO remove
 	for p in $Patterns.get_children():
 		$CanvasLayer/GameControl.add_pattern(p)
+		p.connect("matched", self, "_on_Pattern_matched")
 	$Gameboard.pop_anchor = $CanvasLayer/ScoreControl.rect_global_position + ($CanvasLayer/ScoreControl.rect_size / 2)
 
 func _on_Autoclicker_click(x, y, color):
@@ -81,6 +82,10 @@ func _on_Gameboard_tile_clicked(tile):
 	tile.change(current_color)
 
 var cleared = false
+
+func _on_Pattern_matched(bonus):
+	cleared = true
+
 func _on_Gameboard_complete_late():
 	cleared = true
 	
