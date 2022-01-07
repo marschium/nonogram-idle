@@ -66,10 +66,9 @@ func _on_Gameboard_tile_changed(tile):
 			unlock()
 	else:
 		tiles_unmatched[v] = true
+		
+func _on_Gameboard_tile_reset(tile):
+	tiles_unmatched[Vector2(tile.x, tile.y)] = true
 
-func _on_Gameboard_complete():
-#	if tiles_unmatched.empty():
-#		print_debug("pattern matched %s" % file)
-#		emit_signal("matched", bonus)
-#		unlock()
+func reset():
 	tiles_unmatched = tiles_to_match.duplicate(true)

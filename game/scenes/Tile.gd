@@ -1,7 +1,9 @@
 extends Node2D
 
 signal clicked()
+signal right_clicked()
 signal changed(was_changed_before)
+signal reset()
 
 var base_color = Color(0.1, 0.1, 0.1, 0.5)
 var previous_color = null
@@ -35,11 +37,24 @@ func change(color):
 		changed = true
 		emit_signal("changed", already_changed)
 		pop()
+		
+func clear():
+	previous_color = current_color
+	current_color = null
+	sprite.modulate = base_color
+	emit_signal("reset")
+	changed = false
+	pop()
 	
 func click():
 	if not just_clicked:
 		just_clicked = true
 		emit_signal("clicked")
+		
+func right_click():
+	if not just_clicked:
+		just_clicked = true
+		emit_signal("right_clicked")
 		
 func pop():
 	var target_color = sprite.modulate
@@ -71,7 +86,12 @@ func _ready():
 func _process(delta):    
 	if not just_clicked and mouse_over and Input.is_mouse_button_pressed(BUTTON_LEFT):
 		click()
+	elif not just_clicked and mouse_over and Input.is_mouse_button_pressed(BUTTON_RIGHT):
+		right_click()
+
 	if just_clicked and not Input.is_mouse_button_pressed(BUTTON_LEFT):
+		just_clicked = false
+	elif just_clicked and not not Input.is_mouse_button_pressed(BUTTON_LEFT):
 		just_clicked = false
 
 func _on_Area2D_mouse_entered():

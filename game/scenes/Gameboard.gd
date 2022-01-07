@@ -1,7 +1,9 @@
 extends Node2D
 
 signal tile_clicked(tile)
+signal tile_right_clicked(tile)
 signal tile_changed(tile) # only emitted if tie changed for first time
+signal tile_reset(tile)
 signal complete()
 signal complete_late()
 
@@ -59,7 +61,9 @@ func reset_board(size):
 			t.y = y
 			t.position = pos
 			t.connect("clicked", self, "_on_Tile_clicked", [t])
+			t.connect("right_clicked", self, "_on_Tile_right_clicked", [t])
 			t.connect("changed", self, "_on_Tile_changed", [t])
+			t.connect("reset", self, "_on_Tile_reset", [t])
 			dots.add_child(t)
 			
 			if not dots_lookup.has(x):
@@ -83,9 +87,17 @@ func _ready():
 func _on_Tile_clicked(tile):
 	emit_signal("tile_clicked", tile)
 	
+func _on_Tile_right_clicked(tile):
+	emit_signal("tile_right_clicked", tile)
+	
 func _on_Tile_changed(was_changed_before, tile):
 	$Guide.tile_changed(tile)
 	emit_signal("tile_changed", tile)
 	if not was_changed_before:
 		Score.add(1)
 	check_cleared()
+
+func _on_Tile_reset(tile):
+	if tile.changed:
+		Score.sub(1)
+	emit_signal("tile_reset", tile)

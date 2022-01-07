@@ -53,7 +53,7 @@ func set_pos(x, y):
 		current_clicker().set_pos(x, y)
 	
 func get_current():
-	return current_clicker().get_current()[2]
+	return current_clicker().get_current().c
 	
 func set_speed(speed):
 	self.speed = speed

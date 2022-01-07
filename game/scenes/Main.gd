@@ -65,12 +65,12 @@ func _ready():
 
 func _on_Autoclicker_click(x, y, color):
 	# TODO this is a nightmare
-	if $Gameboard.get_dot(x, y).changed:
-		var t = $Gameboard.next_unchanged()
-		autoclicker.set_pos(t.x, t.y)
-		var v = autoclicker.get_current()
-		$Gameboard.change_dot(t.x, t.y, v)    
-	else:
+#	if $Gameboard.get_dot(x, y).changed:
+#		var t = $Gameboard.next_unchanged()
+#		autoclicker.set_pos(t.x, t.y)
+#		var v = autoclicker.get_current()
+#		$Gameboard.change_dot(t.x, t.y, v)    
+#	else:
 		$Gameboard.change_dot(x, y, color)    
 
 func _on_Autoclicker_click_any(color):
@@ -80,6 +80,11 @@ func _on_Gameboard_tile_clicked(tile):
 	autoclicker.stop()
 	$CanvasLayer/GameControl.autoclicker_stopped()
 	tile.change(current_color)
+	
+func _on_Gameboard_tile_right_clicked(tile):
+	autoclicker.stop()
+	$CanvasLayer/GameControl.autoclicker_stopped()
+	tile.clear()
 
 var cleared = false
 
@@ -97,9 +102,13 @@ func _process(delta):
 	if cleared:
 		var was_autoclicked = autoclicker.running
 		autoclicker.stop()
+		
+		# TODO pattern checking can be quicker
+		for p in $Patterns.get_children():
+			p.reset()
 		for p in $Patterns.get_matches():
-			# Score.add(p.bonus)
 			Combo.add(p)
+
 		$Patterns.reset_matches()
 		$Gameboard.reset()
 		Combo.tick()
@@ -114,7 +123,7 @@ func _on_Upgrades_expand_board_upgrade_active(size):
 	if size == 16:		
 		for p in $Patterns.get_children():
 			$Gameboard.connect("tile_changed", p, "_on_Gameboard_tile_changed")
-			$Gameboard.connect("complete", p, "_on_Gameboard_complete")
+			$Gameboard.connect("tile_reset", p, "_on_Gameboard_tile_reset")
 
 func _on_Upgrades_autoclicker_active(speed):
 	$Autoclicker.set_speed(speed)
@@ -167,3 +176,4 @@ func _on_GameControl_pattern_toggled(enabled, pattern):
 		autoclicker.remove_pattern(pattern)
 		if not autoclicker.running:
 			toggle_autoclicker(false)
+

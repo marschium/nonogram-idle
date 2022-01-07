@@ -4,6 +4,16 @@ signal click(x, y, color)
 
 export var color = Color(0, 0, 1)
 
+class Click:
+	var x = 0
+	var y = 0
+	var c = null
+	
+	func _init(x, y, c):
+		self.x = x
+		self.y = y
+		self.c = c
+
 var file = ""
 var w = 16
 var clicks = []
@@ -22,6 +32,11 @@ func read_json_file(file_path):
 	var content_as_dictionary = parse_json(content_as_text)
 	return content_as_dictionary
 	
+func sort_clicks(a, b):
+	var i = a.y + (a.x * 16)
+	var j = b.y + (b.x * 16)
+	return i < j
+	
 func setup():	
 	# container for ordered tiles
 	var pattern_def = read_json_file(file)
@@ -30,11 +45,10 @@ func setup():
 	
 	# order the tiles
 	clicks = []
-	clicks.resize(w * h)
 	for t in pattern_def["tiles"]:
-		var x = int(t["x"])
-		var y = int(t["y"])
-		clicks[y + (x * 16)] = [x, y, Color(float(t["c"][0]) / 255.0, float(t["c"][1]) / 255.0, float(t["c"][2]) / 255.0)]
+		var i = Click.new(int(t["x"]), int(t["y"]), Color(float(t["c"][0]) / 255.0, float(t["c"][1]) / 255.0, float(t["c"][2]) / 255.0))
+		clicks.append(i)
+	clicks.sort_custom(self, "sort_clicks")
 
 func start(x, y):
 	click_idx = y + (x * 16) # traverse y axis first
@@ -66,5 +80,5 @@ func _process(delta):
 
 func _on_Timer_timeout():
 	var v = get_current()
-	emit_signal("click", v[0], v[1], v[2])
+	emit_signal("click", v.x, v.y, v.c)
 	click_idx += 1
