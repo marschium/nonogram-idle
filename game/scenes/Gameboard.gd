@@ -98,6 +98,7 @@ func _on_Tile_changed(was_changed_before, tile):
 	check_cleared()
 
 func _on_Tile_reset(tile):
+	$Guide.tile_changed(tile)
 	if tile.changed:
 		Score.sub(1)
 	emit_signal("tile_reset", tile)

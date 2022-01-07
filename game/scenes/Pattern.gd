@@ -68,7 +68,10 @@ func _on_Gameboard_tile_changed(tile):
 		tiles_unmatched[v] = true
 		
 func _on_Gameboard_tile_reset(tile):
-	tiles_unmatched[Vector2(tile.x, tile.y)] = true
+	if has(tile.x, tile.y):
+		tiles_unmatched[Vector2(tile.x, tile.y)] = true
+	else:
+		tiles_unmatched.erase(Vector2(tile.x, tile.y))
 
 func reset():
 	tiles_unmatched = tiles_to_match.duplicate(true)

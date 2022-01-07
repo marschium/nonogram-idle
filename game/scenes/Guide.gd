@@ -72,24 +72,25 @@ func show_guide(pattern):
 	for x in range(pattern.width):
 		var y_offset = -38
 		var current_label = null
+		# TODO state machine this mess
 		for y in range(pattern.height):
 			# TODO each of these by colors instead of according to the board?
-			if not pattern.has(x, y):
-				continue
 			var t = pattern.tile(x, y)
-			if current_label == null:
+			if t != null and current_label == null:
 				current_label = PatternColorLabel.instance()
 				current_label.color = t
 				current_label.max_count = 1
-			elif current_label.color == t:
+			elif t != null and current_label.color == t:
 				current_label.max_count += 1
-			else:
+			elif current_label != null:
 				current_label.position = Vector2(spacing * x, y_offset) + offset
 				y_offset -= 38
 				add_child(current_label)
-				current_label = PatternColorLabel.instance()
-				current_label.color = t
-				current_label.max_count = 1
+				current_label = null
+				if t != null:
+					current_label = PatternColorLabel.instance()
+					current_label.color = t
+					current_label.max_count = 1
 		
 		if current_label != null:
 			current_label.position = Vector2(spacing * x, y_offset) + offset
@@ -107,22 +108,22 @@ func show_guide(pattern):
 		var current_label = null
 		for x in range(pattern.width):
 			# TODO each of these by colors instead of according to the board?
-			if not pattern.has(x, y):
-				continue
 			var t = pattern.tile(x, y)
-			if current_label == null:
+			if t != null and current_label == null:
 				current_label = PatternColorLabel.instance()
 				current_label.color = t
 				current_label.max_count = 1
-			elif current_label.color == t:
+			elif t != null and current_label.color == t:
 				current_label.max_count += 1
-			else:
+			elif current_label != null:
 				current_label.position = Vector2(x_offset, y * spacing) + offset
 				x_offset -= 38
 				add_child(current_label)
-				current_label = PatternColorLabel.instance()
-				current_label.color = t
-				current_label.max_count = 1
+				current_label = null
+				if t != null:
+					current_label = PatternColorLabel.instance()
+					current_label.color = t
+					current_label.max_count = 1
 		
 		if current_label != null:
 			current_label.position = Vector2(x_offset, spacing * y) + offset
