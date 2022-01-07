@@ -74,7 +74,7 @@ func hide_guide():
 			
 func show_guide(pattern):
 	# TODO board might already has some tiles set
-	$Guide.show_guide(dots_lookup, pattern)
+	$Guide.show_guide(pattern)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
