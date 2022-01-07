@@ -20,62 +20,62 @@ onready var sprite = $Sprite
 onready var sprite_pop = $SpritePop
 
 func reset():
-    previous_color = null
-    current_color = null
-    sprite.modulate = base_color
-    sprite_pop.modulate = Color(1, 1, 1, 0.0)
-    changed = false
-    
+	previous_color = null
+	current_color = null
+	sprite.modulate = base_color
+	sprite_pop.modulate = Color(1, 1, 1, 0.0)
+	changed = false
+	
 func change(color):
-    if color != current_color:
-        var already_changed = changed
-        previous_color = current_color
-        current_color = color
-        sprite.modulate = color
-        changed = true
-        emit_signal("changed", already_changed)
-        pop()
-    
+	if color != current_color:
+		var already_changed = changed
+		previous_color = current_color
+		current_color = color
+		sprite.modulate = color
+		changed = true
+		emit_signal("changed", already_changed)
+		pop()
+	
 func click():
-    if not just_clicked:
-        just_clicked = true
-        emit_signal("clicked")
-        
+	if not just_clicked:
+		just_clicked = true
+		emit_signal("clicked")
+		
 func pop():
-    var target_color = sprite.modulate
-    target_color.a = 0
-    var tween = $SpritePop/Tween
-    tween.interpolate_property(
-        $SpritePop, 
-        "position", 
-        Vector2(0, 0), 
-        to_local(anchor), 
-        1, 
-        Tween.TRANS_LINEAR, 
-        Tween.EASE_IN_OUT)
-    tween.interpolate_property(
-        $SpritePop, 
-        "modulate", 
-        sprite.modulate, 
-        target_color, 
-        1, 
-        Tween.TRANS_LINEAR, 
-        Tween.EASE_IN_OUT)
-    $SpritePop/Tween.start()
-    #$SpritePop/AnimationPlayer.play("TilePop")
+	var target_color = sprite.modulate
+	target_color.a = 0
+	var tween = $SpritePop/Tween
+	tween.interpolate_property(
+		$SpritePop, 
+		"position", 
+		Vector2(0, 0), 
+		to_local(anchor), 
+		1, 
+		Tween.TRANS_LINEAR, 
+		Tween.EASE_IN_OUT)
+	tween.interpolate_property(
+		$SpritePop, 
+		"modulate", 
+		sprite.modulate, 
+		target_color, 
+		1, 
+		Tween.TRANS_LINEAR, 
+		Tween.EASE_IN_OUT)
+	$SpritePop/Tween.start()
+	#$SpritePop/AnimationPlayer.play("TilePop")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    reset()
-    
+	reset()
+	
 func _process(delta):    
-    if not just_clicked and mouse_over and Input.is_mouse_button_pressed(BUTTON_LEFT):
-        click()
-    if just_clicked and not Input.is_mouse_button_pressed(BUTTON_LEFT):
-        just_clicked = false
+	if not just_clicked and mouse_over and Input.is_mouse_button_pressed(BUTTON_LEFT):
+		click()
+	if just_clicked and not Input.is_mouse_button_pressed(BUTTON_LEFT):
+		just_clicked = false
 
 func _on_Area2D_mouse_entered():
-    mouse_over = true  #!Input.is_mouse_button_pressed(BUTTON_LEFT) # ignore mouse being held down
+	mouse_over = true  #!Input.is_mouse_button_pressed(BUTTON_LEFT) # ignore mouse being held down
 
 func _on_Area2D_mouse_exited():
-    mouse_over = false
+	mouse_over = false
