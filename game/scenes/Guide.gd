@@ -69,6 +69,7 @@ func show_guide(pattern):
 	hide_guide()
 	self.pattern = pattern
 	# TODO iterate the tiles instead of using indices
+	# TODO labels are current reversed on the x-axis
 	for x in range(pattern.width):
 		var y_offset = -38
 		var current_label = null

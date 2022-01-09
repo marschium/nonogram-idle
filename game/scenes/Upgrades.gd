@@ -116,9 +116,10 @@ func _ready():
 	unavilable_expand_upgrades.append(UpgradeInfo.new(48, 64, 8))
 	unavilable_expand_upgrades.append(UpgradeInfo.new(96, 126, 16))
 	unavilable_autoclick_upgrades.append(UpgradeInfo.new(128, 256, 2))
-	unavilable_color_upgrades.append(UpgradeInfo.new(512, 1024, Color(1, 0, 0)))
-	unavilable_color_upgrades.append(UpgradeInfo.new(1024, 2024, Color(0, 0, 1)))
-	unavilable_color_upgrades.append(UpgradeInfo.new(2024, 3024, Color(0, 1, 0)))
+	unavilable_color_upgrades.append(UpgradeInfo.new(512, 1024, Color("#ff0000")))
+	unavilable_color_upgrades.append(UpgradeInfo.new(1024, 2024, Color("#0000ff")))
+	unavilable_color_upgrades.append(UpgradeInfo.new(2024, 3024, Color("00ff00")))
+	unavilable_color_upgrades.append(UpgradeInfo.new(2024, 3024, Color("#3399ff")))
 	
 func do_upgrade_list(upgrades):
 	var just_unlocked = []
