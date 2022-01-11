@@ -22,7 +22,7 @@ func read_json_file(file_path):
 	var content_as_dictionary = parse_json(content_as_text)
 	return content_as_dictionary
 	
-func unlock():	
+func unlock(no_signal=false):	
 	if not unlocked:
 		unlocked = true
 		emit_signal("unlocked")

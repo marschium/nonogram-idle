@@ -15,7 +15,7 @@ func loadgame(savedata):
 	for x in savedata.get("patterns", []):
 		for c in get_children():
 			if c.pattern_name == x:
-				c.unlock()
+				c.unlock(true)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

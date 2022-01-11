@@ -3,6 +3,8 @@ extends Node2D
 export var current_color = Color(1, 1, 1)
 export var enable_autoclicker = false
 
+var PatternUnlockControl = preload("res://scenes/ui/PatternUnlockControl.tscn")
+
 onready var autoclicker = $Autoclicker
 onready var upgrade_control = $CanvasLayer/UpgradeControl
 onready var game_control = $CanvasLayer/GameControl
@@ -61,6 +63,7 @@ func _ready():
 	for p in $Patterns.get_children():
 		$CanvasLayer/GameControl.add_pattern(p)
 		p.connect("matched", self, "_on_Pattern_matched")
+		p.connect("unlocked", self, "_on_Pattern_unlocked", [p])
 	$Gameboard.pop_anchor = $CanvasLayer/ScoreControl.rect_global_position + ($CanvasLayer/ScoreControl.rect_size / 2)
 
 func _on_Autoclicker_click(x, y, color):
@@ -91,13 +94,20 @@ var cleared = false
 func _on_Pattern_matched(bonus):
 	cleared = true
 
+func _on_Pattern_unlocked(pattern):
+	if not loaded:
+		return
+	var p = PatternUnlockControl.instance()
+	p.pattern = pattern
+	$CanvasLayer.add_child(p)
+
 func _on_Gameboard_complete_late():
 	cleared = true
 	
 func _process(delta):
 	if not loaded:
-		loaded = true
 		loadgame(save_file)
+		loaded = true
 		$AutosaveTimer.start()
 	if cleared:
 		var was_autoclicked = autoclicker.running
