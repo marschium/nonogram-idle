@@ -21,7 +21,9 @@ config/icon="res://icon.png"
 [autoload]
 
 Score="*res://scenes/Score.tscn"
-Combo="*res://scenes/Combo.tscn"
+TagCombo="*res://scenes/TagCombo.tscn"
+PatternCombo="*res://scenes/PatternCombo.tscn"
+Bonus="*res://scenes/Bonus.tscn"
 
 [display]
 

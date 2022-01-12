@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://images/cloud.png" type="Texture" id=1]
+[ext_resource path="res://scenes/ui/BonusLabel.gd" type="Script" id=2]
+
+[node name="BonusControl" type="Control"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 92.0
+margin_bottom = 57.0
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+visible = false
+margin_left = -6.67205
+margin_top = 65.6416
+margin_right = 78.3279
+margin_bottom = 79.6416
+text = "FASFASFASFA"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 64.0
+margin_bottom = 64.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 57.0
+margin_bottom = 57.0
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="mouse_entered" from="PanelContainer" to="." method="_on_PanelContainer_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer" to="." method="_on_PanelContainer_mouse_exited"]

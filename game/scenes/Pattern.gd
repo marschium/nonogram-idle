@@ -6,6 +6,7 @@ signal unlocked()
 var file = ""
 var pattern_name = ""
 var bonus = 0
+var num_tiles = 0
 var tiles = Dictionary()
 var tiles_to_match = Dictionary()
 var tiles_unmatched = Dictionary()
@@ -46,6 +47,7 @@ func _ready():
 		for y in range(height):
 			tiles[Vector2(x, y)] = null
 	for t in pattern_def["tiles"]:
+		num_tiles += 1
 		var x = int(t["x"])
 		var y = int(t["y"])
 		var color = Color(float(t["c"][0]) / 255.0, float(t["c"][1]) / 255.0, float(t["c"][2]) / 255.0)

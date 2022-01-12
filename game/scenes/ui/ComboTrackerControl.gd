@@ -7,8 +7,8 @@ onready var ComboLabel = preload("res://scenes/ui/PatternTagLabel.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Combo.connect("tick_update", self, "_on_Combo_tick_update")
-	Combo.connect("combo_complete", self, "_on_Combo_combo_complete")
+	TagCombo.connect("tick_update", self, "_on_Combo_tick_update")
+	TagCombo.connect("combo_complete", self, "_on_Combo_combo_complete")
 
 func _on_Combo_combo_complete(keyword, num):
 	if current_combos.has(keyword):

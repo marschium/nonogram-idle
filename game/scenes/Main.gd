@@ -55,14 +55,14 @@ func toggle_autoclicker(enabled):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# $CanvasLayer/UpgradeControl.upgrades = $Upgrades
-	Combo.connect("combo_complete", self, "_on_Combo_complete")
+	TagCombo.connect("combo_complete", self, "_on_Combo_complete")
 	$CanvasLayer/GameControl.add_color(current_color)
 	$CanvasLayer/ColorMenu.add_color(current_color)
 	# TODO should the Patterns be responsible for multiplexing?
 	toggle_autoclicker(enable_autoclicker) # TODO remove
 	for p in $Patterns.get_children():
 		$CanvasLayer/GameControl.add_pattern(p)
-		p.connect("matched", self, "_on_Pattern_matched")
+		p.connect("matched", self, "_on_Pattern_matched", [p])
 		p.connect("unlocked", self, "_on_Pattern_unlocked", [p])
 	$Gameboard.pop_anchor = $CanvasLayer/ScoreControl.rect_global_position + ($CanvasLayer/ScoreControl.rect_size / 2)
 
@@ -89,10 +89,27 @@ func _on_Gameboard_tile_right_clicked(tile):
 	$CanvasLayer/GameControl.autoclicker_stopped()
 	tile.clear()
 
-var cleared = false
+func _on_Pattern_matched(bonus, pattern):
+	var was_autoclicked = autoclicker.running
+	autoclicker.stop()
+	
+	# TODO pattern checking can be quicker
+	for p in $Patterns.get_children():
+		p.reset()
+		
+	TagCombo.add(pattern)
+	PatternCombo.add(pattern)			
+	Score.add(Bonus.get_bonus(pattern))
 
-func _on_Pattern_matched(bonus):
-	cleared = true
+	yield(get_tree().create_timer(0.2), "timeout")
+
+	$Patterns.reset_matches()
+	$Gameboard.reset()
+	TagCombo.tick()
+	
+	if was_autoclicked:
+		autoclicker.next_clicker()
+		autoclicker.start(0, 0)
 
 func _on_Pattern_unlocked(pattern):
 	if not loaded:
@@ -100,33 +117,12 @@ func _on_Pattern_unlocked(pattern):
 	var p = PatternUnlockControl.instance()
 	p.pattern = pattern
 	$CanvasLayer.add_child(p)
-
-func _on_Gameboard_complete_late():
-	cleared = true
 	
 func _process(delta):
 	if not loaded:
 		loadgame(save_file)
 		loaded = true
 		$AutosaveTimer.start()
-	if cleared:
-		var was_autoclicked = autoclicker.running
-		autoclicker.stop()
-		
-		# TODO pattern checking can be quicker
-		for p in $Patterns.get_children():
-			p.reset()
-		for p in $Patterns.get_matches():
-			Combo.add(p)
-
-		$Patterns.reset_matches()
-		$Gameboard.reset()
-		Combo.tick()
-		#yield(get_tree().create_timer(0.2), "timeout")
-		cleared = false
-		if was_autoclicked:
-			autoclicker.next_clicker()
-			autoclicker.start(0, 0)
 
 func _on_Upgrades_expand_board_upgrade_active(size):	
 	$Gameboard.reset_board(size)	
@@ -151,9 +147,9 @@ func _on_Upgrades_color_active(color):
 func _on_ColorMenu_color_select(color):
 	current_color = color
 
-
 func _on_Combo_complete(words, num):
 	print("Combo finished")
+	# TODO look up the multipler
 	Score.add(256 * num) # TODO score per keyword?
 
 func _on_Autoclicker_pattern_changed(pattern):

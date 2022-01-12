@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/Gameboard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Main.gd" type="Script" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://resources/kenneyUI.tres" type="Theme" id=15]
 [ext_resource path="res://scenes/ui/GuideControl.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/ui/AutoclickerControl.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/ui/BonusTrackerControl.gd" type="Script" id=18]
 
 [sub_resource type="Animation" id=1]
 resource_name = "FadeIn"
@@ -264,6 +265,12 @@ margin_bottom = 55.0
 alignment = 1
 script = ExtResource( 10 )
 
+[node name="BonusTrackerControl" type="HBoxContainer" parent="CanvasLayer/ScoreControl/CenterContainer/Control/VBoxContainer"]
+margin_top = 59.0
+margin_right = 109.0
+margin_bottom = 59.0
+script = ExtResource( 18 )
+
 [node name="ScoreDeltaTrackerControl" type="VBoxContainer" parent="CanvasLayer/ScoreControl/CenterContainer/Control"]
 anchor_left = 1.0
 anchor_top = 0.5
@@ -285,7 +292,6 @@ wait_time = 10.0
 [connection signal="color_active" from="Upgrades" to="." method="_on_Upgrades_color_active"]
 [connection signal="expand_board_upgrade_active" from="Upgrades" to="." method="_on_Upgrades_expand_board_upgrade_active"]
 [connection signal="patterns_active" from="Upgrades" to="." method="_on_Upgrades_patterns_active"]
-[connection signal="complete_late" from="Gameboard" to="." method="_on_Gameboard_complete_late"]
 [connection signal="tile_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_clicked"]
 [connection signal="tile_right_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_right_clicked"]
 [connection signal="click" from="Autoclicker" to="." method="_on_Autoclicker_click"]
