@@ -1,6 +1,6 @@
 extends Node2D
 
-signal bonus_active(name)
+signal bonus_active(bonus)
 signal bonus_inactive(name)
 
 var active_bonuses = []
@@ -17,9 +17,8 @@ func get_bonus(pattern):
 			bonus += pattern.num_tiles * 2
 	return bonus
 
-
-func _on_PatternCombo_combo_complete(name):
-	# TODO start a timer
-	if not active_bonuses.has(name):
-		active_bonuses.append(name)
-		emit_signal("bonus_active", name)
+func _on_PatternCombo_combo_complete(bonus):
+	if not active_bonuses.has(bonus.name):
+		bonus.activate()
+		active_bonuses.append(bonus.name)
+		emit_signal("bonus_active", bonus)

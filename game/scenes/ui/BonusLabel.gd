@@ -1,10 +1,12 @@
 extends Control
 
+var bonus = null
 
 func _on_PanelContainer_mouse_entered():
-	if not $Label.visible:
-		$Label.visible = true
+	if not $Panel.visible:
+		$Panel/Label.text = bonus.text
+		$Panel.visible = true
 
 
 func _on_PanelContainer_mouse_exited():
-	$Label.visible = false
+	$Panel.visible = false
