@@ -287,7 +287,6 @@ __meta__ = {
 
 [node name="AutosaveTimer" type="Timer" parent="."]
 wait_time = 10.0
-
 [connection signal="autoclicker_active" from="Upgrades" to="." method="_on_Upgrades_autoclicker_active"]
 [connection signal="color_active" from="Upgrades" to="." method="_on_Upgrades_color_active"]
 [connection signal="expand_board_upgrade_active" from="Upgrades" to="." method="_on_Upgrades_expand_board_upgrade_active"]
