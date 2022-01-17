@@ -6,9 +6,9 @@
 
 [node name="BonusControl" type="Control"]
 margin_left = 7.0
-margin_top = 7.0
+margin_top = 11.0
 margin_right = 92.0
-margin_bottom = 57.0
+margin_bottom = 79.0
 theme = ExtResource( 3 )
 script = ExtResource( 2 )
 __meta__ = {
@@ -16,10 +16,10 @@ __meta__ = {
 }
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-margin_left = 2.0
-margin_top = -5.0
-margin_right = 61.0
-margin_bottom = -1.0
+margin_left = 2.995
+margin_top = -5.08
+margin_right = 61.995
+margin_bottom = -2.08
 percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -27,10 +27,11 @@ __meta__ = {
 
 [node name="Panel" type="PanelContainer" parent="."]
 visible = false
-margin_left = -46.718
-margin_top = 67.5672
-margin_right = 110.282
-margin_bottom = 109.567
+margin_left = -48.1023
+margin_top = 65.9375
+margin_right = 108.898
+margin_bottom = 107.938
+grow_horizontal = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -48,7 +49,9 @@ __meta__ = {
 }
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-margin_right = 64.0
+margin_left = -0.0400009
+margin_top = -1.19209e-07
+margin_right = 63.96
 margin_bottom = 64.0
 __meta__ = {
 "_edit_use_anchors_": false

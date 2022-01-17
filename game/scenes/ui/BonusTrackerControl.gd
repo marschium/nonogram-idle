@@ -10,5 +10,4 @@ func _ready():
 func _on_Bonus_bonus_active(bonus):
 	var l = BonusLabel.instance()
 	l.bonus = bonus
-	# TODO set name e.t.c.
 	add_child(l)

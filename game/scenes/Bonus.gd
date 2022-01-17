@@ -23,7 +23,7 @@ func _on_PatternCombo_combo_complete(name):
 		var bonus = ActiveBonus.instance()
 		bonus.bonus_name = name
 		bonus.text = "example example"
-		bonus.time = 10
+		bonus.time = 600
 		bonus.connect("deactivated", self, "_on_Bonus_deactivated", [bonus])
 		add_child(bonus)
 		active_bonuses.append(name)
