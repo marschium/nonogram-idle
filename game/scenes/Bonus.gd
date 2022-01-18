@@ -9,25 +9,25 @@ var active_bonuses = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	PatternCombo.connect("combo_complete", self, "_on_PatternCombo_combo_complete")
-	
+    PatternCombo.connect("combo_complete", self, "_on_PatternCombo_combo_complete")
+    
 func get_bonus(pattern):
-	var bonus = 0
-	for tag in pattern.tags:
-		if active_bonuses.has(tag):
-			bonus += pattern.num_tiles * 2
-	return bonus
+    var bonus = 0
+    for tag in pattern.tags:
+        if active_bonuses.has(tag):
+            bonus += pattern.num_tiles * 2
+    return bonus
 
 func _on_PatternCombo_combo_complete(name):
-	if not active_bonuses.has(name):
-		var bonus = ActiveBonus.instance()
-		bonus.bonus_name = name
-		bonus.text = "example example"
-		bonus.time = 600
-		bonus.connect("deactivated", self, "_on_Bonus_deactivated", [bonus])
-		add_child(bonus)
-		active_bonuses.append(name)
-		emit_signal("bonus_active", bonus)
+    if not active_bonuses.has(name):
+        var bonus = ActiveBonus.instance()
+        bonus.bonus_name = name
+        bonus.text = "example example"
+        bonus.time = 600
+        bonus.connect("deactivated", self, "_on_Bonus_deactivated", [bonus])
+        add_child(bonus)
+        active_bonuses.append(name)
+        emit_signal("bonus_active", bonus)
 
 func _on_Bonus_deactivated(bonus):
-	active_bonuses.erase(bonus.bonus_name)
+    active_bonuses.erase(bonus.bonus_name)
