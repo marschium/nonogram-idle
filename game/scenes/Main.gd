@@ -46,10 +46,10 @@ func toggle_autoclicker(enabled):
 	if enabled:
 		autoclicker.start()
 	# autoclicker_button.visible = autoclicker.running
-	if autoclicker.running:
-		$CanvasLayer/GameControl.autoclicker_running()
-	else:
-		$CanvasLayer/GameControl.autoclicker_stopped()
+	#if autoclicker.running:
+	#	$CanvasLayer/GameControl.autoclicker_running()
+	#else:
+	#	$CanvasLayer/GameControl.autoclicker_stopped()
 		
 
 # Called when the node enters the scene tree for the first time.
@@ -67,14 +67,7 @@ func _ready():
 	$Gameboard.pop_anchor = $CanvasLayer/ScoreControl.rect_global_position + ($CanvasLayer/ScoreControl.rect_size / 2)
 
 func _on_Autoclicker_click(x, y, color):
-	# TODO this is a nightmare
-#	if $Gameboard.get_dot(x, y).changed:
-#		var t = $Gameboard.next_unchanged()
-#		autoclicker.set_pos(t.x, t.y)
-#		var v = autoclicker.get_current()
-#		$Gameboard.change_dot(t.x, t.y, v)    
-#	else:
-		$Gameboard.change_dot(x, y, color)    
+	$Gameboard.change_dot(x, y, color)    
 
 func _on_Autoclicker_click_any(color):
 	$Gameboard.next_unchanged().change(current_color)
@@ -92,7 +85,7 @@ func _on_Gameboard_tile_right_clicked(tile):
 func _on_Pattern_matched(bonus, pattern):
 	# TODO should this be done in the _process?
 	var was_autoclicked = autoclicker.running
-	autoclicker.stop()
+	autoclicker.pause()
 	
 	# TODO pattern checking can be quicker
 	for p in $Patterns.get_children():
@@ -108,9 +101,10 @@ func _on_Pattern_matched(bonus, pattern):
 	$Gameboard.reset()
 	TagCombo.tick()
 	
-	if was_autoclicked:
+	if was_autoclicked:	
 		autoclicker.next_clicker()
-		autoclicker.start(0, 0)
+	if autoclicker.running:
+		autoclicker.resume()
 
 func _on_Pattern_unlocked(pattern):
 	if not loaded:
@@ -153,9 +147,6 @@ func _on_Combo_complete(words, num):
 	# TODO look up the multipler
 	Score.add(256 * num) # TODO score per keyword?
 
-func _on_Autoclicker_pattern_changed(pattern):
-	game_control.autoclicker_current_pattern(pattern)
-
 func _on_AutosaveTimer_timeout():
 	print_debug("Saving")
 	savegame(save_file)
@@ -183,4 +174,3 @@ func _on_GameControl_pattern_toggled(enabled, pattern):
 		autoclicker.remove_pattern(pattern)
 		if not autoclicker.running:
 			toggle_autoclicker(false)
-

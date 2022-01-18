@@ -2,7 +2,11 @@ extends Node2D
 
 signal click_any(color)
 signal click(x, y, color)
+signal pattern_added(pattern)
 signal pattern_changed(pattern)
+signal pattern_removed(pattern)
+signal cycle_finished()
+signal stopped()
 
 export var running = false
 
@@ -11,6 +15,7 @@ var PatternAutoClicker = preload("res://scenes/PatternAutoClicker.tscn")
 var single = false
 var current_clicker_idx = 0
 var speed = 1
+var pause_clicker_pos = Vector2(0, 0)
 
 func _ready():
 	$PatternAutoClicker.stop()
@@ -26,6 +31,9 @@ func next_clicker():
 	current_clicker_idx += 1
 	if current_clicker_idx >= $PatternClickers.get_child_count():
 		current_clicker_idx = 0
+		emit_signal("cycle_finished")
+		stop()
+		# clear() make configurable
 	if $PatternClickers.get_child_count() > 0:
 		emit_signal("pattern_changed", current_clicker().pattern)
 	current_clicker().set_speed(speed)
@@ -39,6 +47,16 @@ func start(x, y):
 	running = true
 	current_clicker().start(x, y)
 	emit_signal("pattern_changed", current_clicker().pattern)
+	
+func resume():
+	if current_clicker() == null:
+		return
+	current_clicker().resume()
+	
+func pause():
+	if current_clicker() == null:
+		return
+	current_clicker().pause()
 	
 func stop():
 	if not running:
@@ -62,15 +80,10 @@ func set_speed(speed):
 
 func clear():
 	for c in $PatternClickers.get_children():
+		emit_signal("pattern_removed", c.pattern)
 		c.queue_free()
-
-#func set_single():
-#	# TODO color as param
-#	if not single:
-#		$PatternAutoClicker.stop()
-#	if running:
-#		$SingleAutoClicker.start()
-#	single = true
+	current_clicker_idx = 0
+	stop()
 	
 func add_pattern(pattern):
 	var p = PatternAutoClicker.instance()
@@ -81,8 +94,10 @@ func add_pattern(pattern):
 	p.connect("click", self, "_on_PatternAutoClicker_click")
 	p.set_speed(speed)
 	$PatternClickers.add_child(p)
+	emit_signal("pattern_added", pattern)
 	
 func remove_pattern(pattern):
+	# TODO emit signals and link to the ui?
 	for c in $PatternClickers.get_children():
 		if c.pattern == pattern:
 			$PatternClickers.remove_child(c)
@@ -93,17 +108,6 @@ func remove_pattern(pattern):
 	if $PatternClickers.get_child_count() == 0:
 		current_clicker_idx = 0
 		stop()
-
-#func set_pattern(x, y, pattern):
-#	if single:
-#		$SingleAutoClicker.stop()
-#
-#	$PatternAutoClicker.file = pattern.file
-#	$PatternAutoClicker.setup()
-#
-#	if running:
-#		$PatternAutoClicker.start(x, y)
-#	single = false
 
 func _on_PatternAutoClicker_click(x, y, color):
 	emit_signal("click", x, y, color)

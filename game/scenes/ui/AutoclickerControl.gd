@@ -8,16 +8,21 @@ var ActivePatternControl = preload("res://scenes/ui/ActivePatternControl.tscn")
 
 onready var active_pattern_container = $VBoxContainer/ActivePatternVBoxContainer
 
+export var AutoclickerNode : NodePath = ""
+var autoclicker = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	autoclicker = get_node(AutoclickerNode)
+	autoclicker.connect("pattern_added", self, "_on_Autoclicker_pattern_added")
+	autoclicker.connect("pattern_changed", self, "_on_Autoclicker_pattern_changed")
+	autoclicker.connect("pattern_removed", self, "_on_Autoclicker_pattern_removed")
 
 	
 func autoclicker_stopped():
 	$VBoxContainer/HBoxContainer/PauseButton.pressed = true
 
-func add_pattern(pattern):
+func _on_Autoclicker_pattern_added(pattern):
 	for c in active_pattern_container.get_children():
 		if c.pattern == pattern:
 			return
@@ -26,9 +31,13 @@ func add_pattern(pattern):
 	b.pattern = pattern
 	b.connect("removed", self, "_on_ActivePatternControl_removed", [pattern])
 	active_pattern_container.add_child(b)
+	
+func _on_Autoclicker_pattern_removed(pattern):
+	for c in active_pattern_container.get_children():
+		if c.pattern == pattern:
+			c.queue_free()
 
-
-func autoclicker_current_pattern(pattern):
+func _on_Autoclicker_pattern_changed(pattern):
 	for c in active_pattern_container.get_children():
 		if c.pattern == pattern:
 			c.mark_active()

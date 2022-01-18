@@ -137,6 +137,7 @@ __meta__ = {
 visible = false
 margin_right = 201.0
 margin_bottom = 100.0
+AutoclickerNode = NodePath("../../../../Autoclicker")
 
 [node name="GuideControl" parent="CanvasLayer/GameControl/VBoxContainer" instance=ExtResource( 16 )]
 visible = false
@@ -296,7 +297,6 @@ wait_time = 10.0
 [connection signal="tile_right_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_right_clicked"]
 [connection signal="click" from="Autoclicker" to="." method="_on_Autoclicker_click"]
 [connection signal="click_any" from="Autoclicker" to="." method="_on_Autoclicker_click_any"]
-[connection signal="pattern_changed" from="Autoclicker" to="." method="_on_Autoclicker_pattern_changed"]
 [connection signal="autoclicker_upgrade" from="CanvasLayer/UpgradeControl" to="." method="_on_UpgradeControl_autoclicker_upgrade"]
 [connection signal="autoclick_toggled" from="CanvasLayer/GameControl" to="." method="_on_GameControl_autoclick_toggled"]
 [connection signal="guide_toggled" from="CanvasLayer/GameControl" to="." method="_on_GameControl_guide_toggled"]

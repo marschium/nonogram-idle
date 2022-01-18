@@ -1,6 +1,7 @@
 extends Node2D
 
 signal click(x, y, color)
+signal cycle_finished()
 
 export var color = Color(0, 0, 1)
 
@@ -53,6 +54,12 @@ func setup():
 func start(x, y):
 	click_idx = y + (x * 16) # traverse y axis first
 	$Timer.start()
+	
+func resume():
+	$Timer.start()
+	
+func pause():
+	$Timer.stop()
 
 func stop():
 	$Timer.stop()
