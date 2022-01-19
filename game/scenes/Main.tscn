@@ -290,6 +290,7 @@ __meta__ = {
 
 [node name="AutosaveTimer" type="Timer" parent="."]
 wait_time = 10.0
+
 [connection signal="autoclicker_active" from="Upgrades" to="." method="_on_Upgrades_autoclicker_active"]
 [connection signal="expand_board_upgrade_active" from="Upgrades" to="." method="_on_Upgrades_expand_board_upgrade_active"]
 [connection signal="patterns_active" from="Upgrades" to="." method="_on_Upgrades_patterns_active"]
@@ -297,11 +298,13 @@ wait_time = 10.0
 [connection signal="tile_right_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_right_clicked"]
 [connection signal="click" from="Autoclicker" to="." method="_on_Autoclicker_click"]
 [connection signal="click_any" from="Autoclicker" to="." method="_on_Autoclicker_click_any"]
+[connection signal="cycle_finished" from="Autoclicker" to="." method="_on_Autoclicker_cycle_finished"]
 [connection signal="autoclicker_upgrade" from="CanvasLayer/UpgradeControl" to="." method="_on_UpgradeControl_autoclicker_upgrade"]
 [connection signal="autoclick_toggled" from="CanvasLayer/GameControl" to="." method="_on_GameControl_autoclick_toggled"]
 [connection signal="guide_toggled" from="CanvasLayer/GameControl" to="." method="_on_GameControl_guide_toggled"]
-[connection signal="pattern_toggled" from="CanvasLayer/GameControl" to="." method="_on_GameControl_pattern_toggled"]
-[connection signal="pattern_removed" from="CanvasLayer/GameControl/VBoxContainer/AutoclickerControl" to="CanvasLayer/GameControl" method="_on_AutoclickerControl_pattern_removed"]
+[connection signal="pattern_clicker_toggled" from="CanvasLayer/GameControl" to="." method="_on_GameControl_pattern_clicker_toggled"]
+[connection signal="pattern_selected" from="CanvasLayer/GameControl" to="." method="_on_GameControl_pattern_selected"]
+[connection signal="pattern_clicker_removed" from="CanvasLayer/GameControl/VBoxContainer/AutoclickerControl" to="CanvasLayer/GameControl" method="_on_AutoclickerControl_pattern_clicker_removed"]
 [connection signal="play" from="CanvasLayer/GameControl/VBoxContainer/AutoclickerControl" to="CanvasLayer/GameControl" method="_on_AutoclickerControl_play"]
 [connection signal="stop" from="CanvasLayer/GameControl/VBoxContainer/AutoclickerControl" to="CanvasLayer/GameControl" method="_on_AutoclickerControl_stop"]
 [connection signal="cleared" from="CanvasLayer/GameControl/VBoxContainer/GuideControl" to="CanvasLayer/GameControl" method="_on_GuideControl_cleared"]

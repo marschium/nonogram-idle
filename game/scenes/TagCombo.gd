@@ -45,3 +45,9 @@ func tick():
 	tracked.clear()
 	print_debug(old_tracked)
 	emit_signal("tick_update", old_tracked)
+	
+func reset():
+	tick()
+	tracked.clear()
+	patterns_seen.clear()
+	old_tracked.clear()

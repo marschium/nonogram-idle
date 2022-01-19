@@ -2,11 +2,11 @@ extends Control
 
 signal removed()
 
-var pattern = null
+var clicker = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$HBoxContainer/Label.text = pattern.pattern_name
+	$HBoxContainer/Label.text = clicker.pattern.pattern_name
 	mark_inactive()
 
 func _on_Button_pressed():
