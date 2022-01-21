@@ -26,6 +26,7 @@ func savegame(filepath):
 	d["score"] = Score.val
 	$Upgrades.savegame(d)
 	$Patterns.savegame(d)
+	PatternCombo.savegame(d)
 	
 	var file = File.new()
 	file.open(filepath, File.WRITE)
@@ -37,7 +38,8 @@ func loadgame(filepath):
 	var d = read_json_file(filepath)
 	if d == null:
 		return
-	Score.add(d.get("score", 0)) # TODO might need to avoid generating signals
+	Score.add(d.get("score", 0))
+	PatternCombo.loadgame(d)
 	$Upgrades.loadgame(d)
 	$Patterns.loadgame(d)
 
