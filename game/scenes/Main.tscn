@@ -290,10 +290,10 @@ __meta__ = {
 
 [node name="AutosaveTimer" type="Timer" parent="."]
 wait_time = 10.0
-
 [connection signal="autoclicker_active" from="Upgrades" to="." method="_on_Upgrades_autoclicker_active"]
 [connection signal="expand_board_upgrade_active" from="Upgrades" to="." method="_on_Upgrades_expand_board_upgrade_active"]
 [connection signal="patterns_active" from="Upgrades" to="." method="_on_Upgrades_patterns_active"]
+[connection signal="complete_late" from="Gameboard" to="." method="_on_Gameboard_complete_late"]
 [connection signal="tile_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_clicked"]
 [connection signal="tile_right_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_right_clicked"]
 [connection signal="click" from="Autoclicker" to="." method="_on_Autoclicker_click"]
