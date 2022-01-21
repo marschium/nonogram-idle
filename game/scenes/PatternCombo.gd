@@ -1,13 +1,17 @@
 extends Node2D
 
-signal unlocked(name)
-signal combo_complete(name)
+signal unlocked(combo)
+signal combo_complete(combo)
 
 class PatternComboDef:
+	var name = ""
+	var desc = ""
 	var unlocked = false
 	var names = []
 	var unmatched = []
-	func _init(names):
+	func _init(name, desc, names):
+		self.name = name
+		self.desc = desc
 		self.names = names
 		self.unmatched = names
 		
@@ -27,7 +31,11 @@ var definitions = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	definitions["winter"] = PatternComboDef.new(["cloud", "snowflake"])
+	definitions["winter"] = PatternComboDef.new(
+		"winter",
+		"2x Multipler For Winter Tags",
+		["cloud", "snowflake"]
+	)
 	
 func loadgame(data):
 	if not data.has("combos"):
@@ -46,10 +54,10 @@ func add(pattern):
 		var d = definitions[n]
 		d.on_pattern(pattern.pattern_name)
 		if d.is_matched():
-			emit_signal("combo_complete", n)
+			emit_signal("combo_complete", d)
 			if not d.unlocked:
 				d.unlocked = true
-				emit_signal("unlocked", n)
+				emit_signal("unlocked", d)
 
 func reset():
 	for n in definitions:

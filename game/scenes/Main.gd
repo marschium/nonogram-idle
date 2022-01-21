@@ -169,8 +169,9 @@ func _on_GameControl_pattern_selected(pattern):
 	autoclicker.add_pattern(pattern)
 
 
-func _on_PatternCombo_unlocked(name):	
+func _on_PatternCombo_unlocked(combo):	
 	if not loaded:
 		return
 	var p = ComboUnlockControl.instance()
+	p.combo = combo
 	$CanvasLayer.add_child(p)

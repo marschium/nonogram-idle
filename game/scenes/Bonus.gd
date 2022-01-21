@@ -18,11 +18,11 @@ func get_bonus(pattern):
 			bonus += pattern.num_tiles * 2
 	return bonus
 
-func _on_PatternCombo_combo_complete(name):
-	if not active_bonuses.has(name):
+func _on_PatternCombo_combo_complete(combo):
+	if not active_bonuses.has(combo.name):
 		var bonus = ActiveBonus.instance()
-		bonus.bonus_name = name
-		bonus.text = "example example"
+		bonus.bonus_name = combo.name
+		bonus.text = combo.desc
 		bonus.time = 600
 		bonus.connect("deactivated", self, "_on_Bonus_deactivated", [bonus])
 		add_child(bonus)
