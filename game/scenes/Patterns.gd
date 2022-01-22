@@ -4,6 +4,7 @@ var pattern_dir = "res://patterns"
 var Pattern = preload("res://scenes/Pattern.tscn")
 
 var matched = []
+var active = false
 
 func savegame(savedata):
     savedata["patterns"] = []
@@ -34,6 +35,9 @@ func _ready():
             add_child(p)
         f = d.get_next()
 
+func activate():
+    for c in get_children():
+        c.activate()
     
 func _on_Pattern_matched(bonus, pattern):
     matched.append(pattern)

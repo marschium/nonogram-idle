@@ -105,7 +105,7 @@ func _process(delta):
 
     if just_clicked and not Input.is_mouse_button_pressed(BUTTON_LEFT):
         just_clicked = false
-    elif just_clicked and not not Input.is_mouse_button_pressed(BUTTON_LEFT):
+    elif just_clicked and not not Input.is_mouse_button_pressed(BUTTON_RIGHT):
         just_clicked = false
 
 func _on_Area2D_mouse_entered():

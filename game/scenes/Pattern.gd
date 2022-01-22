@@ -15,6 +15,7 @@ var colors = Dictionary()
 var tags = []
 var width = 0
 var height = 0
+var active = false
 
 func read_json_file(file_path):
     var file = File.new()
@@ -24,7 +25,7 @@ func read_json_file(file_path):
     return content_as_dictionary
     
 func unlock(no_signal=false):	
-    if not unlocked:
+    if not unlocked and active:
         unlocked = true
         emit_signal("unlocked")
         
@@ -59,6 +60,8 @@ func _ready():
     tiles_unmatched = tiles_to_match.duplicate(true)
 
 func _on_Gameboard_tile_changed(tile):
+    if not active:
+        return
     var v = Vector2(tile.x, tile.y)
     if tiles[v] == tile.current_color:
         tiles_unmatched.erase(v)
@@ -77,3 +80,6 @@ func _on_Gameboard_tile_reset(tile):
 
 func reset():
     tiles_unmatched = tiles_to_match.duplicate(true)
+
+func activate():
+    active = true

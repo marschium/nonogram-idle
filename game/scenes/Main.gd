@@ -127,6 +127,7 @@ func _on_Upgrades_autoclicker_active(speed):
     
 func _on_Upgrades_patterns_active():
     # TODO move to autoclicker control?
+    $Patterns.activate()
     $CanvasLayer/GameControl.enable_pattern_select()
 
 func _on_ColorMenu_color_select(color):
@@ -180,6 +181,7 @@ func _on_PatternCombo_unlocked(combo):
 
 
 func _on_Gameboard_complete_late():
-    # After fullsize, Gameboard is only cleared when pattern is matched
-    if $Gameboard.size < 16:        
+    # After fullsize and patterns, Gameboard is only cleared when pattern is matched
+    if not $Patterns.active:     
+        Score.add($Gameboard.size)   
         $Gameboard.reset()
