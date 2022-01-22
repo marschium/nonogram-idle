@@ -13,7 +13,7 @@ class PatternComboDef:
         self.name = name
         self.desc = desc
         self.names = names
-        self.unmatched = names
+        self.unmatched = names.duplicate(true)
         
     func on_pattern(name):
         unmatched.erase(name)
@@ -22,7 +22,7 @@ class PatternComboDef:
         return unmatched.empty()
         
     func reset():
-        unmatched = names
+        unmatched = names.duplicate(true)
 
 var unmatched = ["cloud", "snowflake"]
 var unlocked = false

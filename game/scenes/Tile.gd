@@ -8,6 +8,7 @@ signal reset()
 var base_color = Color(0.1, 0.1, 0.1, 0.5)
 var previous_color = null
 var current_color = null
+var swap_color = null
 var x :int = 0
 var y :int = 0
 
@@ -17,11 +18,27 @@ var just_clicked = false
 var changed = false
 var mouse_over = false
 var modulate_track_idx = -1
+var shrinking = false
 
 onready var sprite = $Sprite
 onready var sprite_pop = $SpritePop
 
+func swapto(color):
+    swap_color = color
+    shrinking = true
+    $Tween.interpolate_property(
+        self, 
+        "scale", 
+        Vector2(1, 1), 
+        Vector2(0, 0), 
+        0.1, 
+        Tween.TRANS_LINEAR, 
+        Tween.EASE_IN_OUT)
+    $Tween.start()
+
 func reset():
+    if changed:
+        swapto(base_color)
     previous_color = null
     current_color = null
     sprite.modulate = base_color
@@ -33,10 +50,8 @@ func change(color):
         var already_changed = changed
         previous_color = current_color
         current_color = color
-        sprite.modulate = color
         changed = true
-        emit_signal("changed", already_changed)
-        pop()
+        swapto(current_color)
         
 func clear():
     previous_color = current_color
@@ -44,7 +59,7 @@ func clear():
     sprite.modulate = base_color
     emit_signal("reset")
     changed = false
-    pop()
+    #pop()
     
 func click():
     if not just_clicked:
@@ -77,7 +92,6 @@ func pop():
         Tween.TRANS_LINEAR, 
         Tween.EASE_IN_OUT)
     $SpritePop/Tween.start()
-    #$SpritePop/AnimationPlayer.play("TilePop")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -99,3 +113,20 @@ func _on_Area2D_mouse_entered():
 
 func _on_Area2D_mouse_exited():
     mouse_over = false
+
+func _on_Tween_tween_all_completed():
+    if shrinking:
+        sprite.modulate = swap_color
+        swap_color = null
+        shrinking = false
+        $Tween.interpolate_property(
+            self, 
+            "scale", 
+            Vector2(0, 0), 
+            Vector2(1, 1), 
+            0.1, 
+            Tween.TRANS_LINEAR, 
+            Tween.EASE_IN_OUT)
+        $Tween.start()
+    else:
+        emit_signal("changed", changed)

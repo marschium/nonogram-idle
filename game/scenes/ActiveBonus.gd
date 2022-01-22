@@ -7,13 +7,13 @@ var text = ""
 var time = 60
 
 func _ready():
-	$Timer.start(time)
+    $Timer.start(time)
 
 func _on_Timer_timeout():
-	emit_signal("deactivated")
-	
+    emit_signal("deactivated")
+    
 func remaining():
-	return $Timer.time_left
+    return $Timer.time_left
 
 func elapsed():
-	return time - $Timer.time_left
+    return time - $Timer.time_left

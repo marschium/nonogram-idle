@@ -93,12 +93,12 @@ func _on_Tile_right_clicked(tile):
 func _on_Tile_changed(was_changed_before, tile):
     $Guide.tile_changed(tile)
     emit_signal("tile_changed", tile)
-    if not was_changed_before:
-        Score.add(1)
+    #if not was_changed_before:
+    #    Score.add(1)
     check_cleared()
 
 func _on_Tile_reset(tile):
     $Guide.tile_changed(tile)
-    if tile.changed:
-        Score.sub(1)
+    #if tile.changed:
+    #    Score.sub(1)
     emit_signal("tile_reset", tile)

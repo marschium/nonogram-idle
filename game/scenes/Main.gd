@@ -84,6 +84,7 @@ func _on_Pattern_matched(bonus, pattern):
     for p in $Patterns.get_children():
         p.reset()
         
+    Score.add(pattern.num_tiles)
     TagCombo.add(pattern)
     PatternCombo.add(pattern)			
     Score.add(Bonus.get_bonus(pattern))
