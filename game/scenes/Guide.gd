@@ -23,8 +23,8 @@ func _ready():
     pass # Replace with function body.
     
 func reset():
-    columns = []
-    rows = []
+    #columns = []
+    #rows = []
     if not visible:
         return
     for c in get_children():

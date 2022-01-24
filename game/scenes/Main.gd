@@ -116,7 +116,7 @@ func _process(delta):
 
 func _on_Upgrades_expand_board_upgrade_active(size):	
     $Gameboard.reset_board(size)	
-    if size == 16:		
+    if size == 10: # TODO set this when pattern active		
         for p in $Patterns.get_children():
             $Gameboard.connect("tile_changed", p, "_on_Gameboard_tile_changed")
             $Gameboard.connect("tile_reset", p, "_on_Gameboard_tile_reset")
@@ -183,5 +183,5 @@ func _on_PatternCombo_unlocked(combo):
 func _on_Gameboard_complete_late():
     # After fullsize and patterns, Gameboard is only cleared when pattern is matched
     if not $Patterns.active:     
-        Score.add($Gameboard.size)   
+        Score.add($Gameboard.size * $Gameboard.size)   
         $Gameboard.reset()

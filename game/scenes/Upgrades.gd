@@ -113,9 +113,9 @@ func loadgame(savedata):
 func _ready():	
     Score.connect("changed", self, "_on_Score_changed")
     unavilable_expand_upgrades.append(UpgradeInfo.new(4, 8, 2))
-    unavilable_expand_upgrades.append(UpgradeInfo.new(16, 32, 4))
-    unavilable_expand_upgrades.append(UpgradeInfo.new(48, 64, 8))
-    unavilable_expand_upgrades.append(UpgradeInfo.new(96, 126, 16))
+    unavilable_expand_upgrades.append(UpgradeInfo.new(16, 32, 3))
+    unavilable_expand_upgrades.append(UpgradeInfo.new(48, 64, 5))
+    unavilable_expand_upgrades.append(UpgradeInfo.new(96, 126, 10))
     unavilable_autoclick_upgrades.append(UpgradeInfo.new(128, 256, 2))
     unavilable_color_upgrades.append(UpgradeInfo.new(512, 1024, Color("#FF606060")))
     unavilable_color_upgrades.append(UpgradeInfo.new(512, 1024, Color("#FFFF3333")))

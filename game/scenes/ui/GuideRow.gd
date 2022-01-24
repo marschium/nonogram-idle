@@ -3,6 +3,7 @@ extends Node2D
 var PatternColorLabel = preload("res://scenes/ui/PatternColorLabel.tscn")
 var PatternColorErrorLabel = preload("res://scenes/ui/PatternColorErrorLabel.tscn")
 
+var saved_expeceted_counts = {}
 var expected_counts = {}
 var errors = []
 var current_tiles = {}
@@ -66,8 +67,7 @@ func tile_changed(t):
                 too_many = true
 
     error_label.visible = too_many or incorrect_color
-        
-    
 
 func reset():
-    expected_counts = {}
+    if error_label != null:
+        error_label.visible = false
