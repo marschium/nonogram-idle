@@ -148,7 +148,6 @@ margin_bottom = 126.0
 margin_top = 234.0
 margin_right = 201.0
 margin_bottom = 1014.0
-Upgrades = NodePath("../../../../Upgrades")
 
 [node name="ColorMenu" type="Control" parent="CanvasLayer"]
 visible = false
@@ -290,6 +289,7 @@ __meta__ = {
 
 [node name="AutosaveTimer" type="Timer" parent="."]
 wait_time = 10.0
+
 [connection signal="autoclicker_active" from="Upgrades" to="." method="_on_Upgrades_autoclicker_active"]
 [connection signal="expand_board_upgrade_active" from="Upgrades" to="." method="_on_Upgrades_expand_board_upgrade_active"]
 [connection signal="patterns_active" from="Upgrades" to="." method="_on_Upgrades_patterns_active"]

@@ -62,16 +62,16 @@ func add_autoclicker_upgrade(speed, cost):
     $PanelContainer/VBoxContainer.add_child(x)
     x.connect("selected", self, "_on_AutoclickerButton_pressed", [speed])
             
-func add_pattern_upgrade(cost):
+func add_pattern_upgrade(pack_id, cost):
     reveal()
     var x = UpgradeBuyControl.instance()
     x.title = "Enable Patterns"
     x.description = "Matching patterns with dots provides bonuses"
     x.cost = cost
     x.set_meta("upgrade_tag", UpgradeTag.PATTERN)
-    x.set_meta("upgrade_tag_v", null)
+    x.set_meta("upgrade_tag_v", pack_id)
     $PanelContainer/VBoxContainer.add_child(x)
-    x.connect("selected", self, "_on_PatternButton_pressed")
+    x.connect("selected", self, "_on_PatternButton_pressed", [pack_id])
             
 func add_color_upgrade(color, cost):
     reveal()
@@ -90,8 +90,8 @@ func _on_ExpandGridButton_pressed(new_size):
 func _on_AutoclickerButton_pressed(new_speed):
     upgrades.buy_autoclicker_upgrade(new_speed)
     
-func _on_PatternButton_pressed():
-    upgrades.buy_patterns_upgrade()
+func _on_PatternButton_pressed(pack_id):
+    upgrades.buy_patterns_upgrade(pack_id)
 
 func _on_ColorButton_pressed(color):
     upgrades.buy_color_upgrade(color)
@@ -105,5 +105,5 @@ func remove_autoclicker_speed(speed):
 func remove_color(color):
     remove_buy_button(UpgradeTag.COLOR, color)
     
-func remove_patterns_active():
-    remove_buy_button(UpgradeTag.PATTERN, null)
+func remove_patterns_active(pack_id):
+    remove_buy_button(UpgradeTag.PATTERN, pack_id)

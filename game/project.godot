@@ -10,7 +10,6 @@ config_version=4
 
 _global_script_classes=[  ]
 _global_script_class_icons={
-
 }
 
 [application]
@@ -25,6 +24,8 @@ Score="*res://scenes/Score.tscn"
 TagCombo="*res://scenes/TagCombo.tscn"
 PatternCombo="*res://scenes/PatternCombo.tscn"
 Bonus="*res://scenes/Bonus.tscn"
+ColorPacks="*res://scenes/ColorPacks.gd"
+PatternPacks="*res://scenes/PatternPacks.gd"
 
 [display]
 

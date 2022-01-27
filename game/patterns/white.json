@@ -902,10 +902,8 @@
         }
     ],
     "name": "white",
-    "w": 16,
-    "h": 16,
-    "bonus": 64,
-    "tags": [
-        "color"
-    ]
+    "w": 10,
+    "h": 10,
+    "pack_id": 0,
+    "bonus": 64
 }

@@ -25,6 +25,13 @@ func show_tags():
         var l = PatternTagLabel.instance()
         l.text = tag
         $VBoxContainer/CenterContainer.add_child(l)
+        
+func unlock():
+    set_button.visible = pattern.unlocked
+    set_button.disabled = !autoclick_enabled
+    name_label.text = pattern.pattern_name
+    name_label.modulate = Color(0, 1, 0)
+    show_tags()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,25 +40,20 @@ func _ready():
         return
     set_button.disabled = true
     pattern.connect("unlocked", self, "_on_Pattern_unlocked")
+    pattern.connect("activated", self, "_on_Pattern_activated")
     set_button.visible = pattern.unlocked
     if pattern.unlocked:
-        # TODO only enable auto click button if auto clicker upgrade purchased
-        name_label.text = pattern.pattern_name
-        set_button.disabled = !autoclick_enabled
-        show_tags()
-
+        unlock()
 
 func force_toggle_set_button(pressed):
     set_button.pressed = pressed
 
 
 func _on_Pattern_unlocked():
-    set_button.visible = pattern.unlocked
-    set_button.disabled = !autoclick_enabled
-    name_label.text = pattern.pattern_name
-    name_label.modulate = Color(0, 1, 0)
-    show_tags()
-
+    unlock()
+    
+func _on_Pattern_activated():
+    visible = true
 
 func _on_SetButton_pressed():	
     emit_signal("set_selected", pattern)

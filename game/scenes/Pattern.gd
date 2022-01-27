@@ -1,6 +1,7 @@
 extends Node2D
 
 signal matched(bonus)
+signal activated()
 signal unlocked()
 
 var file = ""
@@ -15,6 +16,7 @@ var colors = Dictionary()
 var tags = []
 var width = 0
 var height = 0
+var pack_id = -1
 var active = false
 
 func read_json_file(file_path):
@@ -44,6 +46,7 @@ func _ready():
     bonus = pattern_def["bonus"]
     width = int(pattern_def["w"])
     height = int(pattern_def["h"])
+    pack_id = int(pattern_def.get("pack_id", -1))
     for x in range(width):
         for y in range(height):
             tiles[Vector2(x, y)] = null
@@ -83,3 +86,4 @@ func reset():
 
 func activate():
     active = true
+    emit_signal("activated")

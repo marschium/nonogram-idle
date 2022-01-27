@@ -109,8 +109,8 @@ func _on_Pattern_unlocked(pattern):
     
 func _process(delta):
     if not loaded:        
-        $Upgrades.buy_color_upgrade(Color("#ffffff"))
         loadgame(save_file)
+        $Upgrades.buy_color_upgrade(ColorPacks.COLOR_PACK.WHITE)
         loaded = true
         $AutosaveTimer.start()
 
@@ -125,9 +125,8 @@ func _on_Upgrades_autoclicker_active(speed):
     $Autoclicker.set_speed(speed)
     $CanvasLayer/GameControl.enable_autoclick()
     
-func _on_Upgrades_patterns_active():
-    # TODO move to autoclicker control?
-    $Patterns.activate()
+func _on_Upgrades_patterns_active(pack_id):
+    $Patterns.activate(pack_id)
     $CanvasLayer/GameControl.enable_pattern_select()
 
 func _on_ColorMenu_color_select(color):

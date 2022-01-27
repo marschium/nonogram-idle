@@ -17,7 +17,7 @@ def gen(src, dest):
     for x in range(img.width):
         for y in range(img.height):
             rgb = img.getpixel((x, y))
-            if len(rgb) == 4 and rgb[3] == 0:
+            if isinstance(rgb, int) or (len(rgb) == 4 and rgb[3] == 0):
                 continue
             out["tiles"].append({"c": rgb, "x": x, "y": y})
             colors.add(rgb)
