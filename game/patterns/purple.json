@@ -904,5 +904,6 @@
     "name": "purple",
     "w": 10,
     "h": 10,
-    "bonus": 64
+    "bonus": 64,
+    "pack_id": 0
 }
