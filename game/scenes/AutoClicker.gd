@@ -65,6 +65,7 @@ func pause():
     
 func stop():
     if not running:
+        emit_signal("stopped")
         return
     running = false
     if current_clicker() == null:

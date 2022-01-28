@@ -16,7 +16,7 @@ class Click:
         self.c = c
 
 var file = ""
-var w = 16
+var w = 10
 var clicks = []
 var click_idx = 0
 var pattern = null
@@ -34,8 +34,8 @@ func read_json_file(file_path):
     return content_as_dictionary
     
 func sort_clicks(a, b):
-    var i = a.y + (a.x * 16)
-    var j = b.y + (b.x * 16)
+    var i = a.y + (a.x * 10)
+    var j = b.y + (b.x * 10)
     return i < j
     
 func setup():	
@@ -52,7 +52,7 @@ func setup():
     clicks.sort_custom(self, "sort_clicks")
 
 func start(x, y):
-    click_idx = y + (x * 16) # traverse y axis first
+    click_idx = y + (x * 10) # traverse y axis first
     $Timer.start()
     
 func resume():
@@ -65,7 +65,7 @@ func stop():
     $Timer.stop()
 
 func set_pos(x, y):
-    click_idx = y + (x * 16)
+    click_idx = y + (x * 10)
     
 func set_speed(speed):
     $Timer.wait_time = 1.0 / float(speed)

@@ -6,7 +6,7 @@ signal set_selected(pattern)
 var PatternTagLabel = preload("res://scenes/ui/PatternTagLabel.tscn")
 
 onready var set_button = $VBoxContainer/HBoxContainer/SetButton
-onready var name_label = $VBoxContainer/NameLabel
+onready var name_label = $VBoxContainer/HBoxContainer/NameLabel
 
 var pattern = null
 var autoclick_enabled = false
@@ -41,7 +41,7 @@ func _ready():
     set_button.disabled = true
     pattern.connect("unlocked", self, "_on_Pattern_unlocked")
     pattern.connect("activated", self, "_on_Pattern_activated")
-    set_button.visible = pattern.unlocked
+    # set_button.visible = pattern.unlocked
     if pattern.unlocked:
         unlock()
 

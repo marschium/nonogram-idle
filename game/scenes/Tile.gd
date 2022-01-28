@@ -43,14 +43,12 @@ func reset():
     current_color = null
     sprite.modulate = base_color
     sprite_pop.modulate = Color(1, 1, 1, 0.0)
-    changed = false
     
 func change(color):
     if color != current_color:
         var already_changed = changed
         previous_color = current_color
         current_color = color
-        changed = true
         swapto(current_color)
         
 func clear():
@@ -59,7 +57,6 @@ func clear():
     sprite.modulate = base_color
     emit_signal("reset")
     changed = false
-    #pop()
     
 func click():
     if not just_clicked:
@@ -129,4 +126,5 @@ func _on_Tween_tween_all_completed():
             Tween.EASE_IN_OUT)
         $Tween.start()
     else:
+        changed = current_color != null
         emit_signal("changed", changed)
