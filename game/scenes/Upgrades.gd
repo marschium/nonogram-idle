@@ -8,10 +8,6 @@ signal autoclicker_available(speed, cost)
 signal autoclicker_active(speed)
 signal autoclicker_unavailable(speed)
 
-signal color_available(color, cost)
-signal color_active(color)
-signal color_unavailable(color)
-
 signal patterns_available(pack_id, cost)
 signal patterns_unavailable(pack_id)
 signal patterns_active(pack_id)
@@ -35,11 +31,6 @@ onready var active_expand_upgrades = []
 onready var unavilable_autoclick_upgrades = []
 onready var available_autoclick_upgrades = []
 onready var active_autoclick_upgrades = []
-
-onready var unavilable_color_upgrades = []
-onready var available_color_upgrades = []
-onready var active_color_upgrades = []
-
 onready var unavilable_pattern_upgrades = []
 onready var available_pattern_upgrades = []
 onready var active_pattern_upgrades = []
@@ -77,10 +68,6 @@ func savegame(savedata):
     savedata["upgrades"]["autoclicker_speeds"] = []
     for sp in active_autoclick_upgrades:
         savedata["upgrades"]["autoclicker_speeds"].append(sp)
-        
-    savedata["upgrades"]["colors"] = []
-    for c in active_color_upgrades:
-        savedata["upgrades"]["colors"].append(c)
 
 func loadgame(savedata):
     if not savedata.has("upgrades"):
@@ -104,13 +91,6 @@ func loadgame(savedata):
         active_autoclick_upgrades.append(int(x))
         emit_signal("autoclicker_active", int(x))
         
-    for x in savedata["upgrades"]["colors"]:
-        erase(unavilable_color_upgrades, int(x))
-        erase(available_color_upgrades, int(x))
-        if not active_color_upgrades.has(int(x)):
-            active_color_upgrades.append(int(x))
-            emit_signal("color_active", int(x))
-        
 
 func _ready():	
     Score.connect("changed", self, "_on_Score_changed")
@@ -119,12 +99,7 @@ func _ready():
     unavilable_expand_upgrades.append(UpgradeInfo.new(48, 64, 5))
     unavilable_expand_upgrades.append(UpgradeInfo.new(96, 126, 10))
     unavilable_autoclick_upgrades.append(UpgradeInfo.new(128, 256, 2))
-    unavilable_color_upgrades.append(UpgradeInfo.new(16, 16, ColorPacks.COLOR_PACK.BASIC))
     unavilable_pattern_upgrades.append(UpgradeInfo.new(16, 16, PatternPacks.PATTERN_PACK.STARTER))
-    
-    if not active_color_upgrades.has(ColorPacks.COLOR_PACK.WHITE):
-        available_color_upgrades.append(UpgradeInfo.new(0, 0, ColorPacks.COLOR_PACK.WHITE))
-    
     
 func do_upgrade_list(upgrades):
     var just_unlocked = []
@@ -149,21 +124,14 @@ func _on_Score_changed(old, new):
             available_autoclick_upgrades.append(a)
             emit_signal("autoclicker_available", a.val, a.cost)
         
-    var color_unlocked = do_upgrade_list(unavilable_color_upgrades)	
-    for c in color_unlocked:
-        erase(unavilable_color_upgrades, c.val)
-        available_color_upgrades.append(c)
-        emit_signal("color_available", c.val, c.cost)
-        
-    # patterns can only be unlocked after grid is largest and basic colors
-    if active_color_upgrades.has(ColorPacks.COLOR_PACK.BASIC):
-        var all_expand_bought = unavilable_expand_upgrades.empty() and available_expand_upgrades.empty()
-        if all_expand_bought:
-            var pattern_unlocked = do_upgrade_list(unavilable_pattern_upgrades)	
-            for c in pattern_unlocked:
-                erase(unavilable_pattern_upgrades, c.val)
-                available_pattern_upgrades.append(c)
-                emit_signal("patterns_available", c.val, c.cost)
+    # patterns can only be unlocked after grid is largest
+    var all_expand_bought = unavilable_expand_upgrades.empty() and available_expand_upgrades.empty()
+    if all_expand_bought:
+        var pattern_unlocked = do_upgrade_list(unavilable_pattern_upgrades)	
+        for c in pattern_unlocked:
+            erase(unavilable_pattern_upgrades, c.val)
+            available_pattern_upgrades.append(c)
+            emit_signal("patterns_available", c.val, c.cost)
                 
 
 func buy_expand_upgrade(size):
@@ -216,18 +184,4 @@ func buy_patterns_upgrade(pack_id):
     active_pattern_upgrades.append(info.val)
     emit_signal("patterns_unavailable", info.val)
     emit_signal("patterns_active", info.val)
-    return true
-
-func buy_color_upgrade(color_id):
-    var info = find(available_color_upgrades, color_id)
-    if info == null:
-        return false
-    if Score.val < info.cost:
-        return false
-
-    Score.sub(info.cost)
-    erase(available_color_upgrades, info.val)
-    active_color_upgrades.append(info.val)
-    emit_signal("color_unavailable", info.val)
-    emit_signal("color_active", info.val)
     return true

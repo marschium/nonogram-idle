@@ -41,7 +41,7 @@ func _ready():
 
 func activate(pack_id):
     for c in get_children():
-        if c.pack_id == pack_id:
+        if int(c.pack_id) == int(pack_id):
             c.activate()
     
 func _on_Pattern_matched(bonus, pattern):

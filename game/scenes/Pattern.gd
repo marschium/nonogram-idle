@@ -38,6 +38,9 @@ func has(x, y):
 func tile(x, y):
     var v = Vector2(x, y)
     return tiles[v]
+    
+func palette():
+    return colors.keys()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

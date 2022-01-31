@@ -60,6 +60,7 @@ func _ready():
         p.connect("matched", self, "_on_Pattern_matched", [p])
         p.connect("unlocked", self, "_on_Pattern_unlocked", [p])
     $Gameboard.pop_anchor = $CanvasLayer/ScoreControl.rect_global_position + ($CanvasLayer/ScoreControl.rect_size / 2)
+    $CanvasLayer/ColorMenu.set_palette([Color(1, 1, 1)])
 
 func _on_Autoclicker_click(x, y, color):
     $Gameboard.change_dot(x, y, color)    
@@ -110,7 +111,6 @@ func _on_Pattern_unlocked(pattern):
 func _process(delta):
     if not loaded:        
         loadgame(save_file)
-        $Upgrades.buy_color_upgrade(ColorPacks.COLOR_PACK.WHITE)
         loaded = true
         $AutosaveTimer.start()
 
@@ -153,8 +153,10 @@ func _on_GameControl_autoclick_toggled(enabled):
 
 func _on_GameControl_guide_toggled(enabled, pattern):
     if enabled:
+        $CanvasLayer/ColorMenu.set_palette(pattern.palette())
         $Gameboard.show_guide(pattern)
     else:
+        $CanvasLayer/ColorMenu.set_palette([Color(1, 1, 1)])
         $Gameboard.hide_guide()
         
 

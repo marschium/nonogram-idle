@@ -18,15 +18,12 @@ func _ready():
     upgrades = get_node(upgrades_np)
     upgrades.connect("expand_board_upgrade_available", self, "add_expand_grid_upgrade")
     upgrades.connect("autoclicker_available", self, "add_autoclicker_upgrade")
-    upgrades.connect("color_available", self, "add_color_upgrade")
     upgrades.connect("patterns_available", self, "add_pattern_upgrade")
     upgrades.connect("expand_board_upgrade_unavailable", self, "remove_expand_board")
     upgrades.connect("autoclicker_unavailable", self, "remove_autoclicker_speed")
-    upgrades.connect("color_unavailable", self, "remove_color")
     upgrades.connect("patterns_unavailable", self, "remove_patterns_active")
     upgrades.connect("expand_board_upgrade_active", self, "remove_expand_board")
     upgrades.connect("autoclicker_active", self, "remove_autoclicker_speed")
-    upgrades.connect("color_active", self, "remove_color")
     upgrades.connect("patterns_active", self, "remove_patterns_active")
     
 func reveal():
@@ -72,17 +69,6 @@ func add_pattern_upgrade(pack_id, cost):
     x.set_meta("upgrade_tag_v", pack_id)
     $PanelContainer/VBoxContainer.add_child(x)
     x.connect("selected", self, "_on_PatternButton_pressed", [pack_id])
-            
-func add_color_upgrade(color, cost):
-    reveal()
-    var x = UpgradeBuyControl.instance() # TODO show color
-    x.title = "New dot color"
-    x.description = "Create dots in a new color"
-    x.cost = cost
-    x.set_meta("upgrade_tag", UpgradeTag.COLOR)
-    x.set_meta("upgrade_tag_v", color)
-    $PanelContainer/VBoxContainer.add_child(x)
-    x.connect("selected", self, "_on_ColorButton_pressed", [color])
 
 func _on_ExpandGridButton_pressed(new_size):
     upgrades.buy_expand_upgrade(new_size)
@@ -93,17 +79,11 @@ func _on_AutoclickerButton_pressed(new_speed):
 func _on_PatternButton_pressed(pack_id):
     upgrades.buy_patterns_upgrade(pack_id)
 
-func _on_ColorButton_pressed(color):
-    upgrades.buy_color_upgrade(color)
-
 func remove_expand_board(size):
     remove_buy_button(UpgradeTag.EXPAND, size)
 
 func remove_autoclicker_speed(speed):
     remove_buy_button(UpgradeTag.AUTOCLICK, speed)
-    
-func remove_color(color):
-    remove_buy_button(UpgradeTag.COLOR, color)
     
 func remove_patterns_active(pack_id):
     remove_buy_button(UpgradeTag.PATTERN, pack_id)

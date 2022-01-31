@@ -20,20 +20,37 @@ func reveal():
         visible = true
         revealed = true
         $AnimationPlayer.play("FadeIn")
-
-
-func _on_Upgrades_color_active(color_id):
-    if added.has(int(color_id)):
-        return
-    added.append(int(color_id))
-    var colors = ColorPacks.get_color_pack(color_id)
-    if colors != [Color(1, 1, 1, 1)]:
-        reveal()
+        
+func reset():
+    for c in $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer.get_children():
+        c.queue_free()
+    reveal()
+    
+        
+func set_palette(colors):
+    reset()
     for color in colors:
         var b = ColorPickButton.instance()
         b.modulate = color
         b.connect("pressed", self, "_on_ColorPickButton_pressed", [color])
         $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer.add_child(b)
+    reveal()
+    emit_signal("color_select", colors[0])
+
+
+func _on_Upgrades_color_active(color_id):
+    pass
+#    if added.has(int(color_id)):
+#        return
+#    added.append(int(color_id))
+#    var colors = ColorPacks.get_color_pack(color_id)
+#    if colors != [Color(1, 1, 1, 1)]:
+#        reveal()
+#    for color in colors:
+#        var b = ColorPickButton.instance()
+#        b.modulate = color
+#        b.connect("pressed", self, "_on_ColorPickButton_pressed", [color])
+#        $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer.add_child(b)
 
 func _on_ColorPickButton_pressed(color):
     emit_signal("color_select", color)

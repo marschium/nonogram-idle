@@ -21,6 +21,7 @@ def gen(src, dest):
                 continue
             out["tiles"].append({"c": rgb, "x": x, "y": y})
             colors.add(rgb)
+    out["colors"] = list(colors)
     out["bonus"] = BONUS_BASE * len(colors)
 
     # if file already exists only overrwite the tiles
