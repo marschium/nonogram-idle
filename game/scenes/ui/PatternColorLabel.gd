@@ -3,8 +3,9 @@ extends Node2D
 var color = Color(1, 1, 1)
 var max_count = 0
 var count = 0
+var solid = true
 
-onready var label = $Panel/Label
+onready var label = $Label
 
 func change_label():	
     label.text = str(max_count)
@@ -12,7 +13,12 @@ func change_label():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+    # solid = max_count == 1
     $Panel.modulate = color
+    $SolidTextureRect.modulate = color
+    $GapTextureRect.modulate = color
+    $SolidTextureRect.visible = solid
+    $GapTextureRect.visible = ! solid
     change_label()
     
 func reset():
@@ -21,11 +27,6 @@ func reset():
 
 func show_no_error():
     pass
-    #$AnimationPlayer.stop(true)
 
 func show_error():
     pass
-    #$Panel/Label.set("custom_colors/font_color", Color(1, 0, 0))
-    # TODO flash with color?
-    #$AnimationPlayer.play("FlashText")
-    # $Panel/Label.text = "X"

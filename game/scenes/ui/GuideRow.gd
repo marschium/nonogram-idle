@@ -5,6 +5,7 @@ var PatternColorErrorLabel = preload("res://scenes/ui/PatternColorErrorLabel.tsc
 
 var saved_expeceted_counts = {}
 var expected_counts = {}
+var seperated = {}
 var errors = []
 var current_tiles = {}
 
@@ -19,6 +20,9 @@ func increment_color(color):
     if not expected_counts.has(color):
         expected_counts[color] = 0
     expected_counts[color] += 1
+    
+func mark_seperated_color(color):
+    seperated[color] = true
 
 func show():
     var offset = Vector2(0, 0)
@@ -26,6 +30,7 @@ func show():
         var l = PatternColorLabel.instance()
         l.color = c
         l.max_count = expected_counts[c]
+        l.solid = !seperated.has(c) or expected_counts[c] == 1 or len(expected_counts.keys()) == 1
         if horizontal:
             offset.x -= 34
         else:            

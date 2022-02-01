@@ -46,32 +46,61 @@ func hide_guide():
     
 func sortColors(a, b):
     return hash(a) < hash(b)
+    
+class TrackColors:
+    var seen = []
+    var seperated = []
+    var current = null
+    
+    func next(color):
+        if seen.has(color):
+            seperated.append(color)# revisting a color
+        elif color != current:
+            seen.append(current)
+        current = color
+        
             
 func show_guide(pattern):
     hide_guide()
     self.pattern = pattern
+    
+    var seen_colors = {}
+    var prev_color = null
     for x in range(pattern.width):
         var y_offset = -16
         var current_label = null
         var guide_row = GuideRow.instance()
+        var track_colors = TrackColors.new()
         for y in range(pattern.height):
             var t = pattern.tile(x, y)
             if t != null and current_label == null:
-                guide_row.increment_color(t)
+                guide_row.increment_color(t)                
+            track_colors.next(t)
+            
+        for t in track_colors.seperated:
+            guide_row.mark_seperated_color(t)           
+            
         guide_row.horizontal = false
         guide_row.position = Vector2(x * spacing, y_offset) + offset
         add_child(guide_row)
         columns.append(guide_row)
         guide_row.show()
         
+    
     for y in range(pattern.height):
         var x_offset = -16
         var current_label = null
         var guide_row = GuideRow.instance()
+        var track_colors = TrackColors.new()
         for x in range(pattern.width):
             var t = pattern.tile(x, y)
             if t != null and current_label == null:
-                guide_row.increment_color(t)
+                guide_row.increment_color(t)                 
+            track_colors.next(t)    
+            
+        for t in track_colors.seperated:
+            guide_row.mark_seperated_color(t)       
+             
         guide_row.horizontal = true
         guide_row.position = Vector2(x_offset, y * spacing) + offset
         add_child(guide_row)
