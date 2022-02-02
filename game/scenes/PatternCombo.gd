@@ -3,16 +3,34 @@ extends Node2D
 signal unlocked(combo)
 signal combo_complete(combo)
 
+class MultiplyTag:
+    var val = 1
+    var tag = ""
+    
+    func _init(val, tag):
+        self.val = val
+    
+    func get_pattern_bonus(pattern):
+        if pattern.tags.has(tag):
+            return pattern.num_tiles * self.val
+        return 0
+
 class PatternComboDef:
     var name = ""
     var desc = ""
+    var duration = 0
+    var effect = null
+    
     var unlocked = false
     var names = []
     var unmatched = []
-    func _init(name, desc, names):
+    
+    func _init(name, desc, names, effect, duration=600):
         self.name = name
         self.desc = desc
         self.names = names
+        self.duration = duration
+        self.effect = effect
         self.unmatched = names.duplicate(true)
         
     func on_pattern(name):
@@ -24,17 +42,22 @@ class PatternComboDef:
     func reset():
         unmatched = names.duplicate(true)
 
-var unmatched = ["cloud", "snowflake"]
-var unlocked = false
 var definitions = {}
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
     definitions["winter"] = PatternComboDef.new(
         "winter",
         "2x Multipler For Winter Tags",
-        ["cloud", "snowflake"]
+        ["cloud", "snowflake"],
+        MultiplyTag.new(2, "winter")
+    )
+    definitions["rgb"] = PatternComboDef.new(
+        "RGB",
+        "10% Extra For Colors",
+        ["red"], #, "green", "blue"],
+        MultiplyTag.new(0.1, "color"),
+        300
     )
     
 func loadgame(data):

@@ -16,7 +16,7 @@ __meta__ = {
 margin_left = 12.0
 margin_top = 8.0
 margin_right = 230.0
-margin_bottom = 58.0
+margin_bottom = 62.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -49,10 +49,14 @@ text = "O"
 [node name="SetButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 margin_left = 185.0
 margin_right = 218.324
-margin_bottom = 50.0
+margin_bottom = 50.251
 size_flags_vertical = 0
 theme = ExtResource( 3 )
 text = "S"
 
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+margin_top = 54.0
+margin_right = 218.0
+margin_bottom = 54.0
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/GuideButton" to="." method="_on_GuideButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/SetButton" to="." method="_on_SetButton_pressed"]
