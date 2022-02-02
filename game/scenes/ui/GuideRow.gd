@@ -37,6 +37,7 @@ func show():
             offset.y -= 34
         l.position = offset
         $Control.add_child(l)
+        l.show()
             
     error_label = PatternColorErrorLabel.instance()
     error_label.visible = false
@@ -46,6 +47,11 @@ func show():
         offset.y -= 34    
     error_label.position = offset
     $Control.add_child(error_label)
+    
+func label_for_color(c):
+    for l in $Control.get_children():
+        if "color" in l and l.color == c:
+            return l
         
 func tile_changed(t):
     var id = Vector2(t.x, t.y)
@@ -57,6 +63,8 @@ func tile_changed(t):
     var counts = {}
     var incorrect_color = false
     var too_many = false
+    
+    # check for incorrect colors
     for tid in current_tiles.keys():
         var c = current_tiles[tid]
         if not expected_counts.has(c):
@@ -66,13 +74,21 @@ func tile_changed(t):
             counts[c] = 0
         counts[c] += 1
         
-    if not incorrect_color:
-        for c in counts.keys():
-            if expected_counts.has(c) and counts[c] > expected_counts[c]:
-                too_many = true
+    # check for incorrect counts
+    for c in counts.keys():
+        if expected_counts.has(c) and counts[c] > expected_counts[c]:
+            too_many = true
 
     error_label.visible = too_many or incorrect_color
-
+    
+    # show/hide labels if correct count
+    for c in counts.keys():        
+        var label = label_for_color(c)
+        if label != null:
+            if too_many or incorrect_color or counts[c] != expected_counts[c]:
+                label.show()
+            else:
+                label.hide()
 func reset():
     if error_label != null:
         error_label.visible = false
