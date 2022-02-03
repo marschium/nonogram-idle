@@ -5,10 +5,10 @@
 [ext_resource path="res://resources/kenneyUI.tres" type="Theme" id=3]
 
 [node name="BonusControl" type="Control"]
-margin_left = 7.0
-margin_top = 11.0
-margin_right = 92.0
-margin_bottom = 79.0
+margin_left = -32.0
+margin_top = 8.0
+margin_right = 32.0
+margin_bottom = 74.0
 theme = ExtResource( 3 )
 script = ExtResource( 2 )
 __meta__ = {
@@ -16,9 +16,8 @@ __meta__ = {
 }
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-margin_left = 2.995
 margin_top = -5.08
-margin_right = 61.995
+margin_right = 64.0
 margin_bottom = -2.08
 percent_visible = false
 __meta__ = {

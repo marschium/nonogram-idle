@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/effects/ChromaticEffect.gd" type="Script" id=1]
+
+[sub_resource type="Shader" id=1]
+code = "/*========================================================
+°                    ChromaticAberration.
+°                   ======================
+°
+°   Category: Shaders.
+°   -----------------------------------------------------
+°   Description:
+°        Simple Chromatic Aberration.
+°   -----------------------------------------------------
+°   Copyright:
+°               J. Cuellar 2021. MIT License.
+°                   See: LICENSE File.
+========================================================*/
+shader_type canvas_item;
+
+uniform float _amount: hint_range(0.0, 5.0) = 0.55;
+uniform float _centerFade: hint_range(0.0, 1.0) = 0.154;
+uniform vec2 _aberrationCenter = vec2(0.5, 0.5);
+
+void fragment(){
+	vec2 coords = UV - _aberrationCenter;
+	float amount = _amount * 0.01 * mix(dot(coords, coords), 1.0, _centerFade);
+	
+	vec4 color = texture(SCREEN_TEXTURE, SCREEN_UV);
+	color.r = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x + amount, SCREEN_UV.y)).r;
+	color.b = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x - amount, SCREEN_UV.y)).b;
+	
+	COLOR = color; 
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/_amount = 0.55
+shader_param/_centerFade = 0.154
+shader_param/_aberrationCenter = Vector2( 0.5, 0.5 )
+
+[node name="ChromaticEffect" type="Control"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}

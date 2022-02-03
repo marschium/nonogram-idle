@@ -9,6 +9,7 @@ func _ready():
     bonus.connect("deactivated", self, "_on_Bonus_deactivated")
     $ProgressBar.value = 0
     $ProgressBar.max_value = bonus.time
+    $PanelContainer/TextureRect.texture = load("res://images/bonuses/%s.png" % [bonus.bonus_name.to_lower()])
     
 
 func _process(delta):
