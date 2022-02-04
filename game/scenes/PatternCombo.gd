@@ -50,14 +50,15 @@ func _ready():
         "winter",
         "2x Multipler For Winter Tags",
         ["cloud", "snowflake"],
-        MultiplyTag.new(2, "winter")
+        MultiplyTag.new(2, "winter"),
+        30
     )
     definitions["rgb"] = PatternComboDef.new(
         "RGB",
         "10% Extra For Colors",
         ["red"], #, "green", "blue"],
         MultiplyTag.new(0.1, "color"),
-        300
+        30
     )
     
 func loadgame(data):
