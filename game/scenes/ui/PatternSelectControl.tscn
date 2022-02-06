@@ -1,17 +1,13 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/ui/PatternSelectControl.gd" type="Script" id=1]
 [ext_resource path="res://resources/vector_blackIcons.svg" type="Texture" id=2]
 [ext_resource path="res://resources/kenneyUI.tres" type="Theme" id=3]
-[ext_resource path="res://resources/sheet_black1x.png" type="Texture" id=4]
+[ext_resource path="res://resources/PlusIconTexture.tres" type="Texture" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 53, 36, 36 )
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 4 )
-region = Rect2( 207.597, 257.002, 36, 36 )
 
 [node name="PatternSelectControl" type="PanelContainer"]
 margin_right = 243.0
@@ -68,7 +64,7 @@ rect_min_size = Vector2( 48, 48 )
 size_flags_horizontal = 0
 size_flags_vertical = 4
 theme = ExtResource( 3 )
-icon = SubResource( 2 )
+icon = ExtResource( 4 )
 expand_icon = true
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]

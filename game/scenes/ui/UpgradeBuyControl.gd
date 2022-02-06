@@ -4,19 +4,20 @@ signal selected()
 
 var title = ""
 var description = ""
-var cost = ""
+var cost = 0
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
     $VBoxContainer/TitleLabel.text = title
     $VBoxContainer/DescriptionLabel.text = description
-    $VBoxContainer/Button.text = str(cost)
+    $VBoxContainer/HBoxContainer/CostLabel.text = str(cost)
+    $VBoxContainer/HBoxContainer/Button.disabled = Score.val < cost
+    Score.connect("changed", self, "_on_Score_changed")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _on_Score_changed(old, new):    
+    $VBoxContainer/HBoxContainer/Button.disabled = new < cost
 
 
 func _on_Button_pressed():
