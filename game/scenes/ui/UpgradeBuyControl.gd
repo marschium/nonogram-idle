@@ -11,7 +11,7 @@ var cost = 0
 func _ready():
     $VBoxContainer/TitleLabel.text = title
     $VBoxContainer/DescriptionLabel.text = description
-    $VBoxContainer/HBoxContainer/CostLabel.text = str(cost)
+    $VBoxContainer/HBoxContainer/CostLabel.text = "(%s)" % [str(cost)]
     $VBoxContainer/HBoxContainer/Button.disabled = Score.val < cost
     Score.connect("changed", self, "_on_Score_changed")
 

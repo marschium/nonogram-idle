@@ -159,15 +159,16 @@ margin_bottom = 1014.0
 
 [node name="ColorMenu" type="Control" parent="CanvasLayer"]
 visible = false
-anchor_left = 0.131
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 0.895
+anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 495.66
-margin_top = 1000.0
-margin_right = 495.66
-margin_bottom = 1088.0
-grow_vertical = 0
+margin_left = 910.0
+margin_top = 900.0
+margin_right = 1010.0
+margin_bottom = 1000.0
+grow_horizontal = 2
+rect_min_size = Vector2( 100, 82 )
 script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -184,8 +185,9 @@ __meta__ = {
 }
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/ColorMenu/CenterContainer"]
+margin_left = 37.0
 margin_top = 36.0
-margin_right = 25.0
+margin_right = 62.0
 margin_bottom = 52.0
 theme = ExtResource( 15 )
 __meta__ = {
