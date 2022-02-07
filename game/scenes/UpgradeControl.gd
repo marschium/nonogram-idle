@@ -35,7 +35,7 @@ func reveal():
 func add_expand_grid_upgrade(size, cost):
     reveal()
     var x = UpgradeBuyControl.instance()
-    x.title = "Board size increase"
+    x.title = "More Dots"
     x.description = "Expand board to %d x %d" % [size, size]
     x.cost = cost
     x.set_meta("upgrade_tag", UpgradeTag.EXPAND)
@@ -51,7 +51,7 @@ func remove_buy_button(tag, v):
 func add_autoclicker_upgrade(speed, cost):
     reveal()
     var x = UpgradeBuyControl.instance()
-    x.title = "Autoclicker speed increase"
+    x.title = "Auto Dots"
     x.description = "Increase Autoclicker speed to %s dots per second" % [speed]
     x.cost = cost
     x.set_meta("upgrade_tag", UpgradeTag.AUTOCLICK)
@@ -62,7 +62,7 @@ func add_autoclicker_upgrade(speed, cost):
 func add_pattern_upgrade(pack_id, cost):
     reveal()
     var x = UpgradeBuyControl.instance()
-    x.title = "Enable Patterns"
+    x.title = "Dot Patterns"
     x.description = "Matching patterns with dots provides bonuses"
     x.cost = cost
     x.set_meta("upgrade_tag", UpgradeTag.PATTERN)

@@ -48,7 +48,7 @@ func reset_board(size):
     self.size = size
     var viewportWidth = get_viewport().size.x
     var viewportHeight = get_viewport().size.y
-    var gh = spacing * (size - 1)
+    var gh = spacing * (size - 1) # TODO minus 1 only for odd numbers?
     var gw = spacing * (size - 1)
     offset = Vector2(
         (viewportWidth/2) - (gw/2), 
