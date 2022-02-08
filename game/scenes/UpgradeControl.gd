@@ -32,10 +32,10 @@ func reveal():
         visible = true
         $AnimationPlayer.play("FadeIn")
 
-func add_expand_grid_upgrade(size, cost):
+func add_expand_grid_upgrade(size, cost, title):
     reveal()
     var x = UpgradeBuyControl.instance()
-    x.title = "More Dots"
+    x.title = title
     x.description = "Expand board to %d x %d" % [size, size]
     x.cost = cost
     x.set_meta("upgrade_tag", UpgradeTag.EXPAND)
@@ -48,10 +48,10 @@ func remove_buy_button(tag, v):
         if b.get_meta("upgrade_tag") == tag and b.get_meta("upgrade_tag_v") == v:
             b.queue_free()
             
-func add_autoclicker_upgrade(speed, cost):
+func add_autoclicker_upgrade(speed, cost, title):
     reveal()
     var x = UpgradeBuyControl.instance()
-    x.title = "Auto Dots"
+    x.title = title
     x.description = "Increase Autoclicker speed to %s dots per second" % [speed]
     x.cost = cost
     x.set_meta("upgrade_tag", UpgradeTag.AUTOCLICK)
@@ -59,10 +59,10 @@ func add_autoclicker_upgrade(speed, cost):
     $PanelContainer/VBoxContainer.add_child(x)
     x.connect("selected", self, "_on_AutoclickerButton_pressed", [speed])
             
-func add_pattern_upgrade(pack_id, cost):
+func add_pattern_upgrade(pack_id, cost, title):
     reveal()
     var x = UpgradeBuyControl.instance()
-    x.title = "Dot Patterns"
+    x.title = title
     x.description = "Matching patterns with dots provides bonuses"
     x.cost = cost
     x.set_meta("upgrade_tag", UpgradeTag.PATTERN)

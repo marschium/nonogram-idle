@@ -1,26 +1,35 @@
 extends Node2D
 
-signal expand_board_upgrade_available(size, cost)
+signal upgrade_available(info, cost)
+signal upgrade_active(info)
+signal upgrade_unavailable(info)
+
+signal expand_board_upgrade_available(size, cost, title)
 signal expand_board_upgrade_active(size)
 signal expand_board_upgrade_unavailable()
 
-signal autoclicker_available(speed, cost)
+signal autoclicker_available(speed, cost, title)
 signal autoclicker_active(speed)
 signal autoclicker_unavailable(speed)
 
-signal patterns_available(pack_id, cost)
+signal patterns_available(pack_id, cost, title)
 signal patterns_unavailable(pack_id)
 signal patterns_active(pack_id)
+
+
+enum UpgradeTag {EXPAND, AUTOCLICK, COLOR, PATTERN}
 
 class UpgradeInfo:
     var available_at = 0
     var cost = 0
     var val = null
+    var desc = ""
     
-    func _init(a, c, v):
+    func _init(a, c, v, d):
         available_at = a
         cost = c
         val = v
+        desc = d
 
 
 # TODO these would be in a save file or something
@@ -94,12 +103,12 @@ func loadgame(savedata):
 
 func _ready():	
     Score.connect("changed", self, "_on_Score_changed")
-    unavilable_expand_upgrades.append(UpgradeInfo.new(4, 8, 2))
-    unavilable_expand_upgrades.append(UpgradeInfo.new(16, 32, 3))
-    unavilable_expand_upgrades.append(UpgradeInfo.new(48, 64, 5))
-    unavilable_expand_upgrades.append(UpgradeInfo.new(96, 126, 10))
-    unavilable_autoclick_upgrades.append(UpgradeInfo.new(128, 256, 2))
-    unavilable_pattern_upgrades.append(UpgradeInfo.new(16, 16, PatternPacks.PATTERN_PACK.STARTER))
+    unavilable_expand_upgrades.append(UpgradeInfo.new(4, 8, 2, "More Dots"))
+    unavilable_expand_upgrades.append(UpgradeInfo.new(16, 32, 3, "More Dots"))
+    unavilable_expand_upgrades.append(UpgradeInfo.new(48, 64, 5, "More Dots"))
+    unavilable_expand_upgrades.append(UpgradeInfo.new(96, 126, 10, "More Dots"))
+    unavilable_autoclick_upgrades.append(UpgradeInfo.new(128, 256, 2, "Auto Dots"))
+    unavilable_pattern_upgrades.append(UpgradeInfo.new(16, 16, PatternPacks.PATTERN_PACK.STARTER, "Starter Pack Of Dot Patterns"))
     
 func do_upgrade_list(upgrades):
     var just_unlocked = []
@@ -115,14 +124,14 @@ func _on_Score_changed(old, new):
     for e in expand_unlocked:
         erase(unavilable_expand_upgrades, e.val)
         available_expand_upgrades.append(e)
-        emit_signal("expand_board_upgrade_available", e.val, e.cost)
+        emit_signal("expand_board_upgrade_available", e.val, e.cost, e.desc)
         
     if active_pattern_upgrades.has(PatternPacks.PATTERN_PACK.STARTER):
         var autoclick_unlocked = do_upgrade_list(unavilable_autoclick_upgrades)	
         for a in autoclick_unlocked:
             erase(unavilable_autoclick_upgrades, a.val)
             available_autoclick_upgrades.append(a)
-            emit_signal("autoclicker_available", a.val, a.cost)
+            emit_signal("autoclicker_available", a.val, a.cost, a.desc)
         
     # patterns can only be unlocked after grid is largest
     var all_expand_bought = unavilable_expand_upgrades.empty() and available_expand_upgrades.empty()
@@ -131,7 +140,7 @@ func _on_Score_changed(old, new):
         for c in pattern_unlocked:
             erase(unavilable_pattern_upgrades, c.val)
             available_pattern_upgrades.append(c)
-            emit_signal("patterns_available", c.val, c.cost)
+            emit_signal("patterns_available", c.val, c.cost, c.desc)
                 
 
 func buy_expand_upgrade(size):
