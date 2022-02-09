@@ -13,10 +13,6 @@ func savegame(savedata):
             savedata["patterns"].append(c.pattern_name)
 
 func loadgame(savedata):
-    for x in savedata["upgrades"]["patterns"]:
-        for c in get_children():
-            if c.pack_id == int(x):
-                c.activate()
     for x in savedata.get("patterns", []):
         for c in get_children():
             if c.pattern_name == x:

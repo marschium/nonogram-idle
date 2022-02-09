@@ -65,6 +65,10 @@ func _ready():
     for upgrade in $Upgrades.get_children():
         if upgrade.tag == "expand":
             upgrade.connect("active", self, "_on_Upgrade_expand_board", [upgrade.val])
+        if upgrade.tag == "auto":            
+            upgrade.connect("active", self, "_on_Upgrade_autoclicker_speed", [upgrade.val])
+        if upgrade.tag == "pattern":
+            upgrade.connect("active", self, "_on_Upgrade_pattern", [upgrade.val])
 
 func _on_Autoclicker_click(x, y, color):
     $Gameboard.change_dot(x, y, color)    
@@ -125,11 +129,11 @@ func _on_Upgrade_expand_board(size):
             $Gameboard.connect("tile_changed", p, "_on_Gameboard_tile_changed")
             $Gameboard.connect("tile_reset", p, "_on_Gameboard_tile_reset")
 
-func _on_Upgrades_autoclicker_active(speed):
+func _on_Upgrade_autoclicker_speed(speed):
     $Autoclicker.set_speed(speed)
     $CanvasLayer/GameControl.enable_autoclick()
     
-func _on_Upgrades_patterns_active(pack_id):
+func _on_Upgrade_pattern(pack_id):
     $Patterns.activate(pack_id)
     $CanvasLayer/GameControl.enable_pattern_select()
 

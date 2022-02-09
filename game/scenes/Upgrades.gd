@@ -1,44 +1,6 @@
 extends Node2D
 
-signal expand_board_upgrade_available(size, cost, title)
-signal expand_board_upgrade_active(size)
-signal expand_board_upgrade_unavailable()
-
-signal autoclicker_available(speed, cost, title)
-signal autoclicker_active(speed)
-signal autoclicker_unavailable(speed)
-
-signal patterns_available(pack_id, cost, title)
-signal patterns_unavailable(pack_id)
-signal patterns_active(pack_id)
-
-onready var unavailable = []
-onready var available = []
-onready var active = []
-
-# TODO these would be in a save file or something
-onready var unavilable_expand_upgrades = []
-onready var available_expand_upgrades = []
-onready var active_expand_upgrades = []
-
-onready var unavilable_autoclick_upgrades = []
-onready var available_autoclick_upgrades = []
-onready var active_autoclick_upgrades = []
-onready var unavilable_pattern_upgrades = []
-onready var available_pattern_upgrades = []
-onready var active_pattern_upgrades = []
-
 onready var UpgradeInfo = preload("res://scenes/UpgradeInfo.tscn")
-
-func find(upgrade_list, val):
-    var i = -1
-    for x in len(upgrade_list):
-        if upgrade_list[x].val == val:
-            i = x
-            break
-    if i != -1:
-        return upgrade_list[i]
-    return null
         
 
 func erase(upgrade_list, val):
@@ -51,142 +13,45 @@ func erase(upgrade_list, val):
         upgrade_list.remove(i)
 
 func savegame(savedata):
-    # TODO get from all the children
     savedata["upgrades"] = {}
-#    savedata["upgrades"]["patterns"] = []
-#    for pid in active_pattern_upgrades:
-#        savedata["upgrades"]["patterns"].append(pid)
-#
-#    savedata["upgrades"]["gameboard_sizes"] = []
-#    for sz in active_expand_upgrades:
-#        savedata["upgrades"]["gameboard_sizes"].append(sz)
-#
-#    savedata["upgrades"]["autoclicker_speeds"] = []
-#    for sp in active_autoclick_upgrades:
-#        savedata["upgrades"]["autoclicker_speeds"].append(sp)
+    savedata["upgrades"]["expand"] = []
+    savedata["upgrades"]["pattern"] = []
+    savedata["upgrades"]["auto"] = []
+    for upgrade in get_children():
+        upgrade.savegame(savedata)
 
 func loadgame(savedata):
-    # TODO pass to all the children
     if not savedata.has("upgrades"):
-        return
-    
-#    for x in savedata["upgrades"]["gameboard_sizes"]:
-#        erase(unavilable_expand_upgrades, int(x))
-#        erase(available_expand_upgrades, int(x))
-#        active_expand_upgrades.append(int(x))
-#        emit_signal("expand_board_upgrade_active", int(x))
-#
-#    for x in savedata["upgrades"]["patterns"]:        
-#        erase(unavilable_pattern_upgrades, int(x))
-#        erase(available_pattern_upgrades, int(x))
-#        active_pattern_upgrades.append(int(x))
-#        emit_signal("patterns_active", int(x))
-#
-#    for x in savedata["upgrades"]["autoclicker_speeds"]:
-#        erase(unavilable_autoclick_upgrades, int(x))
-#        erase(available_autoclick_upgrades, int(x))
-#        active_autoclick_upgrades.append(int(x))
-#        emit_signal("autoclicker_active", int(x))
+        return    
+    for upgrade in get_children():
+        upgrade.loadgame(savedata)
      
 func add_upgrade(available_at, cost, val, desc, tag):
     var u = UpgradeInfo.instance()
     u.setup(available_at, cost, val, desc, tag)
     add_child(u)
+    return u
 
 func _ready():	
-    add_upgrade(4, 8, 2, "More Dots", "expand")
-    add_upgrade(16, 32, 3, "More Dots", "expand")
-    add_upgrade(48, 64, 5, "More Dots", "expand")
-    add_upgrade(96, 126, 10, "More Dots", "expand")
+    var a = add_upgrade(4, 8, 2, "More Dots", "expand")
+    var b = add_upgrade(16, 32, 3, "More Dots", "expand")
+    var c = add_upgrade(48, 64, 5, "More Dots", "expand")
+    var largest_board = add_upgrade(96, 126, 10, "More Dots", "expand")  
+    b.set_condition("a_board") 
+    c.set_condition("b_board") 
+    largest_board.set_condition("c_board") 
+    a.connect("active", b, "remove_condition", ["a_board"])
+    b.connect("active", c, "remove_condition", ["b_board"])
+    c.connect("active", largest_board, "remove_condition", ["c_board"])
     
-#    unavilable_expand_upgrades.append(UpgradeInfo.UpgradeInfo.new(4, 8, 2, "More Dots"))
-#    unavilable_expand_upgrades.append(UpgradeInfo.UpgradeInfo.new(16, 32, 3, "More Dots"))
-#    unavilable_expand_upgrades.append(UpgradeInfo.UpgradeInfo.new(48, 64, 5, "More Dots"))
-#    unavilable_expand_upgrades.append(UpgradeInfo.UpgradeInfo.new(96, 126, 10, "More Dots"))
-#    unavilable_autoclick_upgrades.append(UpgradeInfo.UpgradeInfo.new(128, 256, 2, "Auto Dots"))
-#    unavilable_pattern_upgrades.append(UpgradeInfo.UpgradeInfo.new(16, 16, PatternPacks.PATTERN_PACK.STARTER, "Starter Pack Of Dot Patterns"))
-#
-func do_upgrade_list(upgrades):
-    var just_unlocked = []
-    for i in upgrades:
-        if i.available_at <= Score.val:
-            just_unlocked.append(i)
-    return just_unlocked
-
-
-func _on_Score_changed(old, new):
+    var basic_pattern = add_upgrade(16, 16, PatternPacks.PATTERN_PACK.STARTER, "Starter Pack Of Dot Patterns", "pattern")
+    basic_pattern.set_condition("max_board_size")    
+    largest_board.connect("active", basic_pattern, "remove_condition", ["max_board_size"])
     
-    var expand_unlocked = do_upgrade_list(unavilable_expand_upgrades)
-    for e in expand_unlocked:
-        erase(unavilable_expand_upgrades, e.val)
-        available_expand_upgrades.append(e)
-        emit_signal("expand_board_upgrade_available", e.val, e.cost, e.desc)
-        
-    if active_pattern_upgrades.has(PatternPacks.PATTERN_PACK.STARTER):
-        var autoclick_unlocked = do_upgrade_list(unavilable_autoclick_upgrades)	
-        for a in autoclick_unlocked:
-            erase(unavilable_autoclick_upgrades, a.val)
-            available_autoclick_upgrades.append(a)
-            emit_signal("autoclicker_available", a.val, a.cost, a.desc)
-        
-    # patterns can only be unlocked after grid is largest
-    var all_expand_bought = unavilable_expand_upgrades.empty() and available_expand_upgrades.empty()
-    if all_expand_bought:
-        var pattern_unlocked = do_upgrade_list(unavilable_pattern_upgrades)	
-        for c in pattern_unlocked:
-            erase(unavilable_pattern_upgrades, c.val)
-            available_pattern_upgrades.append(c)
-            emit_signal("patterns_available", c.val, c.cost, c.desc)
-                
+    var auto = add_upgrade(128, 256, 2, "Auto Dots", "auto")
+    auto.set_condition("basic_pattern")    
+    basic_pattern.connect("active", auto, "remove_condition", ["basic_pattern"])
 
-func buy_expand_upgrade(size):
-    var info = find(available_expand_upgrades, size)
-    if Score.val < info.cost:
-        return false
-    
-    Score.sub(info.cost)
-
-    # disable anything that is smaller
-    var just_disabled = []
-    for a in available_expand_upgrades:
-        if a.val <= info.val:
-            just_disabled.append(a)
-                
-    for a in just_disabled:
-        active_expand_upgrades.append(a.val)
-        erase(available_expand_upgrades, a.val)
-        emit_signal("expand_board_upgrade_unavailable", a.val)
-    active_expand_upgrades.append(info.val)
-    emit_signal("expand_board_upgrade_active", info.val)
-    return true
-
-func buy_autoclicker_upgrade(speed):
-    var info = find(available_autoclick_upgrades, speed)
-    if Score.val < info.cost:
-        return false
-    
-    Score.sub(info.cost)
-    # disable anything that is slower
-    var just_disabled = []
-    for a in available_autoclick_upgrades:
-        if a.val <= info.val:
-            just_disabled.append(a)
-                
-    for a in just_disabled:
-        erase(available_autoclick_upgrades, a.val)
-        emit_signal("autoclicker_unavailable", a.val)
-    active_autoclick_upgrades.append(info.val)
-    emit_signal("autoclicker_active", info.val)
-    return true
 
 func buy_patterns_upgrade(pack_id):
-    var info = find(available_pattern_upgrades, pack_id)
-    if Score.val < info.cost:
-        return false
-        
-    Score.sub(info.cost)
-    erase(available_pattern_upgrades, info.val)
-    active_pattern_upgrades.append(info.val)
-    emit_signal("patterns_unavailable", info.val)
-    emit_signal("patterns_active", info.val)
-    return true
+    pass
