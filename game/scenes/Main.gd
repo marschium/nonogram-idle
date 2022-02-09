@@ -61,6 +61,10 @@ func _ready():
         p.connect("unlocked", self, "_on_Pattern_unlocked", [p])
     $Gameboard.pop_anchor = $CanvasLayer/ScoreControl.rect_global_position + ($CanvasLayer/ScoreControl.rect_size / 2)
     $CanvasLayer/ColorMenu.set_palette([Color(1, 1, 1)])
+    
+    for upgrade in $Upgrades.get_children():
+        if upgrade.tag == "expand":
+            upgrade.connect("active", self, "_on_Upgrade_expand_board", [upgrade.val])
 
 func _on_Autoclicker_click(x, y, color):
     $Gameboard.change_dot(x, y, color)    
@@ -114,7 +118,7 @@ func _process(delta):
         loaded = true
         $AutosaveTimer.start()
 
-func _on_Upgrades_expand_board_upgrade_active(size):	
+func _on_Upgrade_expand_board(size):	
     $Gameboard.reset_board(size)	
     if size == 10: # TODO set this when pattern active		
         for p in $Patterns.get_children():

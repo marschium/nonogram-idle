@@ -26,6 +26,7 @@ PatternCombo="*res://scenes/PatternCombo.tscn"
 Bonus="*res://scenes/Bonus.tscn"
 ColorPacks="*res://scenes/ColorPacks.gd"
 PatternPacks="*res://scenes/PatternPacks.gd"
+UpgradeInfo="*res://scenes/UpgradeInfo.gd"
 
 [display]
 

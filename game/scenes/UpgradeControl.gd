@@ -1,6 +1,6 @@
 extends Control
 
-enum UpgradeTag {EXPAND, AUTOCLICK, COLOR, PATTERN}
+const UpgradeInfo = preload("res://scenes/UpgradeInfo.gd")
 
 signal expand_grid_upgrade(new_size, cost, control)
 signal autoclicker_upgrade(new_speed, cost, control)
@@ -16,21 +16,38 @@ var revealed = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
     upgrades = get_node(upgrades_np)
-    upgrades.connect("expand_board_upgrade_available", self, "add_expand_grid_upgrade")
-    upgrades.connect("autoclicker_available", self, "add_autoclicker_upgrade")
-    upgrades.connect("patterns_available", self, "add_pattern_upgrade")
-    upgrades.connect("expand_board_upgrade_unavailable", self, "remove_expand_board")
-    upgrades.connect("autoclicker_unavailable", self, "remove_autoclicker_speed")
-    upgrades.connect("patterns_unavailable", self, "remove_patterns_active")
-    upgrades.connect("expand_board_upgrade_active", self, "remove_expand_board")
-    upgrades.connect("autoclicker_active", self, "remove_autoclicker_speed")
-    upgrades.connect("patterns_active", self, "remove_patterns_active")
+    for upgrade in upgrades.get_children():
+        upgrade.connect("available", self, "_on_UpgradeInfo_available", [upgrade])
+        upgrade.connect("active", self, "_on_UpgradeInfo_active", [upgrade])
+#    upgrades.connect("expand_board_upgrade_available", self, "add_expand_grid_upgrade")
+#    upgrades.connect("autoclicker_available", self, "add_autoclicker_upgrade")
+#    upgrades.connect("patterns_available", self, "add_pattern_upgrade")
+#    upgrades.connect("expand_board_upgrade_unavailable", self, "remove_expand_board")
+#    upgrades.connect("autoclicker_unavailable", self, "remove_autoclicker_speed")
+#    upgrades.connect("patterns_unavailable", self, "remove_patterns_active")
+#    upgrades.connect("expand_board_upgrade_active", self, "remove_expand_board")
+#    upgrades.connect("autoclicker_active", self, "remove_autoclicker_speed")
+#    upgrades.connect("patterns_active", self, "remove_patterns_active")
     
 func reveal():
     if not revealed:
         revealed = true
         visible = true
         $AnimationPlayer.play("FadeIn")
+        
+func _on_UpgradeInfo_available(upgrade):
+    reveal()
+    var x = UpgradeBuyControl.instance()
+    x.title = upgrade.desc
+    # x.description = "Expand board to %d x %d" % [size, size]
+    x.cost = upgrade.cost
+    x.set_meta("upgrade_tag", upgrade.tag)
+    x.set_meta("upgrade_tag_v", upgrade.val)
+    $PanelContainer/VBoxContainer.add_child(x)
+    x.connect("selected", upgrade, "buy")
+    
+func _on_UpgradeInfo_active(upgrade):    
+    remove_buy_button(upgrade.tag, upgrade.val)
 
 func add_expand_grid_upgrade(size, cost, title):
     reveal()
@@ -38,7 +55,7 @@ func add_expand_grid_upgrade(size, cost, title):
     x.title = title
     x.description = "Expand board to %d x %d" % [size, size]
     x.cost = cost
-    x.set_meta("upgrade_tag", UpgradeTag.EXPAND)
+    x.set_meta("upgrade_tag", UpgradeInfo.UpgradeTag.EXPAND)
     x.set_meta("upgrade_tag_v", size)
     $PanelContainer/VBoxContainer.add_child(x)
     x.connect("selected", self, "_on_ExpandGridButton_pressed", [size])
@@ -54,7 +71,7 @@ func add_autoclicker_upgrade(speed, cost, title):
     x.title = title
     x.description = "Increase Autoclicker speed to %s dots per second" % [speed]
     x.cost = cost
-    x.set_meta("upgrade_tag", UpgradeTag.AUTOCLICK)
+    x.set_meta("upgrade_tag", UpgradeInfo.UpgradeTag.AUTOCLICK)
     x.set_meta("upgrade_tag_v", speed)
     $PanelContainer/VBoxContainer.add_child(x)
     x.connect("selected", self, "_on_AutoclickerButton_pressed", [speed])
@@ -65,7 +82,7 @@ func add_pattern_upgrade(pack_id, cost, title):
     x.title = title
     x.description = "Matching patterns with dots provides bonuses"
     x.cost = cost
-    x.set_meta("upgrade_tag", UpgradeTag.PATTERN)
+    x.set_meta("upgrade_tag", UpgradeInfo.UpgradeTag.PATTERN)
     x.set_meta("upgrade_tag_v", pack_id)
     $PanelContainer/VBoxContainer.add_child(x)
     x.connect("selected", self, "_on_PatternButton_pressed", [pack_id])
@@ -80,10 +97,10 @@ func _on_PatternButton_pressed(pack_id):
     upgrades.buy_patterns_upgrade(pack_id)
 
 func remove_expand_board(size):
-    remove_buy_button(UpgradeTag.EXPAND, size)
+    remove_buy_button(UpgradeInfo.UpgradeTag.EXPAND, size)
 
 func remove_autoclicker_speed(speed):
-    remove_buy_button(UpgradeTag.AUTOCLICK, speed)
+    remove_buy_button(UpgradeInfo.UpgradeTag.AUTOCLICK, speed)
     
 func remove_patterns_active(pack_id):
-    remove_buy_button(UpgradeTag.PATTERN, pack_id)
+    remove_buy_button(UpgradeInfo.UpgradeTag.PATTERN, pack_id)
