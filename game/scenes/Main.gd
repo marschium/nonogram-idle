@@ -169,8 +169,9 @@ func _on_GameControl_guide_toggled(enabled, pattern):
         
 
 func _on_Autoclicker_cycle_finished():
-    TagCombo.reset()
-    PatternCombo.reset()
+    pass
+    #TagCombo.reset()
+    #PatternCombo.reset()
 
 
 func _on_GameControl_pattern_clicker_toggled(enabled, clicker):

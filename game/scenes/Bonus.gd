@@ -29,4 +29,7 @@ func _on_PatternCombo_combo_complete(combo):
         emit_signal("bonus_active", bonus)
 
 func _on_Bonus_deactivated(bonus):
-    active_bonuses.erase(bonus.name)
+    var a = active_bonuses.get(bonus.bonus_name)
+    active_bonuses.erase(bonus.bonus_name)
+    a.reset()
+    bonus.queue_free()

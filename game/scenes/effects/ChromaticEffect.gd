@@ -12,4 +12,5 @@ func _on_Bonus_bonus_active(bonus):
     bonus.connect("deactivated", self, "_on_ActiveBonus_deactivated")
 
 func _on_ActiveBonus_deactivated():
+    # TODO disconnect from bonus?
     visible = false

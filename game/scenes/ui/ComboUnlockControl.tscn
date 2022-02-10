@@ -16,6 +16,7 @@ font_data = ExtResource( 1 )
 self_modulate = Color( 0, 0, 0, 0.643137 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_min_size = Vector2( 1920, 1080 )
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -71,5 +72,4 @@ margin_right = 387.0
 margin_bottom = 189.251
 theme = ExtResource( 2 )
 text = "OK"
-
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]

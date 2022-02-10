@@ -1,11 +1,19 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://resources/kenneyUI.tres" type="Theme" id=1]
 [ext_resource path="res://resources/AutoclickerButtonGroup.tres" type="ButtonGroup" id=2]
 [ext_resource path="res://scenes/ui/AutoclickerControl.gd" type="Script" id=3]
+[ext_resource path="res://resources/sheet_black1x.png" type="Texture" id=4]
 
-[sub_resource type="Animation" id=1]
-resource_name = "FadeIn"
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 4 )
+region = Rect2( 211.36, 357.792, 28, 32.552 )
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 4 )
+region = Rect2( 360.771, 358.311, 28, 32.899 )
+
+[sub_resource type="Animation" id=2]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
@@ -31,11 +39,11 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 12.0
 margin_top = 8.0
-margin_right = 166.0
-margin_bottom = 122.0
+margin_right = 160.0
+margin_bottom = 128.0
 
 [node name="Title" type="Label" parent="VBoxContainer"]
-margin_right = 154.0
+margin_right = 148.0
 margin_bottom = 26.0
 custom_colors/font_color = Color( 0.596078, 0.596078, 0.596078, 1 )
 text = "AUTO"
@@ -43,43 +51,43 @@ align = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 30.0
-margin_right = 154.0
-margin_bottom = 80.0
+margin_right = 148.0
+margin_bottom = 86.0
 alignment = 1
 
 [node name="PauseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_right = 81.3241
-margin_bottom = 50.251
+margin_left = 22.0
+margin_right = 71.3241
+margin_bottom = 56.251
 theme = ExtResource( 1 )
 toggle_mode = true
 group = ExtResource( 2 )
-text = "PAUSE"
+icon = SubResource( 3 )
 
 [node name="PlayButton" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_left = 85.0
-margin_right = 154.324
-margin_bottom = 50.251
+margin_left = 75.0
+margin_right = 125.324
+margin_bottom = 56.251
 theme = ExtResource( 1 )
 toggle_mode = true
 group = ExtResource( 2 )
-text = "PLAY"
+icon = SubResource( 1 )
 
 [node name="CountLabel" type="Label" parent="VBoxContainer"]
-margin_top = 84.0
-margin_right = 154.0
-margin_bottom = 110.0
+margin_top = 90.0
+margin_right = 148.0
+margin_bottom = 116.0
 align = 2
 
 [node name="ActivePatternVBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 114.0
-margin_right = 154.0
-margin_bottom = 114.0
+margin_top = 120.0
+margin_right = 148.0
+margin_bottom = 120.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/FadeIn = SubResource( 1 )
-
+anims/FadeIn = SubResource( 2 )
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/PauseButton" to="." method="_on_PauseButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
