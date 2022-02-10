@@ -40,9 +40,11 @@ func savegame(savedata):
 
 func loadgame(savedata):
     if savedata["upgrades"].has(tag):
-        if savedata["upgrades"][tag].has(int(val)): # TODO probably int comparison error here
-            active = true
-            emit_signal("active")            
+        for v in savedata["upgrades"][tag]:
+            # NOTE cast to int because JSON roundtrip is fucked?
+            if int(v) == val: # NOTE has() does not work
+                active = true
+                emit_signal("active")            
 
 func _ready():    
     Score.connect("changed", self, "_on_Score_changed")
