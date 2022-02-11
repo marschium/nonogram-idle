@@ -3,6 +3,7 @@ extends PanelContainer
 signal pattern_clicker_removed(clicker)
 signal play()
 signal stop()
+signal loop_toggled(enabled)
 
 var ActivePatternControl = preload("res://scenes/ui/ActivePatternControl.tscn")
 
@@ -19,6 +20,7 @@ func _ready():
     autoclicker.connect("pattern_clicker_removed", self, "_on_Autoclicker_pattern_clicker_removed")
     autoclicker.connect("started", self, "_on_Autoclicker_started")
     autoclicker.connect("stopped", self, "_on_Autoclicker_stopped")
+    $VBoxContainer/HBoxContainer/LoopButton.pressed = autoclicker.loop
     update_counter()
 
     
@@ -67,3 +69,6 @@ func _on_PauseButton_pressed():
 
 func _on_PlayButton_pressed():
     emit_signal("play")
+
+func _on_LoopButton_toggled(button_pressed):
+    emit_signal("loop_toggled", button_pressed)

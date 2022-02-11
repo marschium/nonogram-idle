@@ -182,6 +182,10 @@ func _on_GameControl_pattern_selected(pattern):
     autoclicker.add_pattern(pattern)
 
 
+func _on_GameControl_autoclick_loop(enabled):
+    autoclicker.loop = enabled
+
+
 func _on_PatternCombo_unlocked(combo):	
     if not loaded:
         return
@@ -195,3 +199,4 @@ func _on_Gameboard_complete_late():
     if not $Patterns.active:     
         Score.add($Gameboard.size * $Gameboard.size)   
         $Gameboard.reset()
+

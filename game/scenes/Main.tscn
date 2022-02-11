@@ -315,6 +315,7 @@ __meta__ = {
 
 [node name="AutosaveTimer" type="Timer" parent="."]
 wait_time = 10.0
+
 [connection signal="complete_late" from="Gameboard" to="." method="_on_Gameboard_complete_late"]
 [connection signal="tile_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_clicked"]
 [connection signal="tile_right_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_right_clicked"]
@@ -322,10 +323,12 @@ wait_time = 10.0
 [connection signal="click_any" from="Autoclicker" to="." method="_on_Autoclicker_click_any"]
 [connection signal="cycle_finished" from="Autoclicker" to="." method="_on_Autoclicker_cycle_finished"]
 [connection signal="autoclicker_upgrade" from="CanvasLayer/UpgradeControl" to="." method="_on_UpgradeControl_autoclicker_upgrade"]
+[connection signal="autoclick_loop" from="CanvasLayer/GameControl" to="." method="_on_GameControl_autoclick_loop"]
 [connection signal="autoclick_toggled" from="CanvasLayer/GameControl" to="." method="_on_GameControl_autoclick_toggled"]
 [connection signal="guide_toggled" from="CanvasLayer/GameControl" to="." method="_on_GameControl_guide_toggled"]
 [connection signal="pattern_clicker_toggled" from="CanvasLayer/GameControl" to="." method="_on_GameControl_pattern_clicker_toggled"]
 [connection signal="pattern_selected" from="CanvasLayer/GameControl" to="." method="_on_GameControl_pattern_selected"]
+[connection signal="loop_toggled" from="CanvasLayer/GameControl/VBoxContainer/AutoclickerControl" to="CanvasLayer/GameControl" method="_on_AutoclickerControl_loop_toggled"]
 [connection signal="pattern_clicker_removed" from="CanvasLayer/GameControl/VBoxContainer/AutoclickerControl" to="CanvasLayer/GameControl" method="_on_AutoclickerControl_pattern_clicker_removed"]
 [connection signal="play" from="CanvasLayer/GameControl/VBoxContainer/AutoclickerControl" to="CanvasLayer/GameControl" method="_on_AutoclickerControl_play"]
 [connection signal="stop" from="CanvasLayer/GameControl/VBoxContainer/AutoclickerControl" to="CanvasLayer/GameControl" method="_on_AutoclickerControl_stop"]

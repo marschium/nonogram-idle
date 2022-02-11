@@ -4,6 +4,7 @@ signal autoclick_toggled(enabled)
 signal pattern_selected(pattern)
 signal pattern_clicker_toggled(enabled, clicker)
 signal guide_toggled(enabled, pattern)
+signal autoclick_loop(enabled)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -49,3 +50,7 @@ func _on_GuideControl_cleared():
 
 func _on_AutoclickerControl_pattern_clicker_removed(clicker):
     emit_signal("pattern_clicker_toggled", false, clicker)
+
+
+func _on_AutoclickerControl_loop_toggled(enabled):
+    emit_signal("autoclick_loop", enabled)

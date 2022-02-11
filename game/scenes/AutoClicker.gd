@@ -18,6 +18,7 @@ var current_clicker_idx = 0
 var speed = 1
 var pause_clicker_pos = Vector2(0, 0)
 var max_clickers = 3
+var loop = false
 
 func _ready():
     $PatternAutoClicker.stop()
@@ -34,7 +35,8 @@ func next_clicker():
     if current_clicker_idx >= $PatternClickers.get_child_count():
         current_clicker_idx = 0
         emit_signal("cycle_finished")
-        stop()
+        if not loop:
+            stop()
         # clear() make configurable
     if $PatternClickers.get_child_count() > 0:
         emit_signal("pattern_clicker_changed", current_clicker())
