@@ -20,7 +20,7 @@ func _ready():
     autoclicker.connect("pattern_clicker_removed", self, "_on_Autoclicker_pattern_clicker_removed")
     autoclicker.connect("started", self, "_on_Autoclicker_started")
     autoclicker.connect("stopped", self, "_on_Autoclicker_stopped")
-    $VBoxContainer/HBoxContainer/LoopButton.pressed = autoclicker.loop
+    # $VBoxContainer/HBoxContainer/LoopButton.pressed = autoclicker.loop
     update_counter()
 
     

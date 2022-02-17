@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/Gameboard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Main.gd" type="Script" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://scenes/Patterns.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/UpgradeControl.gd" type="Script" id=5]
 [ext_resource path="res://scenes/Upgrades.gd" type="Script" id=6]
-[ext_resource path="res://scenes/ColorMenu.gd" type="Script" id=7]
+[ext_resource path="res://scenes/ui/ColorMenu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/ui/PatternsControl.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/ui/GameControl.gd" type="Script" id=9]
 [ext_resource path="res://scenes/ui/ComboTrackerControl.gd" type="Script" id=10]
@@ -15,7 +15,6 @@
 [ext_resource path="res://scenes/ui/ScoreDeltaTrackerControl.gd" type="Script" id=13]
 [ext_resource path="res://assets/bg2.png" type="Texture" id=14]
 [ext_resource path="res://resources/kenneyUI.tres" type="Theme" id=15]
-[ext_resource path="res://scenes/ui/GuideControl.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/ui/AutoclickerControl.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scenes/ui/BonusTrackerControl.gd" type="Script" id=18]
 [ext_resource path="res://scenes/effects/ChromaticEffect.tscn" type="PackedScene" id=19]
@@ -35,22 +34,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "FadeIn"
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 64
 font_data = ExtResource( 11 )
 
@@ -147,78 +131,21 @@ margin_right = 201.0
 margin_bottom = 100.0
 AutoclickerNode = NodePath("../../../../Autoclicker")
 
-[node name="GuideControl" parent="CanvasLayer/GameControl/VBoxContainer" instance=ExtResource( 16 )]
-visible = false
-margin_right = 201.0
-margin_bottom = 126.0
-
 [node name="PatternsControl" parent="CanvasLayer/GameControl/VBoxContainer" instance=ExtResource( 8 )]
 margin_top = 234.0
 margin_right = 201.0
 margin_bottom = 1014.0
 
-[node name="ColorMenu" type="Control" parent="CanvasLayer"]
+[node name="ColorMenu" parent="CanvasLayer" instance=ExtResource( 7 )]
 visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 910.0
-margin_top = 900.0
-margin_right = 1010.0
-margin_bottom = 1000.0
-grow_horizontal = 2
-rect_min_size = Vector2( 100, 82 )
-script = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/ColorMenu"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -88.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/ColorMenu/CenterContainer"]
-margin_left = 37.0
-margin_top = 36.0
-margin_right = 62.0
-margin_bottom = 52.0
-theme = ExtResource( 15 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ColorMenu/CenterContainer/PanelContainer"]
-margin_left = 12.0
-margin_top = 8.0
-margin_right = 72.0
-margin_bottom = 38.0
-grow_horizontal = 0
-grow_vertical = 0
-alignment = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/ColorMenu/CenterContainer/PanelContainer/VBoxContainer"]
-margin_right = 60.0
-margin_bottom = 26.0
-custom_colors/font_color = Color( 0.596078, 0.596078, 0.596078, 1 )
-text = "BRUSH"
-align = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ColorMenu/CenterContainer/PanelContainer/VBoxContainer"]
-margin_top = 30.0
-margin_right = 60.0
-margin_bottom = 30.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/ColorMenu"]
-anims/FadeIn = SubResource( 2 )
+margin_left = 901.366
+margin_top = 868.015
+margin_right = 1001.37
+margin_bottom = 968.015
 
 [node name="ScoreControl" type="Control" parent="CanvasLayer"]
 anchor_left = 0.5
@@ -258,7 +185,7 @@ __meta__ = {
 margin_top = 5.0
 margin_right = 109.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 align = 1
 script = ExtResource( 12 )
 __meta__ = {
@@ -332,8 +259,8 @@ wait_time = 10.0
 [connection signal="pattern_clicker_removed" from="CanvasLayer/GameControl/VBoxContainer/AutoclickerControl" to="CanvasLayer/GameControl" method="_on_AutoclickerControl_pattern_clicker_removed"]
 [connection signal="play" from="CanvasLayer/GameControl/VBoxContainer/AutoclickerControl" to="CanvasLayer/GameControl" method="_on_AutoclickerControl_play"]
 [connection signal="stop" from="CanvasLayer/GameControl/VBoxContainer/AutoclickerControl" to="CanvasLayer/GameControl" method="_on_AutoclickerControl_stop"]
-[connection signal="cleared" from="CanvasLayer/GameControl/VBoxContainer/GuideControl" to="CanvasLayer/GameControl" method="_on_GuideControl_cleared"]
 [connection signal="guide_selected" from="CanvasLayer/GameControl/VBoxContainer/PatternsControl" to="CanvasLayer/GameControl" method="_on_PatternsControl_guide_selected"]
 [connection signal="pattern_selected" from="CanvasLayer/GameControl/VBoxContainer/PatternsControl" to="CanvasLayer/GameControl" method="_on_PatternsControl_pattern_selected"]
+[connection signal="cleared" from="CanvasLayer/ColorMenu" to="." method="_on_ColorMenu_cleared"]
 [connection signal="color_select" from="CanvasLayer/ColorMenu" to="." method="_on_ColorMenu_color_select"]
 [connection signal="timeout" from="AutosaveTimer" to="." method="_on_AutosaveTimer_timeout"]

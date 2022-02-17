@@ -14,12 +14,10 @@ func set_autoclicker(clicker):
     $VBoxContainer/AutoclickerControl.autoclicker = clicker
 
 func enable_autoclick():
-    # TODO reveal panel
     $VBoxContainer/AutoclickerControl.reveal()
     $VBoxContainer/PatternsControl.enable_autoclick()
     
 func enable_pattern_select():
-    $VBoxContainer/GuideControl.reveal()
     $VBoxContainer/PatternsControl.reveal()
     
 func add_pattern(pattern):
@@ -32,7 +30,6 @@ func _on_PatternsControl_pattern_selected(pattern):
 
 
 func _on_PatternsControl_guide_selected(pattern):
-    $VBoxContainer/GuideControl.set_guide(pattern)
     emit_signal("guide_toggled", true, pattern)
     
 

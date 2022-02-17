@@ -60,7 +60,7 @@ func _ready():
         p.connect("matched", self, "_on_Pattern_matched", [p])
         p.connect("unlocked", self, "_on_Pattern_unlocked", [p])
     $Gameboard.pop_anchor = $CanvasLayer/ScoreControl.rect_global_position + ($CanvasLayer/ScoreControl.rect_size / 2)
-    $CanvasLayer/ColorMenu.set_palette([Color(1, 1, 1)])
+    $CanvasLayer/ColorMenu.set_palette(null, [Color(1, 1, 1)])
     
     for upgrade in $Upgrades.get_children():
         if upgrade.tag == "expand":
@@ -161,10 +161,13 @@ func _on_GameControl_autoclick_toggled(enabled):
 
 func _on_GameControl_guide_toggled(enabled, pattern):
     if enabled:
-        $CanvasLayer/ColorMenu.set_palette(pattern.palette())
+        var n = "?????"
+        if pattern.unlocked:
+            n = pattern.pattern_name
+        $CanvasLayer/ColorMenu.set_palette(n, pattern.palette())
         $Gameboard.show_guide(pattern)
     else:
-        $CanvasLayer/ColorMenu.set_palette([Color(1, 1, 1)])
+        $CanvasLayer/ColorMenu.set_palette(null, [Color(1, 1, 1)])
         $Gameboard.hide_guide()
         
 
@@ -200,3 +203,7 @@ func _on_Gameboard_complete_late():
         Score.add($Gameboard.size * $Gameboard.size)   
         $Gameboard.reset()
 
+
+func _on_ColorMenu_cleared():
+    $CanvasLayer/ColorMenu.set_palette(null, [Color(1, 1, 1)])
+    $Gameboard.hide_guide()

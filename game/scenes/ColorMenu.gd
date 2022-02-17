@@ -1,6 +1,7 @@
 extends Control
 
 signal color_select(color)
+signal cleared()
 
 
 var ColorPickButton = preload("res://scenes/ColorPickButton.tscn")
@@ -24,7 +25,13 @@ func reset():
     reveal()
     
         
-func set_palette(colors):
+func set_palette(n, colors):
+    if n == null:
+        $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer2/NameLabel.text = "*default*"
+        $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer2/Button.visible = false
+    else:
+        $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer2/NameLabel.text = n
+        $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer2/Button.visible = true
     reset()
     for color in colors:
         var b = ColorPickButton.instance()
@@ -36,3 +43,7 @@ func set_palette(colors):
 
 func _on_ColorPickButton_pressed(color):
     emit_signal("color_select", color)
+
+
+func _on_Button_pressed():
+    emit_signal("cleared")
