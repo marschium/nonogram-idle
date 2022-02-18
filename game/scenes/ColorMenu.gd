@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 
 signal color_select(color)
 signal cleared()
@@ -8,6 +8,9 @@ var ColorPickButton = preload("res://scenes/ColorPickButton.tscn")
 var added = []
 var revealed = false
 
+onready var colors_container = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer
+onready var name_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer2/NameLabel
+onready var clear_button = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer2/Button
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,24 +23,24 @@ func reveal():
         $AnimationPlayer.play("FadeIn")
         
 func reset():
-    for c in $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer.get_children():
+    for c in colors_container.get_children():
         c.queue_free()
     reveal()
     
         
 func set_palette(n, colors):
     if n == null:
-        $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer2/NameLabel.text = "*default*"
-        $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer2/Button.visible = false
+        name_label.text = "*default*"
+        clear_button.visible = false
     else:
-        $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer2/NameLabel.text = n
-        $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer2/Button.visible = true
+        name_label.text = n
+        clear_button.visible = true
     reset()
     for color in colors:
         var b = ColorPickButton.instance()
         b.modulate = color
         b.connect("pressed", self, "_on_ColorPickButton_pressed", [color])
-        $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer.add_child(b)
+        colors_container.add_child(b)
     reveal()
     emit_signal("color_select", colors[0])
 

@@ -4,6 +4,9 @@ extends Node2D
 var state = null
 var mouse_over_bar = false
 var mouse_offset = Vector2.ZERO
+var maximised = true
+
+onready var title_bar = $MarginContainer/MarginContainer/VBoxContainer/PanelContainer
 
 
 func idle(dt):
@@ -21,9 +24,19 @@ func dragging(dt):
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():    
+func _ready():
     state = funcref(self, "idle")
+    minimise()
+    maximise()
+    
+func maximise():
+    $MarginContainer/MarginContainer/VBoxContainer/CenterContainer.visible = true
+    maximised = true
 
+func minimise():
+    $MarginContainer/MarginContainer/VBoxContainer/CenterContainer.visible = false
+    $MarginContainer.rect_size = title_bar.rect_size + Vector2(0, 8)
+    maximised = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -36,3 +49,9 @@ func _on_Label_mouse_entered():
 
 func _on_Label_mouse_exited():
     mouse_over_bar = false
+
+func _on_Button_pressed():
+    if maximised:
+        minimise()
+    else:
+        maximise()

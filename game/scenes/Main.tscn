@@ -138,14 +138,6 @@ margin_bottom = 1014.0
 
 [node name="ColorMenu" parent="CanvasLayer" instance=ExtResource( 7 )]
 visible = false
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = 901.366
-margin_top = 868.015
-margin_right = 1001.37
-margin_bottom = 968.015
 
 [node name="ScoreControl" type="Control" parent="CanvasLayer"]
 anchor_left = 0.5
@@ -242,6 +234,7 @@ __meta__ = {
 
 [node name="AutosaveTimer" type="Timer" parent="."]
 wait_time = 10.0
+
 [connection signal="complete_late" from="Gameboard" to="." method="_on_Gameboard_complete_late"]
 [connection signal="tile_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_clicked"]
 [connection signal="tile_right_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_right_clicked"]
