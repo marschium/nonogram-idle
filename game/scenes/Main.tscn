@@ -132,9 +132,6 @@ margin_bottom = 100.0
 AutoclickerNode = NodePath("../../../../Autoclicker")
 
 [node name="PatternsControl" parent="CanvasLayer/GameControl/VBoxContainer" instance=ExtResource( 8 )]
-margin_top = 234.0
-margin_right = 201.0
-margin_bottom = 1014.0
 
 [node name="ColorMenu" parent="CanvasLayer" instance=ExtResource( 7 )]
 visible = false

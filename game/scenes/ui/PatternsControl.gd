@@ -1,11 +1,11 @@
-extends Control
+extends Node2D
 
 signal pattern_selected(pattern)
 signal guide_selected(pattern)
 
 var PatternSelectControl = preload("res://scenes/ui/PatternSelectControl.tscn")
 
-onready var pattern_select_vbox = $VBoxContainer/ScrollContainer/PatternSelectVBoxContainer
+onready var pattern_select_vbox = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/ScrollContainer/PatternSelectVBoxContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
