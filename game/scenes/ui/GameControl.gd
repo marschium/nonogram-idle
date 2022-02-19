@@ -10,19 +10,6 @@ signal autoclick_loop(enabled)
 func _ready():
     pass # Replace with function body.
 
-func set_autoclicker(clicker):
-    $VBoxContainer/AutoclickerControl.autoclicker = clicker
-
-func enable_autoclick():
-    $VBoxContainer/AutoclickerControl.reveal()
-    $VBoxContainer/PatternsControl.enable_autoclick()
-    
-func enable_pattern_select():
-    $VBoxContainer/PatternsControl.reveal()
-    
-func add_pattern(pattern):
-    $VBoxContainer/PatternsControl.add_pattern(pattern)
-
 func _on_PatternsControl_pattern_selected(pattern):
     if not pattern.unlocked:
         return	

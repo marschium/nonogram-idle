@@ -56,11 +56,11 @@ func _ready():
     PatternCombo.connect("unlocked", self, "_on_PatternCombo_unlocked")
     toggle_autoclicker(enable_autoclicker) # TODO remove
     for p in $Patterns.get_children():
-        $CanvasLayer/GameControl.add_pattern(p)
+        $PatternsControl.add_pattern(p)
         p.connect("matched", self, "_on_Pattern_matched", [p])
         p.connect("unlocked", self, "_on_Pattern_unlocked", [p])
-    $Gameboard.pop_anchor = $CanvasLayer/ScoreControl.rect_global_position + ($CanvasLayer/ScoreControl.rect_size / 2)
-    $CanvasLayer/ColorMenu.set_palette(null, [Color(1, 1, 1)])
+    #$Gameboard.pop_anchor = $CanvasLayer/ScoreControl.rect_global_position + ($CanvasLayer/ScoreControl.rect_size / 2)
+    $ColorMenu.set_palette(null, [Color(1, 1, 1)])
     
     for upgrade in $Upgrades.get_children():
         if upgrade.tag == "expand":
@@ -114,7 +114,7 @@ func _on_Pattern_unlocked(pattern):
         return
     var p = PatternUnlockControl.instance()
     p.pattern = pattern
-    $CanvasLayer.add_child(p)
+    add_child(p)
     
 func _process(delta):
     if not loaded:        
@@ -131,11 +131,12 @@ func _on_Upgrade_expand_board(size):
 
 func _on_Upgrade_autoclicker_speed(speed):
     $Autoclicker.set_speed(speed)
-    $CanvasLayer/GameControl.enable_autoclick()
+    $AutoclickerControl.reveal()
+    $PatternsControl.enable_autoclick()
     
 func _on_Upgrade_pattern(pack_id):
-    $Patterns.activate(pack_id)
-    $CanvasLayer/GameControl.enable_pattern_select()
+    $Patterns.activate(pack_id)    
+    $PatternsControl.reveal()
 
 func _on_ColorMenu_color_select(color):
     current_color = color
@@ -149,26 +150,6 @@ func _on_Combo_complete(words, num):
 func _on_AutosaveTimer_timeout():
     print_debug("Saving")
     savegame(save_file)
-
-
-func _on_GameControl_autoclick_toggled(enabled):	
-    if enabled and autoclicker.can_run():
-        var d = $Gameboard.next_unchanged()
-        autoclicker.start(d.x, d.y)
-    else:
-        toggle_autoclicker(false)
-
-
-func _on_GameControl_guide_toggled(enabled, pattern):
-    if enabled:
-        var n = "?????"
-        if pattern.unlocked:
-            n = pattern.pattern_name
-        $CanvasLayer/ColorMenu.set_palette(n, pattern.palette())
-        $Gameboard.show_guide(pattern)
-    else:
-        $CanvasLayer/ColorMenu.set_palette(null, [Color(1, 1, 1)])
-        $Gameboard.hide_guide()
         
 
 func _on_Autoclicker_cycle_finished():
@@ -177,16 +158,8 @@ func _on_Autoclicker_cycle_finished():
     #PatternCombo.reset()
 
 
-func _on_GameControl_pattern_clicker_toggled(enabled, clicker):
-    autoclicker.remove_pattern_clicker(clicker)
-
-
-func _on_GameControl_pattern_selected(pattern):	
+func _on_PatternsControl_pattern_selected(pattern):	
     autoclicker.add_pattern(pattern)
-
-
-func _on_GameControl_autoclick_loop(enabled):
-    autoclicker.loop = enabled
 
 
 func _on_PatternCombo_unlocked(combo):	
@@ -194,7 +167,8 @@ func _on_PatternCombo_unlocked(combo):
         return
     var p = ComboUnlockControl.instance()
     p.combo = combo
-    $CanvasLayer.add_child(p)
+    # TODO make this a popup window?
+    add_child(p) # TODO make this a method in the score window?
 
 
 func _on_Gameboard_complete_late():
@@ -205,5 +179,31 @@ func _on_Gameboard_complete_late():
 
 
 func _on_ColorMenu_cleared():
-    $CanvasLayer/ColorMenu.set_palette(null, [Color(1, 1, 1)])
+    $ColorMenu.set_palette(null, [Color(1, 1, 1)])
     $Gameboard.hide_guide()
+
+
+func _on_AutoclickerControl_loop_toggled(enabled):
+    autoclicker.loop = enabled
+
+
+func _on_AutoclickerControl_pattern_clicker_removed(clicker):
+    autoclicker.remove_pattern_clicker(clicker)
+
+
+func _on_AutoclickerControl_play():
+    if autoclicker.can_run():
+        var d = $Gameboard.next_unchanged()
+        autoclicker.start(d.x, d.y)
+        
+
+func _on_AutoclickerControl_stop():
+    toggle_autoclicker(false)
+
+
+func _on_PatternsControl_guide_selected(pattern):
+    var n = "?????"
+    if pattern.unlocked:
+        n = pattern.pattern_name
+    $ColorMenu.set_palette(n, pattern.palette())
+    $Gameboard.show_guide(pattern)

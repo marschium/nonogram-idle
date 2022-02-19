@@ -1,17 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://resources/kenneyUI.tres" type="Theme" id=1]
 [ext_resource path="res://resources/AutoclickerButtonGroup.tres" type="ButtonGroup" id=2]
 [ext_resource path="res://scenes/ui/AutoclickerControl.gd" type="Script" id=3]
 [ext_resource path="res://resources/sheet_black1x.png" type="Texture" id=4]
-
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 4 )
-region = Rect2( 211.36, 357.792, 28, 32.552 )
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 4 )
-region = Rect2( 360.771, 358.311, 28, 32.899 )
+[ext_resource path="res://scenes/ui/DraggableWindow.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Animation" id=3]
 tracks/0/type = "value"
@@ -27,76 +20,82 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="AutoclickerControl" type="PanelContainer"]
-margin_right = 173.0
-margin_bottom = 70.0
-theme = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 4 )
+region = Rect2( 211.36, 357.792, 28, 32.552 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 4 )
+region = Rect2( 360.771, 358.311, 28, 32.899 )
+
+[node name="AutoclickerControl" type="Node2D"]
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 12.0
-margin_top = 8.0
-margin_right = 163.0
-margin_bottom = 128.0
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FadeIn = SubResource( 3 )
 
-[node name="Title" type="Label" parent="VBoxContainer"]
-margin_right = 151.0
-margin_bottom = 26.0
+[node name="DraggableWindow" parent="." instance=ExtResource( 5 )]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer" index="0"]
+margin_left = 164.0
+margin_top = 46.0
+margin_right = 298.0
+margin_bottom = 142.0
+
+[node name="Title" type="Label" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
+margin_right = 134.0
+margin_bottom = 14.0
 custom_colors/font_color = Color( 0.596078, 0.596078, 0.596078, 1 )
 text = "AUTO"
 align = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 30.0
-margin_right = 151.0
-margin_bottom = 86.0
+[node name="HBoxContainer" type="HBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 134.0
+margin_bottom = 74.0
 alignment = 1
 
-[node name="LoopButton" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_right = 45.3241
+[node name="LoopButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+margin_right = 28.0
 margin_bottom = 56.0
 toggle_mode = true
 pressed = true
 text = "RR"
 
-[node name="PauseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_left = 49.0
-margin_right = 98.3241
+[node name="PauseButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+margin_left = 32.0
+margin_right = 81.3241
 margin_bottom = 56.251
 theme = ExtResource( 1 )
 toggle_mode = true
 group = ExtResource( 2 )
 icon = SubResource( 1 )
 
-[node name="PlayButton" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_left = 102.0
-margin_right = 151.324
+[node name="PlayButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+margin_left = 85.0
+margin_right = 134.324
 margin_bottom = 56.251
 theme = ExtResource( 1 )
 toggle_mode = true
 group = ExtResource( 2 )
 icon = SubResource( 2 )
 
-[node name="CountLabel" type="Label" parent="VBoxContainer"]
-margin_top = 90.0
-margin_right = 151.0
-margin_bottom = 116.0
+[node name="CountLabel" type="Label" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
+margin_top = 78.0
+margin_right = 134.0
+margin_bottom = 92.0
 align = 2
 
-[node name="ActivePatternVBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 120.0
-margin_right = 151.0
-margin_bottom = 120.0
+[node name="ActivePatternVBoxContainer" type="VBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
+margin_top = 96.0
+margin_right = 134.0
+margin_bottom = 96.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/FadeIn = SubResource( 3 )
+[connection signal="toggled" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/LoopButton" to="." method="_on_LoopButton_toggled"]
+[connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/PauseButton" to="." method="_on_PauseButton_pressed"]
+[connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
 
-[connection signal="toggled" from="VBoxContainer/HBoxContainer/LoopButton" to="." method="_on_LoopButton_toggled"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/PauseButton" to="." method="_on_PauseButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+[editable path="DraggableWindow"]

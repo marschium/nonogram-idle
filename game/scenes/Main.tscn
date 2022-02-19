@@ -1,42 +1,17 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/Gameboard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Main.gd" type="Script" id=2]
 [ext_resource path="res://scenes/AutoClicker.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/Patterns.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/UpgradeControl.gd" type="Script" id=5]
+[ext_resource path="res://scenes/ui/UpgradeControl.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/Upgrades.gd" type="Script" id=6]
 [ext_resource path="res://scenes/ui/ColorMenu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/ui/PatternsControl.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/ui/GameControl.gd" type="Script" id=9]
-[ext_resource path="res://scenes/ui/ComboTrackerControl.gd" type="Script" id=10]
-[ext_resource path="res://resources/m5x7.ttf" type="DynamicFontData" id=11]
-[ext_resource path="res://scenes/ui/ScoreTrackerControl.gd" type="Script" id=12]
-[ext_resource path="res://scenes/ui/ScoreDeltaTrackerControl.gd" type="Script" id=13]
+[ext_resource path="res://scenes/ui/ScoreControl.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/bg2.png" type="Texture" id=14]
-[ext_resource path="res://resources/kenneyUI.tres" type="Theme" id=15]
 [ext_resource path="res://scenes/ui/AutoclickerControl.tscn" type="PackedScene" id=17]
-[ext_resource path="res://scenes/ui/BonusTrackerControl.gd" type="Script" id=18]
 [ext_resource path="res://scenes/effects/ChromaticEffect.tscn" type="PackedScene" id=19]
-
-[sub_resource type="Animation" id=1]
-resource_name = "FadeIn"
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-
-[sub_resource type="DynamicFont" id=2]
-size = 64
-font_data = ExtResource( 11 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
@@ -54,168 +29,23 @@ script = ExtResource( 6 )
 
 [node name="Patterns" parent="." instance=ExtResource( 4 )]
 
-[node name="CanvasLayer" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="UpgradeControl" type="Control" parent="CanvasLayer"]
+[node name="AutoclickerControl" parent="." instance=ExtResource( 17 )]
 visible = false
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 1920.0
-margin_right = 1920.0
-margin_bottom = 640.0
-mouse_filter = 1
-script = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-upgrades_np = NodePath("../../Upgrades")
+position = Vector2( 17, 16 )
+AutoclickerNode = NodePath("../Autoclicker")
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/UpgradeControl"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -191.0
-margin_top = 16.0
-margin_right = -16.0
-margin_bottom = 390.0
-grow_horizontal = 0
-size_flags_vertical = 3
-theme = ExtResource( 15 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="PatternsControl" parent="." instance=ExtResource( 8 )]
+position = Vector2( 52.6763, 429.844 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UpgradeControl/PanelContainer"]
-margin_left = 12.0
-margin_top = 8.0
-margin_right = 162.0
-margin_bottom = 1006.0
-grow_horizontal = 0
+[node name="UpgradeControl" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1327.16, 425.736 )
+upgrades_np = NodePath("../Upgrades")
 
-[node name="Label" type="Label" parent="CanvasLayer/UpgradeControl/PanelContainer/VBoxContainer"]
-margin_right = 150.0
-margin_bottom = 26.0
-custom_colors/font_color = Color( 0.596078, 0.596078, 0.596078, 1 )
-text = "UPGRADES"
-align = 1
+[node name="ScoreControl" parent="." instance=ExtResource( 9 )]
+position = Vector2( 913.311, 713.525 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/UpgradeControl"]
-anims/FadeIn = SubResource( 1 )
-
-[node name="GameControl" type="Control" parent="CanvasLayer"]
-anchor_bottom = 1.0
-mouse_filter = 1
-script = ExtResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameControl"]
-anchor_left = -0.014881
-margin_left = 17.0
-margin_top = 16.0
-margin_right = 218.0
-margin_bottom = 1030.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="AutoclickerControl" parent="CanvasLayer/GameControl/VBoxContainer" instance=ExtResource( 17 )]
+[node name="ColorMenu" parent="." instance=ExtResource( 7 )]
 visible = false
-margin_right = 201.0
-margin_bottom = 100.0
-AutoclickerNode = NodePath("../../../../Autoclicker")
-
-[node name="PatternsControl" parent="CanvasLayer/GameControl/VBoxContainer" instance=ExtResource( 8 )]
-
-[node name="ColorMenu" parent="CanvasLayer" instance=ExtResource( 7 )]
-visible = false
-
-[node name="ScoreControl" type="Control" parent="CanvasLayer"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = 760.0
-margin_right = 1160.0
-margin_bottom = 89.0
-grow_horizontal = 2
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/ScoreControl"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -100.0
-margin_right = 100.0
-margin_bottom = 89.0
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ScoreControl/CenterContainer"]
-margin_left = 45.0
-margin_top = 10.0
-margin_right = 154.0
-margin_bottom = 79.0
-rect_min_size = Vector2( 109, 69 )
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ScoreTrackerControl" type="Label" parent="CanvasLayer/ScoreControl/CenterContainer/VBoxContainer"]
-margin_top = 5.0
-margin_right = 109.0
-margin_bottom = 56.0
-custom_fonts/font = SubResource( 2 )
-align = 1
-script = ExtResource( 12 )
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="ComboTrackerControl" type="HBoxContainer" parent="CanvasLayer/ScoreControl/CenterContainer/VBoxContainer"]
-margin_top = 60.0
-margin_right = 109.0
-margin_bottom = 60.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-script = ExtResource( 10 )
-
-[node name="BonusTrackerControl" type="HBoxContainer" parent="CanvasLayer/ScoreControl/CenterContainer/VBoxContainer"]
-margin_top = 64.0
-margin_right = 109.0
-margin_bottom = 64.0
-alignment = 1
-script = ExtResource( 18 )
-
-[node name="Control" type="Control" parent="CanvasLayer/ScoreControl/CenterContainer"]
-margin_left = 100.0
-margin_top = 44.0
-margin_right = 100.0
-margin_bottom = 44.0
-
-[node name="ScoreDeltaTrackerControl" type="VBoxContainer" parent="CanvasLayer/ScoreControl/CenterContainer/Control"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = 48.0
-margin_top = -21.5
-margin_right = 84.0
-margin_bottom = 21.5
-script = ExtResource( 13 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="EffectsControl" type="Control" parent="."]
 anchor_right = 1.0
@@ -238,18 +68,12 @@ wait_time = 10.0
 [connection signal="click" from="Autoclicker" to="." method="_on_Autoclicker_click"]
 [connection signal="click_any" from="Autoclicker" to="." method="_on_Autoclicker_click_any"]
 [connection signal="cycle_finished" from="Autoclicker" to="." method="_on_Autoclicker_cycle_finished"]
-[connection signal="autoclicker_upgrade" from="CanvasLayer/UpgradeControl" to="." method="_on_UpgradeControl_autoclicker_upgrade"]
-[connection signal="autoclick_loop" from="CanvasLayer/GameControl" to="." method="_on_GameControl_autoclick_loop"]
-[connection signal="autoclick_toggled" from="CanvasLayer/GameControl" to="." method="_on_GameControl_autoclick_toggled"]
-[connection signal="guide_toggled" from="CanvasLayer/GameControl" to="." method="_on_GameControl_guide_toggled"]
-[connection signal="pattern_clicker_toggled" from="CanvasLayer/GameControl" to="." method="_on_GameControl_pattern_clicker_toggled"]
-[connection signal="pattern_selected" from="CanvasLayer/GameControl" to="." method="_on_GameControl_pattern_selected"]
-[connection signal="loop_toggled" from="CanvasLayer/GameControl/VBoxContainer/AutoclickerControl" to="CanvasLayer/GameControl" method="_on_AutoclickerControl_loop_toggled"]
-[connection signal="pattern_clicker_removed" from="CanvasLayer/GameControl/VBoxContainer/AutoclickerControl" to="CanvasLayer/GameControl" method="_on_AutoclickerControl_pattern_clicker_removed"]
-[connection signal="play" from="CanvasLayer/GameControl/VBoxContainer/AutoclickerControl" to="CanvasLayer/GameControl" method="_on_AutoclickerControl_play"]
-[connection signal="stop" from="CanvasLayer/GameControl/VBoxContainer/AutoclickerControl" to="CanvasLayer/GameControl" method="_on_AutoclickerControl_stop"]
-[connection signal="guide_selected" from="CanvasLayer/GameControl/VBoxContainer/PatternsControl" to="CanvasLayer/GameControl" method="_on_PatternsControl_guide_selected"]
-[connection signal="pattern_selected" from="CanvasLayer/GameControl/VBoxContainer/PatternsControl" to="CanvasLayer/GameControl" method="_on_PatternsControl_pattern_selected"]
-[connection signal="cleared" from="CanvasLayer/ColorMenu" to="." method="_on_ColorMenu_cleared"]
-[connection signal="color_select" from="CanvasLayer/ColorMenu" to="." method="_on_ColorMenu_color_select"]
+[connection signal="loop_toggled" from="AutoclickerControl" to="." method="_on_AutoclickerControl_loop_toggled"]
+[connection signal="pattern_clicker_removed" from="AutoclickerControl" to="." method="_on_AutoclickerControl_pattern_clicker_removed"]
+[connection signal="play" from="AutoclickerControl" to="." method="_on_AutoclickerControl_play"]
+[connection signal="stop" from="AutoclickerControl" to="." method="_on_AutoclickerControl_stop"]
+[connection signal="guide_selected" from="PatternsControl" to="." method="_on_PatternsControl_guide_selected"]
+[connection signal="pattern_selected" from="PatternsControl" to="." method="_on_PatternsControl_pattern_selected"]
+[connection signal="cleared" from="ColorMenu" to="." method="_on_ColorMenu_cleared"]
+[connection signal="color_select" from="ColorMenu" to="." method="_on_ColorMenu_color_select"]
 [connection signal="timeout" from="AutosaveTimer" to="." method="_on_AutosaveTimer_timeout"]

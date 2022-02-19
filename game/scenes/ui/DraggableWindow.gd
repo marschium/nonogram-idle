@@ -5,6 +5,7 @@ var state = null
 var mouse_over_bar = false
 var mouse_offset = Vector2.ZERO
 var maximised = true
+var previous_size = Vector2(0, 0)
 
 onready var title_bar = $MarginContainer/MarginContainer/VBoxContainer/PanelContainer
 
@@ -25,6 +26,7 @@ func dragging(dt):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+    previous_size = $MarginContainer.rect_size
     state = funcref(self, "idle")
     minimise()
     maximise()
@@ -32,10 +34,12 @@ func _ready():
 func maximise():
     $MarginContainer/MarginContainer/VBoxContainer/CenterContainer.visible = true
     maximised = true
+    $MarginContainer.rect_size.x = previous_size.x
 
 func minimise():
+    previous_size = $MarginContainer.rect_size
     $MarginContainer/MarginContainer/VBoxContainer/CenterContainer.visible = false
-    $MarginContainer.rect_size = title_bar.rect_size + Vector2(0, 8)
+    $MarginContainer.rect_size = Vector2($MarginContainer.rect_size.x, title_bar.rect_size.y) + Vector2(0, 8)
     maximised = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

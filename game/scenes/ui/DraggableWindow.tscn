@@ -57,15 +57,10 @@ custom_constants/margin_right = 4
 custom_constants/margin_top = 4
 custom_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
-margin_top = 4.0
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+margin_top = 7.0
 margin_right = 458.0
-margin_bottom = 24.0
-
-[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
-margin_top = 3.0
-margin_right = 435.0
-margin_bottom = 17.0
+margin_bottom = 21.0
 mouse_filter = 0
 size_flags_horizontal = 3
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -76,10 +71,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
-margin_left = 439.0
-margin_right = 458.0
-margin_bottom = 20.0
+[node name="Button" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+margin_left = 10.0
+margin_top = 4.0
+margin_right = 24.0
+margin_bottom = 24.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 text = "^"
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
@@ -90,6 +88,6 @@ mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[connection signal="mouse_entered" from="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Label" to="." method="_on_Label_mouse_entered"]
-[connection signal="mouse_exited" from="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Label" to="." method="_on_Label_mouse_exited"]
-[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/Label" to="." method="_on_Label_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/Label" to="." method="_on_Label_mouse_exited"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/Button" to="." method="_on_Button_pressed"]

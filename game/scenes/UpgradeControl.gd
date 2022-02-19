@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 
 const UpgradeInfo = preload("res://scenes/UpgradeInfo.gd")
 
@@ -13,21 +13,14 @@ export(NodePath) var upgrades_np = null
 var upgrades = upgrades_np
 var revealed = false
 
+onready var container = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
     upgrades = get_node(upgrades_np)
     for upgrade in upgrades.get_children():
         upgrade.connect("available", self, "_on_UpgradeInfo_available", [upgrade])
         upgrade.connect("active", self, "_on_UpgradeInfo_active", [upgrade])
-#    upgrades.connect("expand_board_upgrade_available", self, "add_expand_grid_upgrade")
-#    upgrades.connect("autoclicker_available", self, "add_autoclicker_upgrade")
-#    upgrades.connect("patterns_available", self, "add_pattern_upgrade")
-#    upgrades.connect("expand_board_upgrade_unavailable", self, "remove_expand_board")
-#    upgrades.connect("autoclicker_unavailable", self, "remove_autoclicker_speed")
-#    upgrades.connect("patterns_unavailable", self, "remove_patterns_active")
-#    upgrades.connect("expand_board_upgrade_active", self, "remove_expand_board")
-#    upgrades.connect("autoclicker_active", self, "remove_autoclicker_speed")
-#    upgrades.connect("patterns_active", self, "remove_patterns_active")
     
 func reveal():
     if not revealed:
@@ -43,7 +36,7 @@ func _on_UpgradeInfo_available(upgrade):
     x.cost = upgrade.cost
     x.set_meta("upgrade_tag", upgrade.tag)
     x.set_meta("upgrade_tag_v", upgrade.val)
-    $PanelContainer/VBoxContainer.add_child(x)
+    container.add_child(x)
     x.connect("selected", upgrade, "buy")
     
 func _on_UpgradeInfo_active(upgrade):    
@@ -57,11 +50,11 @@ func add_expand_grid_upgrade(size, cost, title):
     x.cost = cost
     x.set_meta("upgrade_tag", UpgradeInfo.UpgradeTag.EXPAND)
     x.set_meta("upgrade_tag_v", size)
-    $PanelContainer/VBoxContainer.add_child(x)
+    container.add_child(x)
     x.connect("selected", self, "_on_ExpandGridButton_pressed", [size])
     
 func remove_buy_button(tag, v):
-    for b in $PanelContainer/VBoxContainer.get_children():
+    for b in container.get_children():
         if b.get_meta("upgrade_tag") == tag and b.get_meta("upgrade_tag_v") == v:
             b.queue_free()
             
@@ -73,7 +66,7 @@ func add_autoclicker_upgrade(speed, cost, title):
     x.cost = cost
     x.set_meta("upgrade_tag", UpgradeInfo.UpgradeTag.AUTOCLICK)
     x.set_meta("upgrade_tag_v", speed)
-    $PanelContainer/VBoxContainer.add_child(x)
+    container.add_child(x)
     x.connect("selected", self, "_on_AutoclickerButton_pressed", [speed])
             
 func add_pattern_upgrade(pack_id, cost, title):
@@ -84,7 +77,7 @@ func add_pattern_upgrade(pack_id, cost, title):
     x.cost = cost
     x.set_meta("upgrade_tag", UpgradeInfo.UpgradeTag.PATTERN)
     x.set_meta("upgrade_tag_v", pack_id)
-    $PanelContainer/VBoxContainer.add_child(x)
+    container.add_child(x)
     x.connect("selected", self, "_on_PatternButton_pressed", [pack_id])
 
 func _on_ExpandGridButton_pressed(new_size):

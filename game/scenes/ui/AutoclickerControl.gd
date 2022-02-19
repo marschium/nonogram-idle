@@ -1,4 +1,4 @@
-extends PanelContainer
+extends Node2D
 
 signal pattern_clicker_removed(clicker)
 signal play()
@@ -7,7 +7,10 @@ signal loop_toggled(enabled)
 
 var ActivePatternControl = preload("res://scenes/ui/ActivePatternControl.tscn")
 
-onready var active_pattern_container = $VBoxContainer/ActivePatternVBoxContainer
+onready var active_pattern_container = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/ActivePatternVBoxContainer
+onready var pause_button = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/PauseButton
+onready var count_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/CountLabel
+onready var play_button = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/PlayButton
 
 export var AutoclickerNode : NodePath = ""
 var autoclicker = null
@@ -25,10 +28,10 @@ func _ready():
 
     
 func autoclicker_stopped():
-    $VBoxContainer/HBoxContainer/PauseButton.pressed = true
+    pause_button.pressed = true
     
 func update_counter():
-    $VBoxContainer/CountLabel.text = "%s/%s" % [autoclicker.clicker_count(), autoclicker.max_clickers]
+    count_label.text = "%s/%s" % [autoclicker.clicker_count(), autoclicker.max_clickers]
     
 
 func _on_Autoclicker_pattern_clicker_added(clicker):
@@ -56,10 +59,10 @@ func reveal():
     $AnimationPlayer.play("FadeIn")
 
 func _on_Autoclicker_started():
-    $VBoxContainer/HBoxContainer/PlayButton.pressed = true
+    play_button.pressed = true
     
 func _on_Autoclicker_stopped():
-    $VBoxContainer/HBoxContainer/PauseButton.pressed = true
+    pause_button.pressed = true
 
 func _on_ActivePatternControl_removed(pattern):
     emit_signal("pattern_clicker_removed", pattern)
