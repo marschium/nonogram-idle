@@ -17,6 +17,7 @@ onready var container = $DraggableWindow/MarginContainer/MarginContainer/VBoxCon
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+    $DraggableWindow.set_title("Upgrades")
     upgrades = get_node(upgrades_np)
     for upgrade in upgrades.get_children():
         upgrade.connect("available", self, "_on_UpgradeInfo_available", [upgrade])

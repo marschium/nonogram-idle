@@ -1,4 +1,4 @@
-extends PanelContainer
+extends Node2D
 
 
 var combo = null
@@ -6,8 +6,8 @@ var combo = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    $CenterContainer/VBoxContainer/NameLabel.text = combo.name
-    $CenterContainer/VBoxContainer/DescriptionLabel.text = combo.desc
+    $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/MarginContainer/VBoxContainer/NameLabel.text = combo.name
+    $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/MarginContainer/VBoxContainer/DescriptionLabel.text = combo.desc
 
 
 func _on_Button_pressed():

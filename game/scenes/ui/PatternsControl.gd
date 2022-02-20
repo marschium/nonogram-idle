@@ -8,8 +8,8 @@ var PatternSelectControl = preload("res://scenes/ui/PatternSelectControl.tscn")
 onready var pattern_select_vbox = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/ScrollContainer/PatternSelectVBoxContainer
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-    pass
+func _ready():    
+    $DraggableWindow.set_title("Patterns")
 
 func add_pattern(pattern):
     var l = PatternSelectControl.instance()

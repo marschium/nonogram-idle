@@ -24,6 +24,7 @@ func _ready():
     autoclicker.connect("started", self, "_on_Autoclicker_started")
     autoclicker.connect("stopped", self, "_on_Autoclicker_stopped")
     # $VBoxContainer/HBoxContainer/LoopButton.pressed = autoclicker.loop
+    $DraggableWindow.set_title("Autoclicking")
     update_counter()
 
     

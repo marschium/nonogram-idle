@@ -21,7 +21,6 @@ var modulate_track_idx = -1
 var shrinking = false
 
 onready var sprite = $Sprite
-onready var sprite_pop = $SpritePop
 
 func swapto(color):
     swap_color = color
@@ -42,7 +41,6 @@ func reset():
     previous_color = null
     current_color = null
     sprite.modulate = base_color
-    sprite_pop.modulate = Color(1, 1, 1, 0.0)
     
 func change(color):
     if color != current_color:
@@ -67,28 +65,7 @@ func right_click():
     if not just_clicked:
         just_clicked = true
         emit_signal("right_clicked")
-        
-func pop():
-    var target_color = sprite.modulate
-    target_color.a = 0
-    var tween = $SpritePop/Tween
-    tween.interpolate_property(
-        $SpritePop, 
-        "position", 
-        Vector2(0, 0), 
-        to_local(anchor), 
-        1, 
-        Tween.TRANS_LINEAR, 
-        Tween.EASE_IN_OUT)
-    tween.interpolate_property(
-        $SpritePop, 
-        "modulate", 
-        sprite.modulate, 
-        target_color, 
-        1, 
-        Tween.TRANS_LINEAR, 
-        Tween.EASE_IN_OUT)
-    $SpritePop/Tween.start()
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

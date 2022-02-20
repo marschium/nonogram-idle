@@ -41,6 +41,9 @@ func minimise():
     $MarginContainer/MarginContainer/VBoxContainer/CenterContainer.visible = false
     $MarginContainer.rect_size = Vector2($MarginContainer.rect_size.x, title_bar.rect_size.y) + Vector2(0, 8)
     maximised = false
+    
+func set_title(t):
+    $MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/Label.text = t
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

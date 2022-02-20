@@ -13,8 +13,8 @@ onready var name_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxCo
 onready var clear_button = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer2/Button
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-    pass
+func _ready():    
+    $DraggableWindow.set_title("Palette")
 
 func reveal():
     if not revealed:

@@ -9,7 +9,7 @@
 [ext_resource path="res://scenes/ui/ColorMenu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/ui/PatternsControl.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/ui/ScoreControl.tscn" type="PackedScene" id=9]
-[ext_resource path="res://assets/bg2.png" type="Texture" id=14]
+[ext_resource path="res://assets/background2.png" type="Texture" id=10]
 [ext_resource path="res://scenes/ui/AutoclickerControl.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scenes/effects/ChromaticEffect.tscn" type="PackedScene" id=19]
 
@@ -17,7 +17,7 @@
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 14 )
+texture = ExtResource( 10 )
 centered = false
 
 [node name="Upgrades" type="Node2D" parent="."]
