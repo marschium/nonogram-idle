@@ -911,7 +911,9 @@
             51
         ]
     ],
-    "tags": ["color"],
+    "tags": [
+        "color"
+    ],
     "bonus": 64,
     "pack_id": 0
 }

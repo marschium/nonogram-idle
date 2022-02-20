@@ -35,17 +35,19 @@ position = Vector2( 17, 16 )
 AutoclickerNode = NodePath("../Autoclicker")
 
 [node name="PatternsControl" parent="." instance=ExtResource( 8 )]
+visible = false
 position = Vector2( 52.6763, 429.844 )
 
 [node name="UpgradeControl" parent="." instance=ExtResource( 5 )]
+visible = false
 position = Vector2( 1327.16, 425.736 )
 upgrades_np = NodePath("../Upgrades")
 
 [node name="ScoreControl" parent="." instance=ExtResource( 9 )]
-position = Vector2( 913.311, 713.525 )
+position = Vector2( 685.241, 16.8417 )
 
 [node name="ColorMenu" parent="." instance=ExtResource( 7 )]
-visible = false
+position = Vector2( 696.683, 807.154 )
 
 [node name="EffectsControl" type="Control" parent="."]
 anchor_right = 1.0
