@@ -1,5 +1,6 @@
 extends Node2D
 
+export var show_close = false
 
 var state = null
 var mouse_over_bar = false
@@ -11,13 +12,11 @@ onready var title_bar = $MarginContainer/MarginContainer/VBoxContainer/PanelCont
 
 
 func idle(dt):
-    #z_index = 0
     if mouse_over_bar and Input.is_mouse_button_pressed(BUTTON_LEFT):
         mouse_offset = get_global_mouse_position() - global_position
         state = funcref(self, "dragging")
 
 func dragging(dt):
-    #z_index = 1
     if mouse_over_bar and Input.is_mouse_button_pressed(BUTTON_LEFT):
         global_position = get_global_mouse_position() - mouse_offset
     else:
@@ -28,6 +27,7 @@ func dragging(dt):
 func _ready():
     previous_size = $MarginContainer.rect_size
     state = funcref(self, "idle")
+    $MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/CloseButton.visible = show_close
     minimise()
     maximise()
     
@@ -41,6 +41,11 @@ func minimise():
     $MarginContainer/MarginContainer/VBoxContainer/CenterContainer.visible = false
     $MarginContainer.rect_size = Vector2($MarginContainer.rect_size.x, title_bar.rect_size.y) + Vector2(0, 8)
     maximised = false
+    
+func enable_close():
+    show_close = true
+    $MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/CloseButton.visible = show_close
+    
     
 func set_title(t):
     $MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/Label.text = t
@@ -62,3 +67,7 @@ func _on_Button_pressed():
         minimise()
     else:
         maximise()
+
+
+func _on_CloseButton_pressed():
+    queue_free()

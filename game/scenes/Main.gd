@@ -13,6 +13,8 @@ onready var color_control = $CanvasLayer/ColorMenu
 
 var save_file = "user://save.json"
 var loaded = false
+var popup_offset = Vector2(64, 64)
+var popup_offset_delta = Vector2(8, 8)
 
 func read_json_file(file_path):
     var file = File.new()
@@ -112,9 +114,12 @@ func _on_Pattern_matched(bonus, pattern):
 func _on_Pattern_unlocked(pattern):
     if not loaded:
         return
-    var p = PatternUnlockControl.instance()
+    var p = PatternUnlockControl.instance()    
+    p.position = popup_offset
     p.pattern = pattern
+    p.connect("tree_exiting", self, "_on_UnlockControl_queue_free")
     add_child(p)
+    popup_offset += popup_offset_delta
     
 func _process(delta):
     if not loaded:        
@@ -166,9 +171,11 @@ func _on_PatternCombo_unlocked(combo):
     if not loaded:
         return
     var p = ComboUnlockControl.instance()
+    p.position = popup_offset
     p.combo = combo
-    # TODO make this a popup window?
-    add_child(p) # TODO make this a method in the score window?
+    p.connect("tree_exiting", self, "_on_UnlockControl_queue_free")
+    add_child(p)
+    popup_offset += popup_offset_delta
 
 
 func _on_Gameboard_complete_late():
@@ -207,3 +214,6 @@ func _on_PatternsControl_guide_selected(pattern):
         n = pattern.pattern_name
     $ColorMenu.set_palette(n, pattern.palette())
     $Gameboard.show_guide(pattern)
+
+func _on_UnlockControl_queue_free():
+    popup_offset -= popup_offset_delta

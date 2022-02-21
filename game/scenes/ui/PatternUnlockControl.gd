@@ -14,10 +14,5 @@ func _ready():
         $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/MarginContainer/VBoxContainer/TagsHBoxContainer.add_child(p)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
-func _on_Button_pressed():
+func _on_DraggableWindow_tree_exiting():
     queue_free()

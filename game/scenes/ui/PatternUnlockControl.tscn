@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://resources/m5x7.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://images/cloud.png" type="Texture" id=2]
-[ext_resource path="res://resources/kenneyUI.tres" type="Theme" id=3]
 [ext_resource path="res://scenes/ui/DraggableWindow.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/ui/PatternUnlockControl.gd" type="Script" id=5]
 
@@ -18,6 +17,7 @@ font_data = ExtResource( 1 )
 script = ExtResource( 5 )
 
 [node name="DraggableWindow" parent="." instance=ExtResource( 4 )]
+show_close = true
 
 [node name="NinePatchRect" parent="DraggableWindow/MarginContainer" index="0"]
 margin_right = 624.0
@@ -45,8 +45,9 @@ margin_right = 616.0
 margin_bottom = 803.0
 
 [node name="MarginContainer" type="MarginContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer" index="0"]
+margin_top = 27.0
 margin_right = 616.0
-margin_bottom = 771.0
+margin_bottom = 744.0
 custom_constants/margin_right = 64
 custom_constants/margin_top = 64
 custom_constants/margin_left = 64
@@ -56,7 +57,7 @@ custom_constants/margin_bottom = 64
 margin_left = 64.0
 margin_top = 64.0
 margin_right = 552.0
-margin_bottom = 707.0
+margin_bottom = 653.0
 
 [node name="Label" type="Label" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/MarginContainer/VBoxContainer"]
 margin_right = 488.0
@@ -90,13 +91,6 @@ rect_min_size = Vector2( 0, 488 )
 texture = ExtResource( 2 )
 stretch_mode = 1
 
-[node name="Button" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/MarginContainer/VBoxContainer"]
-margin_top = 593.0
-margin_right = 488.0
-margin_bottom = 643.251
-theme = ExtResource( 3 )
-text = "OK"
-
-[connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="tree_exiting" from="DraggableWindow" to="." method="_on_DraggableWindow_tree_exiting"]
 
 [editable path="DraggableWindow"]

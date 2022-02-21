@@ -11,5 +11,5 @@ func _ready():
     $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/MarginContainer/VBoxContainer/DescriptionLabel.text = combo.desc
 
 
-func _on_Button_pressed():
+func _on_DraggableWindow_tree_exiting():
     queue_free()
