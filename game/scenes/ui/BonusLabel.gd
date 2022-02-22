@@ -8,14 +8,14 @@ func _set_text():
 func _ready():
     if bonus != null:
         bonus.connect("deactivated", self, "_on_Bonus_deactivated")
-        $VBoxContainer/ProgressBar.value = 0
-        $VBoxContainer/ProgressBar.max_value = bonus.time
-        $VBoxContainer/TextureRect.texture = load("res://images/bonuses/%s.png" % [bonus.bonus_name.to_lower()])
+        $MarginContainer/VBoxContainer/ProgressBar.value = 0
+        $MarginContainer/VBoxContainer/ProgressBar.max_value = bonus.time
+        $MarginContainer/VBoxContainer/TextureRect.texture = load("res://images/bonuses/%s.png" % [bonus.bonus_name.to_lower()])
     
 
 func _process(delta):
     if bonus != null:
-        $VBoxContainer/ProgressBar.value = bonus.elapsed()
+        $MarginContainer/VBoxContainer/ProgressBar.value = bonus.elapsed()
         self._set_text()
 
 func _on_Bonus_deactivated():

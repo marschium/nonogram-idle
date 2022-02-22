@@ -15,6 +15,7 @@ margin_right = 470.0
 margin_bottom = 233.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -47,13 +48,13 @@ margin_bottom = 225.0
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
 margin_right = 462.0
-margin_bottom = 26.0
+margin_bottom = 31.0
 size_flags_vertical = 4
 custom_styles/panel = SubResource( 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MarginContainer/VBoxContainer/PanelContainer"]
 margin_right = 462.0
-margin_bottom = 26.0
+margin_bottom = 31.0
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
 custom_constants/margin_bottom = 4
@@ -61,7 +62,7 @@ custom_constants/margin_bottom = 4
 [node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
 margin_top = 6.0
 margin_right = 458.0
-margin_bottom = 20.0
+margin_bottom = 25.0
 mouse_filter = 0
 size_flags_horizontal = 3
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -74,20 +75,20 @@ __meta__ = {
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
 margin_top = 4.0
-margin_right = 23.0
-margin_bottom = 22.0
+margin_right = 25.0
+margin_bottom = 27.0
 size_flags_horizontal = 0
 custom_constants/margin_left = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/MarginContainer"]
 margin_left = 8.0
-margin_right = 23.0
-margin_bottom = 18.0
+margin_right = 25.0
+margin_bottom = 23.0
 size_flags_horizontal = 0
 
 [node name="Button" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/MarginContainer/HBoxContainer"]
-margin_right = 15.0
-margin_bottom = 18.0
+margin_right = 17.0
+margin_bottom = 23.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource( 3 )
@@ -104,13 +105,12 @@ theme = ExtResource( 3 )
 text = "X"
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
-margin_top = 30.0
+margin_top = 35.0
 margin_right = 462.0
 margin_bottom = 221.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
 [connection signal="mouse_entered" from="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/Label" to="." method="_on_Label_mouse_entered"]
 [connection signal="mouse_exited" from="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/Label" to="." method="_on_Label_mouse_exited"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/MarginContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]

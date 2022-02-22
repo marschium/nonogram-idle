@@ -5,7 +5,7 @@
 [ext_resource path="res://scenes/ui/PatternTagLabel.gd" type="Script" id=3]
 [ext_resource path="res://resources/PanelTagContainerStyle.tres" type="StyleBox" id=4]
 
-[sub_resource type="DynamicFont" id=35]
+[sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 2 )
 
 [node name="PatternTagLabel" type="PanelContainer"]
@@ -18,10 +18,11 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="."]
-margin_left = 12.0
-margin_top = 1.0
-margin_right = 54.0
-margin_bottom = 14.0
+margin_left = 8.0
+margin_top = 4.0
+margin_right = 59.0
+margin_bottom = 17.0
 theme = ExtResource( 1 )
-custom_fonts/font = SubResource( 35 )
+custom_fonts/font = SubResource( 1 )
 text = "dsadada"
+align = 1

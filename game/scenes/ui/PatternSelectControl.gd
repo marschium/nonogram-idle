@@ -5,8 +5,8 @@ signal set_selected(pattern)
 
 var PatternTagLabel = preload("res://scenes/ui/PatternTagLabel.tscn")
 
-onready var set_button = $VBoxContainer/HBoxContainer/SetButton
-onready var name_label = $VBoxContainer/HBoxContainer/NameLabel
+onready var set_button = $HBoxContainer/MarginContainer/HBoxContainer/SetButton
+onready var name_label = $HBoxContainer/VBoxContainer/NameLabel
 
 var pattern = null
 var autoclick_enabled = false
@@ -24,7 +24,7 @@ func show_tags():
     for tag in pattern.tags:
         var l = PatternTagLabel.instance()
         l.text = tag
-        $VBoxContainer/CenterContainer.add_child(l)
+        $HBoxContainer/VBoxContainer/CenterContainer.add_child(l)
         
 func unlock():
     set_button.visible = pattern.unlocked

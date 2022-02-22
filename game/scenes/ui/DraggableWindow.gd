@@ -10,6 +10,7 @@ var previous_size = Vector2(0, 0)
 
 onready var title_bar = $MarginContainer/MarginContainer/VBoxContainer/PanelContainer
 onready var close_button = $MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/MarginContainer/HBoxContainer/CloseButton
+onready var shrink_button = $MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/MarginContainer/HBoxContainer/Button
 
 
 func idle(dt):
@@ -33,11 +34,13 @@ func _ready():
     maximise()
     
 func maximise():
+    shrink_button.text = "_"
     $MarginContainer/MarginContainer/VBoxContainer/CenterContainer.visible = true
     maximised = true
     $MarginContainer.rect_size.x = previous_size.x
 
 func minimise():
+    shrink_button.text = "^"
     previous_size = $MarginContainer.rect_size
     $MarginContainer/MarginContainer/VBoxContainer/CenterContainer.visible = false
     $MarginContainer.rect_size = Vector2($MarginContainer.rect_size.x, title_bar.rect_size.y) + Vector2(0, 8)

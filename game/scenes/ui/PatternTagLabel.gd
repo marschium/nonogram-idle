@@ -6,5 +6,4 @@ var text = ""
 
 func _ready():
     $Label.text = text
-    modulate = color
-    # TODO change the background color somehow?
+    #modulate = color

@@ -7,9 +7,8 @@ var PatternUnlockControl = preload("res://scenes/ui/PatternUnlockControl.tscn")
 var ComboUnlockControl = preload("res://scenes/ui/ComboUnlockControl.tscn")
 
 onready var autoclicker = $Autoclicker
-onready var upgrade_control = $CanvasLayer/UpgradeControl
-onready var game_control = $CanvasLayer/GameControl
-onready var color_control = $CanvasLayer/ColorMenu
+onready var upgrade_control = $UpgradeControl
+onready var color_control = $ColorMenu
 
 var save_file = "user://save.json"
 var loaded = false

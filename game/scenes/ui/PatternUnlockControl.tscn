@@ -21,15 +21,15 @@ show_close = true
 
 [node name="NinePatchRect" parent="DraggableWindow/MarginContainer" index="0"]
 margin_right = 624.0
-margin_bottom = 815.0
+margin_bottom = 764.0
 
 [node name="MarginContainer" parent="DraggableWindow/MarginContainer" index="1"]
 margin_right = 624.0
-margin_bottom = 815.0
+margin_bottom = 764.0
 
 [node name="VBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer" index="0"]
 margin_right = 620.0
-margin_bottom = 807.0
+margin_bottom = 756.0
 
 [node name="PanelContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer" index="0"]
 margin_right = 616.0
@@ -40,14 +40,22 @@ margin_right = 616.0
 [node name="Label" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer" index="0"]
 margin_right = 612.0
 
+[node name="MarginContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer" index="1"]
+margin_right = 21.0
+
+[node name="HBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/MarginContainer" index="0"]
+margin_right = 21.0
+
+[node name="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/MarginContainer/HBoxContainer" index="0"]
+margin_right = 13.0
+
 [node name="CenterContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer" index="1"]
 margin_right = 616.0
-margin_bottom = 803.0
+margin_bottom = 752.0
 
 [node name="MarginContainer" type="MarginContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer" index="0"]
-margin_top = 27.0
 margin_right = 616.0
-margin_bottom = 744.0
+margin_bottom = 717.0
 custom_constants/margin_right = 64
 custom_constants/margin_top = 64
 custom_constants/margin_left = 64
@@ -90,7 +98,6 @@ margin_bottom = 589.0
 rect_min_size = Vector2( 0, 488 )
 texture = ExtResource( 2 )
 stretch_mode = 1
-
 [connection signal="tree_exiting" from="DraggableWindow" to="." method="_on_DraggableWindow_tree_exiting"]
 
 [editable path="DraggableWindow"]
