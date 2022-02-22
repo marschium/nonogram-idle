@@ -21,15 +21,15 @@ show_close = true
 
 [node name="NinePatchRect" parent="DraggableWindow/MarginContainer" index="0"]
 margin_right = 523.0
-margin_bottom = 689.0
+margin_bottom = 635.0
 
 [node name="MarginContainer" parent="DraggableWindow/MarginContainer" index="1"]
 margin_right = 523.0
-margin_bottom = 689.0
+margin_bottom = 635.0
 
 [node name="VBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer" index="0"]
 margin_right = 519.0
-margin_bottom = 681.0
+margin_bottom = 627.0
 
 [node name="PanelContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer" index="0"]
 margin_right = 515.0
@@ -42,12 +42,11 @@ margin_right = 511.0
 
 [node name="CenterContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer" index="1"]
 margin_right = 515.0
-margin_bottom = 677.0
+margin_bottom = 623.0
 
 [node name="MarginContainer" type="MarginContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer" index="0"]
-margin_top = 27.0
 margin_right = 515.0
-margin_bottom = 618.0
+margin_bottom = 591.0
 custom_constants/margin_right = 64
 custom_constants/margin_top = 64
 custom_constants/margin_left = 64

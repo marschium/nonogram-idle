@@ -9,6 +9,7 @@ var maximised = true
 var previous_size = Vector2(0, 0)
 
 onready var title_bar = $MarginContainer/MarginContainer/VBoxContainer/PanelContainer
+onready var close_button = $MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/MarginContainer/HBoxContainer/CloseButton
 
 
 func idle(dt):
@@ -27,7 +28,7 @@ func dragging(dt):
 func _ready():
     previous_size = $MarginContainer.rect_size
     state = funcref(self, "idle")
-    $MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/CloseButton.visible = show_close
+    close_button.visible = show_close
     minimise()
     maximise()
     
@@ -44,7 +45,7 @@ func minimise():
     
 func enable_close():
     show_close = true
-    $MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/CloseButton.visible = show_close
+    close_button.visible = show_close
     
     
 func set_title(t):
