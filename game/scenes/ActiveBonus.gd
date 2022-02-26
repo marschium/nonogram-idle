@@ -5,6 +5,7 @@ signal deactivated()
 var bonus_name = ""
 var text = ""
 var time = 60
+var id = ""
 
 func _ready():
     $Timer.start(time)

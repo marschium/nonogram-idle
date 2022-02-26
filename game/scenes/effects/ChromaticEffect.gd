@@ -8,8 +8,9 @@ func _ready():
 
 
 func _on_Bonus_bonus_active(bonus):
-    visible = true
-    bonus.connect("deactivated", self, "_on_ActiveBonus_deactivated")
+    if bonus.bonus_name == "RGB":
+        visible = true
+        bonus.connect("deactivated", self, "_on_ActiveBonus_deactivated")
 
 func _on_ActiveBonus_deactivated():
     # TODO disconnect from bonus?

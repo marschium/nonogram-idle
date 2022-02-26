@@ -10,7 +10,7 @@ func _ready():
         bonus.connect("deactivated", self, "_on_Bonus_deactivated")
         $MarginContainer/VBoxContainer/ProgressBar.value = 0
         $MarginContainer/VBoxContainer/ProgressBar.max_value = bonus.time
-        $MarginContainer/VBoxContainer/TextureRect.texture = load("res://images/bonuses/%s.png" % [bonus.bonus_name.to_lower()])
+        $MarginContainer/VBoxContainer/TextureRect.texture = load("res://images/bonuses/%s.png" % [bonus.id])
     
 
 func _process(delta):

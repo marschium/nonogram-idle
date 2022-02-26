@@ -26,7 +26,7 @@ func savegame(filepath):
     var d = {}
     d["score"] = Score.val
     $Upgrades.savegame(d)
-    $Patterns.savegame(d)
+    Patterns.savegame(d)
     PatternCombo.savegame(d)
     
     var file = File.new()
@@ -42,7 +42,7 @@ func loadgame(filepath):
     Score.add(d.get("score", 0))
     PatternCombo.loadgame(d)
     $Upgrades.loadgame(d)
-    $Patterns.loadgame(d)
+    Patterns.loadgame(d)
 
 func toggle_autoclicker(enabled):
     autoclicker.set_process(enabled)
@@ -56,11 +56,10 @@ func _ready():
     TagCombo.connect("combo_complete", self, "_on_Combo_complete")
     PatternCombo.connect("unlocked", self, "_on_PatternCombo_unlocked")
     toggle_autoclicker(enable_autoclicker) # TODO remove
-    for p in $Patterns.get_children():
+    for p in Patterns.get_children():
         $PatternsControl.add_pattern(p)
         p.connect("matched", self, "_on_Pattern_matched", [p])
         p.connect("unlocked", self, "_on_Pattern_unlocked", [p])
-    #$Gameboard.pop_anchor = $CanvasLayer/ScoreControl.rect_global_position + ($CanvasLayer/ScoreControl.rect_size / 2)
     $ColorMenu.set_palette(null, [Color(1, 1, 1)])
     
     for upgrade in $Upgrades.get_children():
@@ -91,7 +90,7 @@ func _on_Pattern_matched(bonus, pattern):
     autoclicker.pause()
     
     # TODO pattern checking can be quicker
-    for p in $Patterns.get_children():
+    for p in Patterns.get_children():
         p.reset()
         
     Score.add(pattern.num_tiles)
@@ -101,7 +100,7 @@ func _on_Pattern_matched(bonus, pattern):
 
     #yield(get_tree().create_timer(0.2), "timeout")
 
-    $Patterns.reset_matches()
+    Patterns.reset_matches()
     $Gameboard.reset()
     TagCombo.tick()
     
@@ -129,7 +128,7 @@ func _process(delta):
 func _on_Upgrade_expand_board(size):	
     $Gameboard.reset_board(size)	
     if size == 10: # TODO set this when pattern active		
-        for p in $Patterns.get_children():
+        for p in Patterns.get_children():
             $Gameboard.connect("tile_changed", p, "_on_Gameboard_tile_changed")
             $Gameboard.connect("tile_reset", p, "_on_Gameboard_tile_reset")
 
@@ -139,7 +138,7 @@ func _on_Upgrade_autoclicker_speed(speed):
     $PatternsControl.enable_autoclick()
     
 func _on_Upgrade_pattern(pack_id):
-    $Patterns.activate(pack_id)    
+    Patterns.activate(pack_id)    
     $PatternsControl.reveal()
 
 func _on_ColorMenu_color_select(color):
@@ -179,7 +178,7 @@ func _on_PatternCombo_unlocked(combo):
 
 func _on_Gameboard_complete_late():
     # After fullsize and patterns, Gameboard is only cleared when pattern is matched
-    if not $Patterns.active:     
+    if not Patterns.active:     
         Score.add($Gameboard.size * $Gameboard.size)   
         $Gameboard.reset()
 

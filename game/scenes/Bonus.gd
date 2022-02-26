@@ -21,6 +21,7 @@ func _on_PatternCombo_combo_complete(combo):
     if not active_bonuses.has(combo.name):
         var bonus = ActiveBonus.instance()
         bonus.bonus_name = combo.name
+        bonus.id = combo.bonus_id
         bonus.text = combo.desc
         bonus.time = combo.duration
         bonus.connect("deactivated", self, "_on_Bonus_deactivated", [bonus])

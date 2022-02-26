@@ -25,6 +25,7 @@ margin_left = 2.0
 margin_top = 2.0
 margin_right = 74.0
 margin_bottom = 71.0
+mouse_filter = 2
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
 custom_constants/margin_left = 4
@@ -100,5 +101,6 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="mouse_entered" from="." to="." method="_on_BonusLabel_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_BonusLabel_mouse_exited"]
