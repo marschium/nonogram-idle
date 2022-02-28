@@ -74,6 +74,15 @@ func _ready():
         300
     )
     
+    definitions["stock_market"] = PatternComboDef.new(
+        "Stock Market", "stock_market",
+        "Activates the stock market",
+        ["white"], #, "green", "blue"],
+        Nothing.new(),
+        300
+    )
+    
+    
 func loadgame(data):
     if not data.has("combos"):
         return

@@ -11,6 +11,7 @@ onready var active_pattern_container = $DraggableWindow/MarginContainer/MarginCo
 onready var pause_button = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/PauseButton
 onready var count_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/CountLabel
 onready var play_button = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/PlayButton
+onready var loop_button = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/LoopButton
 
 export var AutoclickerNode : NodePath = ""
 var autoclicker = null
@@ -23,7 +24,6 @@ func _ready():
     autoclicker.connect("pattern_clicker_removed", self, "_on_Autoclicker_pattern_clicker_removed")
     autoclicker.connect("started", self, "_on_Autoclicker_started")
     autoclicker.connect("stopped", self, "_on_Autoclicker_stopped")
-    # $VBoxContainer/HBoxContainer/LoopButton.pressed = autoclicker.loop
     $DraggableWindow.set_title("Autoclicking")
     update_counter()
 
