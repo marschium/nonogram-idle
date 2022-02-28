@@ -83,26 +83,38 @@ size_flags_horizontal = 3
 custom_constants/separation = 8
 alignment = 2
 
-[node name="BuyButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer"]
-margin_left = 386.0
-margin_right = 399.0
+[node name="10BuyButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+margin_left = 290.0
+margin_right = 321.0
 margin_bottom = 23.0
-text = "+"
+text = "+10"
+
+[node name="BuyButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+margin_left = 329.0
+margin_right = 351.0
+margin_bottom = 23.0
+text = "+1"
 
 [node name="CurrentOwnedLabel" type="Label" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer"]
-margin_left = 407.0
+margin_left = 359.0
 margin_top = 2.0
-margin_right = 471.0
+margin_right = 423.0
 margin_bottom = 21.0
 rect_min_size = Vector2( 64, 0 )
 text = "HELLO"
 align = 1
 
 [node name="SellButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer"]
-margin_left = 479.0
+margin_left = 431.0
+margin_right = 453.0
+margin_bottom = 23.0
+text = "-1"
+
+[node name="SellAllButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+margin_left = 461.0
 margin_right = 492.0
 margin_bottom = 23.0
-text = "-"
+text = "-10"
 
 [node name="Control" type="Control" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
 margin_top = 27.0
@@ -141,7 +153,9 @@ __meta__ = {
 [node name="Line2D" type="Line2D" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/Control"]
 width = 3.0
 
+[connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer/10BuyButton" to="." method="_on_10BuyButton_pressed"]
 [connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer/BuyButton" to="." method="_on_BuyButton_pressed"]
 [connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer/SellButton" to="." method="_on_SellButton_pressed"]
+[connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer/SellAllButton" to="." method="_on_SellAllButton_pressed"]
 
 [editable path="DraggableWindow"]

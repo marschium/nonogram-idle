@@ -8,7 +8,7 @@ export var base_price = 100
 var timer = 0.0
 var noise = OpenSimplexNoise.new()
 var noise_pos = Vector2(0,0)
-var noise_dir = Vector2(-1, 1) # TODO randomise
+var noise_dir = Vector2(randf(), randf()).normalized()
 var noise_speed = 1
 
 var y_pos_multipler = 5
@@ -67,16 +67,31 @@ func _process(delta):
         var d = base_price - get_current_price()
         line.add_point(Vector2(line.get_point_count() * x_step, zero_offset + (d * y_pos_multipler)))
 
+func _buy(x):
+    if Score.val > get_current_price() * x:
+        Score.sub(get_current_price() * x)
+        current_owned += x
+        owned_label.text = str(current_owned)
+   
+     
+func _sell(x):
+    if current_owned >= x:
+        Score.add(get_current_price() * x)
+        current_owned -= x
+        owned_label.text = str(current_owned)
+
 
 func _on_BuyButton_pressed():
-    if Score.val > get_current_price():
-        Score.sub(get_current_price())
-        current_owned += 1
-        owned_label.text = str(current_owned)
+    _buy(1)
 
 
 func _on_SellButton_pressed():
-    if current_owned > 0:
-        Score.add(get_current_price())
-        current_owned -= 1
-        owned_label.text = str(current_owned)
+    _sell(1)
+
+
+func _on_10BuyButton_pressed():
+    _buy(10)
+
+
+func _on_SellAllButton_pressed():
+    _sell(10)

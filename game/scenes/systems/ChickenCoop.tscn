@@ -24,6 +24,8 @@ margin_left = 103.0
 margin_top = 35.0
 margin_right = 359.0
 margin_bottom = 150.0
+custom_constants/separation = 4
+alignment = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
 margin_right = 256.0
@@ -37,12 +39,14 @@ margin_top = 23.0
 margin_right = 256.0
 margin_bottom = 42.0
 rect_pivot_offset = Vector2( -1125.97, 483.106 )
+align = 1
 
 [node name="ChickenLabel" type="Label" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
 margin_top = 46.0
 margin_right = 256.0
 margin_bottom = 65.0
 rect_pivot_offset = Vector2( -1125.97, 483.106 )
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -52,14 +56,17 @@ margin_top = 69.0
 margin_right = 256.0
 margin_bottom = 88.0
 rect_pivot_offset = Vector2( -1125.97, 483.106 )
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Button" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
+margin_left = 108.0
 margin_top = 92.0
-margin_right = 256.0
+margin_right = 148.0
 margin_bottom = 115.0
+size_flags_horizontal = 4
 text = "SELL"
 
 [connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]

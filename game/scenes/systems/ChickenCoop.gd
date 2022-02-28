@@ -26,6 +26,7 @@ func _ready():
             p.connect("matched", self, "_on_FoodPattern_matched")
         if p.pattern_name == "red":
             p.connect("matched", self, "_on_ChickenPattern_matched")
+    _update_ui()
             
 func _on_Bonus_bonus_active(bonus):
     if bonus.id == "chicken_coop":
@@ -54,9 +55,9 @@ func _process(delta):
     update_bar.value = timer / update_interval
             
 func _update_ui():
-    food_label.text = str(num_food)
-    chicken_label.text = str(num_chickens)
-    egg_label.text = str(num_eggs)
+    food_label.text = "Food: %d" % num_food
+    chicken_label.text = "Chickens: %d" % num_chickens
+    egg_label.text = "Eggs: %d" % num_eggs
 
 func _on_FoodPattern_matched(bonus):
     num_food += 5

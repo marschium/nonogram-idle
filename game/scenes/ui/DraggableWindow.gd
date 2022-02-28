@@ -31,8 +31,7 @@ func _ready():
     state = funcref(self, "idle")
     close_button.visible = show_close
     if visible:
-        minimise()
-        maximise()
+        repack()
     
 func maximise():
     shrink_button.text = "_"
