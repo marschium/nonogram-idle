@@ -25,6 +25,7 @@ func get_current_price():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+    $DraggableWindow.set_title("Stock Market")
     Bonus.connect("bonus_active", self, "_on_Bonus_bonus_active")
     
     noise.seed = randi()

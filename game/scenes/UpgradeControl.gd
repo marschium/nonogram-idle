@@ -33,7 +33,6 @@ func _on_UpgradeInfo_available(upgrade):
     reveal()
     var x = UpgradeBuyControl.instance()
     x.title = upgrade.desc
-    # x.description = "Expand board to %d x %d" % [size, size]
     x.cost = upgrade.cost
     x.set_meta("upgrade_tag", upgrade.tag)
     x.set_meta("upgrade_tag_v", upgrade.val)
@@ -42,44 +41,13 @@ func _on_UpgradeInfo_available(upgrade):
     
 func _on_UpgradeInfo_active(upgrade):    
     remove_buy_button(upgrade.tag, upgrade.val)
-
-func add_expand_grid_upgrade(size, cost, title):
-    reveal()
-    var x = UpgradeBuyControl.instance()
-    x.title = title
-    x.description = "Expand board to %d x %d" % [size, size]
-    x.cost = cost
-    x.set_meta("upgrade_tag", UpgradeInfo.UpgradeTag.EXPAND)
-    x.set_meta("upgrade_tag_v", size)
-    container.add_child(x)
-    x.connect("selected", self, "_on_ExpandGridButton_pressed", [size])
     
 func remove_buy_button(tag, v):
     for b in container.get_children():
         if b.get_meta("upgrade_tag") == tag and b.get_meta("upgrade_tag_v") == v:
+            container.remove_child(b)
             b.queue_free()
-            
-func add_autoclicker_upgrade(speed, cost, title):
-    reveal()
-    var x = UpgradeBuyControl.instance()
-    x.title = title
-    x.description = "Increase Autoclicker speed to %s dots per second" % [speed]
-    x.cost = cost
-    x.set_meta("upgrade_tag", UpgradeInfo.UpgradeTag.AUTOCLICK)
-    x.set_meta("upgrade_tag_v", speed)
-    container.add_child(x)
-    x.connect("selected", self, "_on_AutoclickerButton_pressed", [speed])
-            
-func add_pattern_upgrade(pack_id, cost, title):
-    reveal()
-    var x = UpgradeBuyControl.instance()
-    x.title = title
-    x.description = "Matching patterns with dots provides bonuses"
-    x.cost = cost
-    x.set_meta("upgrade_tag", UpgradeInfo.UpgradeTag.PATTERN)
-    x.set_meta("upgrade_tag_v", pack_id)
-    container.add_child(x)
-    x.connect("selected", self, "_on_PatternButton_pressed", [pack_id])
+    $DraggableWindow.repack()
 
 func _on_ExpandGridButton_pressed(new_size):
     upgrades.buy_expand_upgrade(new_size)

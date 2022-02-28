@@ -30,8 +30,9 @@ func _ready():
     previous_size = $MarginContainer.rect_size
     state = funcref(self, "idle")
     close_button.visible = show_close
-    minimise()
-    maximise()
+    if visible:
+        minimise()
+        maximise()
     
 func maximise():
     shrink_button.text = "_"
@@ -45,6 +46,11 @@ func minimise():
     $MarginContainer/MarginContainer/VBoxContainer/CenterContainer.visible = false
     $MarginContainer.rect_size = Vector2($MarginContainer.rect_size.x, title_bar.rect_size.y) + Vector2(0, 8)
     maximised = false
+    
+func repack():
+    if maximised:
+        minimise()
+        maximise()
     
 func enable_close():
     show_close = true
