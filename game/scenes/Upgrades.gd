@@ -47,6 +47,9 @@ func _ready():
     var basic_pattern = add_upgrade(16, 16, PatternPacks.PATTERN_PACK.STARTER, "Starter Pack Of Dot Patterns", "pattern")
     basic_pattern.set_condition("max_board_size")    
     largest_board.connect("active", basic_pattern, "remove_condition", ["max_board_size"])
+    var farm_pattern = add_upgrade(32, 32, PatternPacks.PATTERN_PACK.FARM, "Collection of farmyard patterns", "pattern")
+    farm_pattern.set_condition("basic")
+    basic_pattern.connect("active", farm_pattern, "remove_condition", ["basic"])
     
     var auto = add_upgrade(128, 256, 2, "Auto Dots", "auto")
     auto.set_condition("basic_pattern")    
