@@ -6,7 +6,6 @@
 [ext_resource path="res://resources/RetroDesktopTheme.tres" type="Theme" id=5]
 
 [sub_resource type="AtlasTexture" id=1]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 53, 36, 36 )
 
@@ -88,5 +87,6 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 icon = ExtResource( 4 )
 expand_icon = true
+
 [connection signal="pressed" from="HBoxContainer/MarginContainer/HBoxContainer/GuideButton" to="." method="_on_GuideButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/MarginContainer/HBoxContainer/SetButton" to="." method="_on_SetButton_pressed"]

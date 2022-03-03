@@ -50,6 +50,9 @@ func _ready():
     var farm_pattern = add_upgrade(32, 32, PatternPacks.PATTERN_PACK.FARM, "Collection of farmyard patterns", "pattern")
     farm_pattern.set_condition("basic")
     basic_pattern.connect("active", farm_pattern, "remove_condition", ["basic"])
+    var business_pattern = add_upgrade(32, 32, PatternPacks.PATTERN_PACK.BUSINESS, "Collection of business patterns", "pattern")
+    business_pattern.set_condition("basic")
+    basic_pattern.connect("active", business_pattern, "remove_condition", ["basic"])
     
     var auto = add_upgrade(128, 256, 2, "Auto Dots", "auto")
     auto.set_condition("basic_pattern")    

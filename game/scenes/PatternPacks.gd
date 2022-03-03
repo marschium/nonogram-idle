@@ -3,7 +3,8 @@ extends Node
 
 enum PATTERN_PACK {
     STARTER,
-    FARM
+    FARM,
+    BUSINESS
 }
 
 
