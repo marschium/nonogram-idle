@@ -8,6 +8,7 @@ signal pattern_clicker_removed(clicker)
 signal cycle_finished()
 signal started()
 signal stopped()
+signal shuffle_disabled()
 
 export var running = false
 
@@ -19,6 +20,7 @@ var speed = 1
 var pause_clicker_pos = Vector2(0, 0)
 var max_clickers = 3
 var loop = false
+var shuffle = false
 
 func _ready():
     $PatternAutoClicker.stop()
@@ -40,7 +42,7 @@ func next_clicker():
         # clear() make configurable
     if $PatternClickers.get_child_count() > 0:
         emit_signal("pattern_clicker_changed", current_clicker())
-    current_clicker().set_speed(speed)
+        current_clicker().set_speed(speed)
     
 func can_run():
     return !running and has_clicker() and len(current_clicker().clicks) != 0
@@ -87,12 +89,14 @@ func set_speed(speed):
     if current_clicker() != null:
         current_clicker().set_speed(speed)
 
-func clear():
+func clear(stop=true):
     for c in $PatternClickers.get_children():
+        $PatternClickers.remove_child(c)
         emit_signal("pattern_clicker_removed", c)
         c.queue_free()
     current_clicker_idx = 0
-    stop()
+    if stop:
+        stop()
     
 func clicker_count():
     return $PatternClickers.get_child_count()
@@ -123,6 +127,8 @@ func remove_pattern_clicker(clicker):
     if $PatternClickers.get_child_count() == 0:
         current_clicker_idx = 0
         stop()
+        shuffle = false
+        emit_signal("shuffle_disabled")
 
 func _on_PatternAutoClicker_click(x, y, color):
     emit_signal("click", x, y, color)

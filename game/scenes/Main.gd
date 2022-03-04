@@ -48,6 +48,8 @@ func toggle_autoclicker(enabled):
     autoclicker.set_process(enabled)
     autoclicker.stop()
     if enabled:
+        if not autoclicker.has_clicker() and autoclicker.shuffle:
+            autoclicker.add_pattern(Patterns.unlocked[randi() % Patterns.unlocked.size()])
         autoclicker.start()
         
 
@@ -95,10 +97,8 @@ func _on_Pattern_matched(bonus, pattern):
         
     Score.add(pattern.num_tiles)
     TagCombo.add(pattern)
-    PatternCombo.add(pattern)			
+    PatternCombo.add(pattern)
     Score.add(Bonus.get_bonus(pattern))
-
-    #yield(get_tree().create_timer(0.2), "timeout")
 
     Patterns.reset_matches()
     $Gameboard.reset()
@@ -155,10 +155,10 @@ func _on_AutosaveTimer_timeout():
     savegame(save_file)
         
 
-func _on_Autoclicker_cycle_finished():
-    pass
-    #TagCombo.reset()
-    #PatternCombo.reset()
+func _on_Autoclicker_cycle_finished():    
+    if autoclicker.shuffle:
+        autoclicker.clear(false)
+        autoclicker.add_pattern(Patterns.unlocked[randi() % Patterns.unlocked.size()])
 
 
 func _on_PatternsControl_pattern_selected(pattern):	
@@ -215,3 +215,9 @@ func _on_PatternsControl_guide_selected(pattern):
 
 func _on_UnlockControl_queue_free():
     popup_offset -= popup_offset_delta
+
+
+func _on_AutoclickerControl_shuffle_toggled(enabled):
+    autoclicker.shuffle = enabled
+    if enabled and not autoclicker.has_clicker():        
+        autoclicker.add_pattern(Patterns.unlocked[randi() % Patterns.unlocked.size()])

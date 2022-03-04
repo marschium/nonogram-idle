@@ -80,6 +80,7 @@ wait_time = 10.0
 [connection signal="loop_toggled" from="AutoclickerControl" to="." method="_on_AutoclickerControl_loop_toggled"]
 [connection signal="pattern_clicker_removed" from="AutoclickerControl" to="." method="_on_AutoclickerControl_pattern_clicker_removed"]
 [connection signal="play" from="AutoclickerControl" to="." method="_on_AutoclickerControl_play"]
+[connection signal="shuffle_toggled" from="AutoclickerControl" to="." method="_on_AutoclickerControl_shuffle_toggled"]
 [connection signal="stop" from="AutoclickerControl" to="." method="_on_AutoclickerControl_stop"]
 [connection signal="guide_selected" from="PatternsControl" to="." method="_on_PatternsControl_guide_selected"]
 [connection signal="pattern_selected" from="PatternsControl" to="." method="_on_PatternsControl_pattern_selected"]

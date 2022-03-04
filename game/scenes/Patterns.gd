@@ -3,6 +3,7 @@ extends Node2D
 var pattern_dir = "res://patterns"
 var Pattern = preload("res://scenes/Pattern.tscn")
 
+var unlocked = []
 var matched = []
 var active = false
 
@@ -32,6 +33,7 @@ func _ready():
             var p = Pattern.instance()
             p.file = d.get_current_dir() + "/" + f
             p.connect("matched", self, "_on_Pattern_matched", [p])
+            p.connect("unlocked", self, "_on_Pattern_unlocked", [p])
             add_child(p)
         f = d.get_next()
 
@@ -42,6 +44,9 @@ func activate(pack_id):
     
 func _on_Pattern_matched(bonus, pattern):
     matched.append(pattern)
+    
+func _on_Pattern_unlocked(pattern):
+    unlocked.append(pattern)
 
 func get_matches():
     return matched
