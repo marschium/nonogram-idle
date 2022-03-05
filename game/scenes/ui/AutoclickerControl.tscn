@@ -43,64 +43,66 @@ anims/FadeIn = SubResource( 1 )
 
 [node name="DraggableWindow" parent="." instance=ExtResource( 5 )]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer" index="0"]
-margin_left = 137.0
-margin_top = 61.0
-margin_right = 324.0
-margin_bottom = 125.0
+[node name="MarginContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer" index="1"]
+margin_bottom = 99.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
-margin_right = 187.0
+[node name="VBoxContainer" type="VBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer" index="0"]
+margin_right = 462.0
+margin_bottom = 64.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+margin_right = 462.0
 margin_bottom = 37.0
 custom_constants/separation = 16
 alignment = 1
 
-[node name="LoopButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer"]
-margin_right = 38.0
+[node name="LoopButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 137.0
+margin_right = 175.0
 margin_bottom = 37.0
 toggle_mode = true
 icon = SubResource( 2 )
 
-[node name="PauseButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer"]
-margin_left = 54.0
-margin_right = 86.0
+[node name="PauseButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 191.0
+margin_right = 223.0
 margin_bottom = 37.0
 toggle_mode = true
 group = ExtResource( 2 )
 icon = SubResource( 3 )
 
-[node name="PlayButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer"]
-margin_left = 102.0
-margin_right = 134.0
+[node name="PlayButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 239.0
+margin_right = 271.0
 margin_bottom = 37.0
 toggle_mode = true
 group = ExtResource( 2 )
 icon = SubResource( 4 )
 
-[node name="ShuffleButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer"]
-margin_left = 150.0
-margin_right = 187.0
+[node name="ShuffleButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 287.0
+margin_right = 324.0
 margin_bottom = 37.0
 toggle_mode = true
 icon = SubResource( 5 )
 
-[node name="CountLabel" type="Label" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
+[node name="CountLabel" type="Label" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 margin_top = 41.0
-margin_right = 187.0
+margin_right = 462.0
 margin_bottom = 60.0
 align = 2
 
-[node name="ActivePatternVBoxContainer" type="VBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
+[node name="ActivePatternVBoxContainer" type="VBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 margin_top = 64.0
-margin_right = 187.0
+margin_right = 462.0
 margin_bottom = 64.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="toggled" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/LoopButton" to="." method="_on_LoopButton_toggled"]
-[connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/PauseButton" to="." method="_on_PauseButton_pressed"]
-[connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
-[connection signal="toggled" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/ShuffleButton" to="." method="_on_ShuffleButton_toggled"]
+[connection signal="toggled" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/LoopButton" to="." method="_on_LoopButton_toggled"]
+[connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PauseButton" to="." method="_on_PauseButton_pressed"]
+[connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="toggled" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ShuffleButton" to="." method="_on_ShuffleButton_toggled"]
 
 [editable path="DraggableWindow"]

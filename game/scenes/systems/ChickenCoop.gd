@@ -7,10 +7,10 @@ export var num_chickens = 0
 export var num_eggs = 0
 
 var timer = 0.0
-onready var food_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/FoodLabel
-onready var chicken_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/ChickenLabel
-onready var egg_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/EggLabel
-onready var update_bar = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/ProgressBar
+onready var food_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/FoodLabel
+onready var chicken_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ChickenLabel
+onready var egg_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EggLabel
+onready var update_bar = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ProgressBar
 
 func ln(arg : float) -> float:
     return log(arg)/log(exp(1))

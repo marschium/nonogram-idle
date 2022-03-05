@@ -8,12 +8,12 @@ signal shuffle_toggled(enabled)
 
 var ActivePatternControl = preload("res://scenes/ui/ActivePatternControl.tscn")
 
-onready var active_pattern_container = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/ActivePatternVBoxContainer
-onready var pause_button = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/PauseButton
-onready var count_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/CountLabel
-onready var play_button = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/PlayButton
-onready var loop_button = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/LoopButton
-onready var shuffle_button = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/ShuffleButton
+onready var active_pattern_container = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ActivePatternVBoxContainer
+onready var pause_button = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PauseButton
+onready var count_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/CountLabel
+onready var play_button = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayButton
+onready var loop_button = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/LoopButton
+onready var shuffle_button = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ShuffleButton
 
 export var AutoclickerNode : NodePath = ""
 var autoclicker = null
@@ -44,13 +44,16 @@ func _on_Autoclicker_pattern_clicker_added(clicker):
     b.connect("removed", self, "_on_ActivePatternControl_removed", [clicker])
     active_pattern_container.add_child(b)
     update_counter()
+    $DraggableWindow.repack()
 
     
 func _on_Autoclicker_pattern_clicker_removed(clicker):
     for c in active_pattern_container.get_children():
         if c.clicker == clicker:
+            active_pattern_container.remove_child(c)
             c.queue_free()
     update_counter()
+    $DraggableWindow.repack()
 
     
 func _on_Autoclicker_pattern_clicker_changed(clicker):

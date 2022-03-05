@@ -5,7 +5,7 @@ signal guide_selected(pattern)
 
 var PatternSelectControl = preload("res://scenes/ui/PatternSelectControl.tscn")
 
-onready var pattern_select_vbox = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/ScrollContainer/PatternSelectVBoxContainer
+onready var pattern_select_vbox = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/PatternSelectVBoxContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():    

@@ -14,10 +14,10 @@ var noise_speed = 1
 var y_pos_multipler = 5
 var current_owned = 0
 
-onready var draw_area = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/Control
-onready var line = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/Control/Line2D
-onready var label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/CurrentPriceLabel
-onready var owned_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer/CurrentOwnedLabel
+onready var draw_area = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Control
+onready var line = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Control/Line2D
+onready var label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/CurrentPriceLabel
+onready var owned_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer/CurrentOwnedLabel
 
 
 func get_current_price():

@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/grid.png" type="Texture" id=3]
 [ext_resource path="res://assets/window_inset.png" type="Texture" id=4]
 
-[sub_resource type="StyleBoxTexture" id=2]
+[sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 4 )
 region_rect = Rect2( 0, 0, 16, 16 )
 margin_left = 2.0
@@ -20,15 +20,15 @@ script = ExtResource( 1 )
 
 [node name="NinePatchRect" parent="DraggableWindow/MarginContainer" index="0"]
 margin_right = 520.0
-margin_bottom = 330.0
+margin_bottom = 362.0
 
 [node name="MarginContainer" parent="DraggableWindow/MarginContainer" index="1"]
 margin_right = 520.0
-margin_bottom = 330.0
+margin_bottom = 362.0
 
 [node name="VBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer" index="0"]
 margin_right = 516.0
-margin_bottom = 322.0
+margin_bottom = 354.0
 
 [node name="PanelContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer" index="0"]
 margin_right = 512.0
@@ -40,42 +40,38 @@ margin_right = 512.0
 margin_right = 508.0
 text = "Stock Market"
 
-[node name="MarginContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer" index="1"]
-margin_right = 21.0
-
-[node name="HBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/MarginContainer" index="0"]
-margin_right = 21.0
-
-[node name="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/MarginContainer/HBoxContainer" index="0"]
-margin_right = 13.0
-
 [node name="CenterContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer" index="1"]
 margin_right = 512.0
 margin_bottom = 318.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer" index="0"]
+[node name="MarginContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer" index="2"]
 margin_right = 512.0
-margin_bottom = 283.0
+margin_bottom = 350.0
 
-[node name="MarginContainer" type="MarginContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer" index="0"]
+margin_top = 32.0
+margin_right = 512.0
+margin_bottom = 315.0
+
+[node name="MarginContainer" type="MarginContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 margin_right = 512.0
 margin_bottom = 23.0
 custom_constants/margin_right = 8
 custom_constants/margin_left = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer"]
 margin_left = 8.0
 margin_right = 504.0
 margin_bottom = 23.0
 
-[node name="CurrentPriceLabel" type="Label" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="CurrentPriceLabel" type="Label" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 margin_top = 2.0
 margin_bottom = 21.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 margin_left = 4.0
 margin_right = 496.0
 margin_bottom = 23.0
@@ -83,19 +79,19 @@ size_flags_horizontal = 3
 custom_constants/separation = 8
 alignment = 2
 
-[node name="10BuyButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+[node name="10BuyButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 margin_left = 290.0
 margin_right = 321.0
 margin_bottom = 23.0
 text = "+10"
 
-[node name="BuyButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+[node name="BuyButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 margin_left = 329.0
 margin_right = 351.0
 margin_bottom = 23.0
 text = "+1"
 
-[node name="CurrentOwnedLabel" type="Label" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+[node name="CurrentOwnedLabel" type="Label" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 margin_left = 359.0
 margin_top = 2.0
 margin_right = 423.0
@@ -104,19 +100,19 @@ rect_min_size = Vector2( 64, 0 )
 text = "HELLO"
 align = 1
 
-[node name="SellButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+[node name="SellButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 margin_left = 431.0
 margin_right = 453.0
 margin_bottom = 23.0
 text = "-1"
 
-[node name="SellAllButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+[node name="SellAllButton" type="Button" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 margin_left = 461.0
 margin_right = 492.0
 margin_bottom = 23.0
 text = "-10"
 
-[node name="Control" type="Control" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 margin_top = 27.0
 margin_right = 512.0
 margin_bottom = 283.0
@@ -128,15 +124,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PanelContainer" type="PanelContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/Control"]
+[node name="PanelContainer" type="PanelContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/Control/PanelContainer"]
+[node name="TextureRect" type="TextureRect" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Control/PanelContainer"]
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 510.0
@@ -150,12 +146,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Line2D" type="Line2D" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/Control"]
+[node name="Line2D" type="Line2D" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Control"]
 width = 3.0
 
-[connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer/10BuyButton" to="." method="_on_10BuyButton_pressed"]
-[connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer/BuyButton" to="." method="_on_BuyButton_pressed"]
-[connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer/SellButton" to="." method="_on_SellButton_pressed"]
-[connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer/SellAllButton" to="." method="_on_SellAllButton_pressed"]
+[connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer/10BuyButton" to="." method="_on_10BuyButton_pressed"]
+[connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer/BuyButton" to="." method="_on_BuyButton_pressed"]
+[connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer/SellButton" to="." method="_on_SellButton_pressed"]
+[connection signal="pressed" from="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer/SellAllButton" to="." method="_on_SellAllButton_pressed"]
 
 [editable path="DraggableWindow"]

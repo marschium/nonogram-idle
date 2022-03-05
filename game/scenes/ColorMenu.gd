@@ -8,9 +8,9 @@ var ColorPickButton = preload("res://scenes/ColorPickButton.tscn")
 var added = []
 var revealed = false
 
-onready var colors_container = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer
-onready var name_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer2/NameLabel
-onready var clear_button = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer2/Button
+onready var colors_container = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer
+onready var name_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/NameLabel
+onready var clear_button = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/Button
 
 # Called when the node enters the scene tree for the first time.
 func _ready():    

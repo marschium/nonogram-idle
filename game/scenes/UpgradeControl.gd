@@ -13,7 +13,7 @@ export(NodePath) var upgrades_np = null
 var upgrades = upgrades_np
 var revealed = false
 
-onready var container = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer
+onready var container = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

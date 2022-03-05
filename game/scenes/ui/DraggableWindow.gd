@@ -35,14 +35,14 @@ func _ready():
     
 func maximise():
     shrink_button.text = "_"
-    $MarginContainer/MarginContainer/VBoxContainer/CenterContainer.visible = true
+    $MarginContainer/MarginContainer/VBoxContainer/MarginContainer.visible = true
     maximised = true
     $MarginContainer.rect_size.x = previous_size.x
 
 func minimise():
     shrink_button.text = "^"
     previous_size = $MarginContainer.rect_size
-    $MarginContainer/MarginContainer/VBoxContainer/CenterContainer.visible = false
+    $MarginContainer/MarginContainer/VBoxContainer/MarginContainer.visible = false
     $MarginContainer.rect_size = Vector2($MarginContainer.rect_size.x, title_bar.rect_size.y) + Vector2(0, 8)
     maximised = false
     
