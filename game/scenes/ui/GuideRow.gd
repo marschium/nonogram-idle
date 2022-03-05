@@ -6,11 +6,16 @@ var PatternColorErrorLabel = preload("res://scenes/ui/PatternColorErrorLabel.tsc
 var saved_expeceted_counts = {}
 var expected_counts = {}
 var seperated = {}
+var indexes = {}
 var errors = []
 var current_tiles = {}
 
 var horizontal = true
 var error_label = null
+
+class ColorSorter:
+    static func sort(a, b):
+        return a.to_rgba32() < b.to_rgba32()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,28 +29,28 @@ func increment_color(color):
 func mark_seperated_color(color):
     seperated[color] = true
 
+func set_color_index(color, i):
+    indexes[color] = i
+
 func show():
     var offset = Vector2(0, 0)
+    if horizontal:
+        offset.x -= 34
+    else:            
+        offset.y -= 34
+    
     for c in expected_counts.keys():
         var l = PatternColorLabel.instance()
         l.color = c
         l.max_count = expected_counts[c]
-        l.solid = !seperated.has(c) or expected_counts[c] == 1 or len(expected_counts.keys()) == 1
-        if horizontal:
-            offset.x -= 34
-        else:            
-            offset.y -= 34
-        l.position = offset
+        l.solid = !seperated.has(c) or expected_counts[c] == 1 # or len(expected_counts.keys()) == 1
+        l.position = offset * indexes[c]
         $Control.add_child(l)
         l.show()
             
     error_label = PatternColorErrorLabel.instance()
     error_label.visible = false
-    if horizontal:
-        offset.x -= 34
-    else:
-        offset.y -= 34    
-    error_label.position = offset
+    error_label.position = offset * indexes.size()
     $Control.add_child(error_label)
     
 func label_for_color(c):

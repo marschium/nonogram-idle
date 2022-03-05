@@ -53,9 +53,9 @@ class TrackColors:
     var current = null
     
     func next(color):
-        if seen.has(color):
+        if color != null and seen.has(color):
             seperated.append(color)# revisting a color
-        elif color != current:
+        elif current != null and color != current:
             seen.append(current)
         current = color
         
@@ -64,17 +64,18 @@ func show_guide(pattern):
     hide_guide()
     self.pattern = pattern
     
-    var seen_colors = {}
+    var all_colors = {}
     var prev_color = null
     for x in range(pattern.width):
-        var y_offset = -16
-        var current_label = null
+        var y_offset = -42
         var guide_row = GuideRow.instance()
         var track_colors = TrackColors.new()
         for y in range(pattern.height):
             var t = pattern.tile(x, y)
-            if t != null and current_label == null:
-                guide_row.increment_color(t)                
+            if t != null:
+                guide_row.increment_color(t)   
+                if not all_colors.has(t):
+                    all_colors[t] = all_colors.size()             
             track_colors.next(t)
             
         for t in track_colors.seperated:
@@ -84,18 +85,17 @@ func show_guide(pattern):
         guide_row.position = Vector2(x * spacing, y_offset) + offset
         add_child(guide_row)
         columns.append(guide_row)
-        guide_row.show()
-        
     
     for y in range(pattern.height):
-        var x_offset = -16
-        var current_label = null
+        var x_offset = -42
         var guide_row = GuideRow.instance()
         var track_colors = TrackColors.new()
         for x in range(pattern.width):
             var t = pattern.tile(x, y)
-            if t != null and current_label == null:
-                guide_row.increment_color(t)                 
+            if t != null:
+                guide_row.increment_color(t)
+                if not all_colors.has(t):
+                    all_colors[t] = all_colors.size()             
             track_colors.next(t)    
             
         for t in track_colors.seperated:
@@ -104,7 +104,18 @@ func show_guide(pattern):
         guide_row.horizontal = true
         guide_row.position = Vector2(x_offset, y * spacing) + offset
         add_child(guide_row)
-        rows.append(guide_row)
-        guide_row.show()
+        rows.append(guide_row)         
+    
+    # insure consistent placement of colors across rows/columns
+    for c in all_colors.keys():
+        for gr in columns:
+            gr.set_color_index(c, all_colors[c])    
+        for gr in rows:
+            gr.set_color_index(c, all_colors[c])
+            
+    for c in columns:
+        c.show()
+    for r in rows:
+        r.show()
             
     visible = true
