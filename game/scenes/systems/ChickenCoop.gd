@@ -1,5 +1,7 @@
 extends Node2D
 
+var ActiveBonus = preload("res://scenes/ActiveBonus.tscn")
+
 export var update_interval = 5.0
 export var production_chance = 0.8
 export var num_food = 0
@@ -74,3 +76,12 @@ func _on_Button_pressed():
         Score.add(num_eggs * 10)
         num_eggs = 0
         _update_ui()
+        # TODO calculate the multiple effect and duration from number of eggs
+        var bonus = ActiveBonus.instance()
+        bonus.bonus_name = "Egg"
+        bonus.id = "Egg"
+        bonus.text = "% bonus for eggs"
+        bonus.time = 60
+        # TODO effect
+        Bonus.add_active_bonus(bonus)
+        queue_free()

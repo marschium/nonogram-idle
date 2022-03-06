@@ -42,9 +42,6 @@ visible = false
 position = Vector2( 1327.16, 425.736 )
 upgrades_np = NodePath("../Upgrades")
 
-[node name="ScoreControl" parent="." instance=ExtResource( 9 )]
-position = Vector2( 685.241, 16.8417 )
-
 [node name="ColorMenu" parent="." instance=ExtResource( 7 )]
 position = Vector2( 696.683, 807.154 )
 
@@ -55,6 +52,9 @@ visible = false
 
 [node name="StockMarket" parent="Systems" instance=ExtResource( 4 )]
 visible = false
+
+[node name="ScoreControl" parent="." instance=ExtResource( 9 )]
+position = Vector2( 685.241, 16.8417 )
 
 [node name="EffectsControl" type="Control" parent="."]
 anchor_right = 1.0

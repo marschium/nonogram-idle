@@ -6,6 +6,7 @@ var bonus_name = ""
 var text = ""
 var time = 60
 var id = ""
+var effect = null
 
 func _ready():
     $Timer.start(time)

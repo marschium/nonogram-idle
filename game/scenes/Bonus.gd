@@ -16,6 +16,14 @@ func get_bonus(pattern):
     for k in active_bonuses.keys():
         bonus += active_bonuses.get(k).effect.get_pattern_bonus(pattern)
     return bonus
+    
+func add_active_bonus(bonus):
+    if not active_bonuses.has(bonus.bonus_name):
+        bonus.connect("deactivated", self, "_on_Bonus_deactivated", [bonus])
+        add_child(bonus)
+        active_bonuses[bonus.bonus_name] = bonus
+        emit_signal("bonus_active", bonus)
+        
 
 func _on_PatternCombo_combo_complete(combo):
     if not active_bonuses.has(combo.name):
@@ -24,10 +32,8 @@ func _on_PatternCombo_combo_complete(combo):
         bonus.id = combo.bonus_id
         bonus.text = combo.desc
         bonus.time = combo.duration
-        bonus.connect("deactivated", self, "_on_Bonus_deactivated", [bonus])
-        add_child(bonus)
-        active_bonuses[combo.name] = combo
-        emit_signal("bonus_active", bonus)
+        bonus.effect = combo.effect
+        add_active_bonus(bonus)
 
 func _on_Bonus_deactivated(bonus):
     var a = active_bonuses.get(bonus.bonus_name)
