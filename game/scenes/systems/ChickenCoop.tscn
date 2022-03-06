@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/systems/ChickenCoop.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ui/DraggableWindow.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/grass.png" type="Texture" id=3]
 
 [node name="ChickenCoop" type="Node2D"]
 script = ExtResource( 1 )
@@ -13,7 +14,13 @@ num_chickens = 10
 [node name="MarginContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer" index="1"]
 margin_bottom = 150.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer" index="0"]
+[node name="TextureRect" type="TextureRect" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer" index="0"]
+margin_right = 462.0
+margin_bottom = 115.0
+texture = ExtResource( 3 )
+stretch_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer" index="1"]
 margin_right = 462.0
 margin_bottom = 115.0
 custom_constants/separation = 4

@@ -12,10 +12,13 @@ func _ready():
     $Timer.start(time)
 
 func _on_Timer_timeout():
-    emit_signal("deactivated")
+    deactivate()
     
 func remaining():
     return $Timer.time_left
 
 func elapsed():
     return time - $Timer.time_left
+
+func deactivate():
+    emit_signal("deactivated")

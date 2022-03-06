@@ -40,7 +40,11 @@ class PatternComboDef:
         self.unmatched = names.duplicate(true)
         
     func on_pattern(name):
-        unmatched.erase(name)
+        # if name is not in list to match, reset the combo
+        if not names.has(name) or not unmatched.has(name):
+            reset()
+        else:
+            unmatched.erase(name)
         
     func is_matched():
         return unmatched.empty()
@@ -104,6 +108,7 @@ func add(pattern):
             if not d.unlocked:
                 d.unlocked = true
                 emit_signal("unlocked", d)
+            d.reset()
 
 func reset():
     for n in definitions:

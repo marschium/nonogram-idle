@@ -2,6 +2,17 @@ extends Node2D
 
 var ActiveBonus = preload("res://scenes/ActiveBonus.tscn")
 
+class EggBonusEffect:
+    var val = 1
+    
+    func _init(val):
+        self.val = val
+        
+    func get_pattern_bonus(pattern):
+        if pattern.pattern_name == "egg":
+            return pattern.num_tiles * self.val
+        return 0
+
 export var update_interval = 5.0
 export var production_chance = 0.8
 export var num_food = 0
@@ -9,6 +20,7 @@ export var num_chickens = 0
 export var num_eggs = 0
 
 var timer = 0.0
+var bonus = null
 onready var food_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/FoodLabel
 onready var chicken_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ChickenLabel
 onready var egg_label = $DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EggLabel
@@ -32,6 +44,7 @@ func _ready():
             
 func _on_Bonus_bonus_active(bonus):
     if bonus.id == "chicken_coop":
+        self.bonus = bonus
         visible = true
         bonus.connect("deactivated", self, "_on_ActiveBonus_deactivated")
         
@@ -73,15 +86,15 @@ func _on_ChickenPattern_matched(bonus):
 
 func _on_Button_pressed():
     if num_eggs > 0:
-        Score.add(num_eggs * 10)
-        num_eggs = 0
+        #Score.add(num_eggs * 10)
+        #num_eggs = 0
         _update_ui()
-        # TODO calculate the multiple effect and duration from number of eggs
         var bonus = ActiveBonus.instance()
         bonus.bonus_name = "Egg"
-        bonus.id = "Egg"
-        bonus.text = "% bonus for eggs"
-        bonus.time = 60
-        # TODO effect
+        bonus.id = "egg"
+        bonus.time = 1 * num_eggs
+        bonus.effect = EggBonusEffect.new(int(num_eggs / 2))        
+        bonus.text = "%d%% bonus for eggs" % [bonus.effect.val]
         Bonus.add_active_bonus(bonus)
-        queue_free()
+        self.bonus.deactivate()
+        num_eggs = 0
