@@ -21,6 +21,18 @@ class MultiplyTag:
     func get_pattern_bonus(pattern):
         if pattern.tags.has(tag):
             return pattern.num_tiles * self.val
+            
+
+class EggBonusEffect:
+    var val = 1
+    
+    func _init(val):
+        self.val = val
+        
+    func get_pattern_bonus(pattern):
+        if pattern.pattern_name == "egg":
+            return pattern.num_tiles * self.val
+        return 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():    
@@ -48,6 +60,14 @@ func _ready():
     a.effect = Nothing.new()
     a.text = "Activates The Stock Market"
     a.time = 300
+    a.connect("activated", self, "_on_Bonus_activated", [a])
+    add_child(a)
+    
+    a = ActiveBonus.instance()
+    a.bonus_name = "Egg"
+    a.id = "egg"
+    a.effect = EggBonusEffect.new(0)        
+    a.text = "%d%% bonus for eggs" % [a.effect.val]
     a.connect("activated", self, "_on_Bonus_activated", [a])
     add_child(a)
     
