@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/Gameboard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Main.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://scenes/ui/ScoreControl.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/background2.png" type="Texture" id=10]
 [ext_resource path="res://scenes/systems/ChickenCoop.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/ui/BonusStatsMenu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/ui/AutoclickerControl.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scenes/effects/ChromaticEffect.tscn" type="PackedScene" id=19]
 
@@ -70,6 +71,8 @@ __meta__ = {
 
 [node name="AutosaveTimer" type="Timer" parent="."]
 wait_time = 10.0
+
+[node name="BonusStatsMenu" parent="." instance=ExtResource( 12 )]
 
 [connection signal="complete_late" from="Gameboard" to="." method="_on_Gameboard_complete_late"]
 [connection signal="tile_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_clicked"]

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/ui/DraggableWindow.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/ui/BonusStatsMenu.gd" type="Script" id=2]
+
+[node name="BonusStatsMenu" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="DraggableWindow" parent="." instance=ExtResource( 1 )]
+show_close = true
+
+[node name="GridContainer" type="GridContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer" index="0"]
+margin_right = 462.0
+custom_constants/vseparation = 8
+custom_constants/hseparation = 8
+columns = 6
+
+[editable path="DraggableWindow"]

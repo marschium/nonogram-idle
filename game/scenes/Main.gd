@@ -56,7 +56,7 @@ func toggle_autoclicker(enabled):
 # Called when the node enters the scene tree for the first time.
 func _ready():
     TagCombo.connect("combo_complete", self, "_on_Combo_complete")
-    PatternCombo.connect("unlocked", self, "_on_PatternCombo_unlocked")
+    Bonus.connect("bonus_unlocked", self, "_on_Bonus_unlocked")
     toggle_autoclicker(enable_autoclicker) # TODO remove
     for p in Patterns.get_children():
         $PatternsControl.add_pattern(p)
@@ -165,7 +165,7 @@ func _on_PatternsControl_pattern_selected(pattern):
     autoclicker.add_pattern(pattern)
 
 
-func _on_PatternCombo_unlocked(combo):	
+func _on_Bonus_unlocked(combo):	
     if not loaded:
         return
     var p = ComboUnlockControl.instance()

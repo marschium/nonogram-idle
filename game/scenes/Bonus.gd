@@ -2,6 +2,7 @@ extends Node2D
 
 signal bonus_active(bonus)
 signal bonus_inactive(name)
+signal bonus_unlocked(bonus)
 
 var ActiveBonus = preload("res://scenes/ActiveBonus.tscn")
 
@@ -36,13 +37,15 @@ class EggBonusEffect:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():    
+    # TODO loading
     var a = ActiveBonus.instance()
     a.bonus_name = "RGB"
-    a.id = "RGB"
+    a.id = "rgb"
     a.effect = MultiplyTag.new(0.1, "color")
     a.text = "10% Bonus For Color Tags"
     a.time = 20
     a.connect("activated", self, "_on_Bonus_activated", [a])
+    a.connect("unlocked", self, "_on_Bonus_unlocked", [a])
     add_child(a)
     
     a = ActiveBonus.instance()
@@ -52,6 +55,7 @@ func _ready():
     a.text = "Activates The Chicken Coop"
     a.time = 300
     a.connect("activated", self, "_on_Bonus_activated", [a])
+    a.connect("unlocked", self, "_on_Bonus_unlocked", [a])
     add_child(a)
     
     a = ActiveBonus.instance()
@@ -61,6 +65,7 @@ func _ready():
     a.text = "Activates The Stock Market"
     a.time = 300
     a.connect("activated", self, "_on_Bonus_activated", [a])
+    a.connect("unlocked", self, "_on_Bonus_unlocked", [a])
     add_child(a)
     
     a = ActiveBonus.instance()
@@ -69,6 +74,7 @@ func _ready():
     a.effect = EggBonusEffect.new(0)        
     a.text = "%d%% bonus for eggs" % [a.effect.val]
     a.connect("activated", self, "_on_Bonus_activated", [a])
+    a.connect("unlocked", self, "_on_Bonus_unlocked", [a])
     add_child(a)
     
 func bonus_by_name(name):
@@ -111,3 +117,6 @@ func _on_Bonus_deactivated(bonus):
     active_bonuses.erase(bonus.bonus_name)
     remove_child(bonus)
     bonus.queue_free()
+    
+func _on_Bonus_unlocked(bonus):
+    emit_signal("bonus_unlocked", bonus)

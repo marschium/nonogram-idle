@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://scenes/ui/BonusStatsMenuEntry.gd" type="Script" id=2]
+
+[node name="BonusStatsMenuEntry" type="MarginContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 78.0
+margin_bottom = 78.0
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 71.0
+margin_bottom = 71.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 1 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+position = Vector2( 0.943878, 72.6783 )
+z_index = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Node2D"]
+margin_left = 13.0
+margin_top = 13.0
+margin_right = 27.0
+margin_bottom = 27.0
+
+[node name="Label" type="Label" parent="Node2D/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 7.0
+margin_bottom = 21.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="mouse_entered" from="PanelContainer/TextureRect" to="." method="_on_TextureRect_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer/TextureRect" to="." method="_on_TextureRect_mouse_exited"]
