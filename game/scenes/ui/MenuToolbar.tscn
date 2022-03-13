@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/ui/MenuToolbar.gd" type="Script" id=1]
+[ext_resource path="res://resources/RetroDesktopTheme.tres" type="Theme" id=2]
+
+[node name="MenuToolbar" type="Control"]
+anchor_right = 1.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 1918.0
+margin_bottom = 29.0
+custom_constants/margin_top = 2
+custom_constants/margin_left = 8
+custom_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
+margin_left = 8.0
+margin_top = 2.0
+margin_right = 1916.0
+margin_bottom = 25.0
+
+[node name="ViewMenuButton" type="MenuButton" parent="PanelContainer/MarginContainer/HBoxContainer"]
+margin_right = 59.0
+margin_bottom = 23.0
+text = " VIEW "
+flat = false
+items = [ "Fullscreen", null, 1, false, false, 0, 0, null, "", false, "Stats", null, 0, false, false, 1, 0, null, "", false ]

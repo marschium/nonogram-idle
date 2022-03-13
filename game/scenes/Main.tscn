@@ -11,7 +11,7 @@
 [ext_resource path="res://scenes/ui/ScoreControl.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/background2.png" type="Texture" id=10]
 [ext_resource path="res://scenes/systems/ChickenCoop.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/ui/BonusStatsMenu.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/ui/MenuToolbar.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/ui/AutoclickerControl.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scenes/effects/ChromaticEffect.tscn" type="PackedScene" id=19]
 
@@ -21,6 +21,10 @@ script = ExtResource( 2 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 10 )
 centered = false
+
+[node name="MenuToolbar" parent="." instance=ExtResource( 12 )]
+anchor_right = 0.0
+margin_right = 1920.0
 
 [node name="Upgrades" type="Node2D" parent="."]
 script = ExtResource( 6 )
@@ -71,8 +75,6 @@ __meta__ = {
 
 [node name="AutosaveTimer" type="Timer" parent="."]
 wait_time = 10.0
-
-[node name="BonusStatsMenu" parent="." instance=ExtResource( 12 )]
 
 [connection signal="complete_late" from="Gameboard" to="." method="_on_Gameboard_complete_late"]
 [connection signal="tile_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_clicked"]

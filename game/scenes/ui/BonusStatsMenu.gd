@@ -10,4 +10,5 @@ func _ready():
         var c = BonusEntry.instance()
         c.bonus = b
         container.add_child(c)
-    $DraggableWindow.repack()    
+    $DraggableWindow.set_title("Bonus Stats")
+    $DraggableWindow.repack() 
