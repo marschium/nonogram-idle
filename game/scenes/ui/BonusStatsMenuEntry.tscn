@@ -46,6 +46,5 @@ margin_bottom = 21.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
 [connection signal="mouse_entered" from="PanelContainer/TextureRect" to="." method="_on_TextureRect_mouse_entered"]
 [connection signal="mouse_exited" from="PanelContainer/TextureRect" to="." method="_on_TextureRect_mouse_exited"]

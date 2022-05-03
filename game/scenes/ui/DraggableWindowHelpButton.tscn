@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://resources/RetroDesktopTheme.tres" type="Theme" id=1]
+[ext_resource path="res://scenes/ui/DraggableWindowHelpButton.gd" type="Script" id=2]
+
+[node name="DraggableWindowHelpButton" type="Button"]
+margin_left = 19.0
+margin_right = 32.0
+margin_bottom = 23.0
+text = "?"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HelpPopup" type="Node2D" parent="."]
+visible = false
+position = Vector2( -31, -8 )
+
+[node name="PanelContainer" type="PanelContainer" parent="HelpPopup"]
+margin_right = 14.0
+margin_bottom = 14.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HelpPopup/PanelContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 317.0
+margin_bottom = 21.0
+text = "SPHINX OF BLACK QUARTZ JUDGE MY VOW"
+[connection signal="mouse_entered" from="." to="." method="_on_DraggableWindowHelpButton_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_DraggableWindowHelpButton_mouse_exited"]

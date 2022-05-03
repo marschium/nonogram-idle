@@ -9,7 +9,8 @@ onready var pattern_select_vbox = $DraggableWindow/MarginContainer/MarginContain
 
 # Called when the node enters the scene tree for the first time.
 func _ready():    
-    $DraggableWindow.set_title("Patterns")
+    $DraggableWindow.set_title("Nonograms")
+    $DraggableWindow.set_help("Available nonograms. Drawing combos of nonograms unlocks bonuses.")
 
 func add_pattern(pattern):
     var l = PatternSelectControl.instance()

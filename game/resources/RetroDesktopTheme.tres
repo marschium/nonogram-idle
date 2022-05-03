@@ -36,6 +36,14 @@ expand_margin_right = 2.0
 expand_margin_top = 2.0
 expand_margin_bottom = 2.0
 
+[sub_resource type="StyleBoxTexture" id=4]
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 0, 16, 16 )
+margin_left = 2.0
+margin_right = 2.0
+margin_top = 2.0
+margin_bottom = 2.0
+
 [sub_resource type="StyleBoxTexture" id=5]
 texture = ExtResource( 1 )
 region_rect = Rect2( 0, 0, 16, 16 )
@@ -45,14 +53,6 @@ margin_top = 2.0
 margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id=6]
-texture = ExtResource( 1 )
-region_rect = Rect2( 0, 0, 16, 16 )
-margin_left = 2.0
-margin_right = 2.0
-margin_top = 2.0
-margin_bottom = 2.0
-
-[sub_resource type="StyleBoxTexture" id=7]
 texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 16, 16 )
 margin_left = 2.0
@@ -60,7 +60,7 @@ margin_right = 2.0
 margin_top = 2.0
 margin_bottom = 2.0
 
-[sub_resource type="StyleBoxTexture" id=4]
+[sub_resource type="StyleBoxTexture" id=7]
 texture = ExtResource( 1 )
 region_rect = Rect2( 0, 0, 16, 16 )
 margin_left = 2.0
@@ -68,10 +68,10 @@ margin_right = 2.0
 margin_top = 2.0
 margin_bottom = 2.0
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.243137, 0.537255, 1, 1 )
 
-[sub_resource type="StyleBoxTexture" id=8]
+[sub_resource type="StyleBoxTexture" id=9]
 texture = ExtResource( 1 )
 region_rect = Rect2( 2, 2, 14, 14 )
 margin_left = 2.0
@@ -100,10 +100,10 @@ MenuButton/constants/hseparation = 3
 MenuButton/fonts/font = null
 MenuButton/styles/disabled = null
 MenuButton/styles/focus = null
-MenuButton/styles/hover = SubResource( 5 )
-MenuButton/styles/normal = SubResource( 6 )
-MenuButton/styles/pressed = SubResource( 7 )
-PanelContainer/styles/panel = SubResource( 4 )
+MenuButton/styles/hover = SubResource( 4 )
+MenuButton/styles/normal = SubResource( 5 )
+MenuButton/styles/pressed = SubResource( 6 )
+PanelContainer/styles/panel = SubResource( 7 )
 PopupMenu/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
 PopupMenu/colors/font_color_accel = Color( 0.7, 0.7, 0.7, 0.8 )
 PopupMenu/colors/font_color_disabled = Color( 0.4, 0.4, 0.4, 0.8 )
@@ -117,9 +117,9 @@ PopupMenu/icons/radio_checked = null
 PopupMenu/icons/radio_unchecked = null
 PopupMenu/icons/submenu = null
 PopupMenu/icons/unchecked = null
-PopupMenu/styles/hover = SubResource( 9 )
+PopupMenu/styles/hover = SubResource( 8 )
 PopupMenu/styles/labeled_separator_left = null
 PopupMenu/styles/labeled_separator_right = null
-PopupMenu/styles/panel = SubResource( 8 )
+PopupMenu/styles/panel = SubResource( 9 )
 PopupMenu/styles/panel_disabled = null
 PopupMenu/styles/separator = null

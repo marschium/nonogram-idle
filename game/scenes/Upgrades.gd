@@ -33,10 +33,10 @@ func add_upgrade(available_at, cost, val, desc, tag):
     return u
 
 func _ready():	
-    var a = add_upgrade(4, 8, 2, "More Dots", "expand")
-    var b = add_upgrade(16, 32, 3, "More Dots", "expand")
-    var c = add_upgrade(48, 64, 5, "More Dots", "expand")
-    var largest_board = add_upgrade(96, 126, 10, "More Dots", "expand")  
+    var a = add_upgrade(4, 8, 2, "Bigger", "expand")
+    var b = add_upgrade(16, 32, 3, "Bigger!", "expand")
+    var c = add_upgrade(48, 64, 5, "Bigger!!", "expand")
+    var largest_board = add_upgrade(96, 126, 10, "Biggest", "expand")  
     b.set_condition("a_board") 
     c.set_condition("b_board") 
     largest_board.set_condition("c_board") 
@@ -44,17 +44,17 @@ func _ready():
     b.connect("active", c, "remove_condition", ["b_board"])
     c.connect("active", largest_board, "remove_condition", ["c_board"])
     
-    var basic_pattern = add_upgrade(16, 16, PatternPacks.PATTERN_PACK.STARTER, "Starter Pack Of Dot Patterns", "pattern")
+    var basic_pattern = add_upgrade(16, 16, PatternPacks.PATTERN_PACK.STARTER, "Starter Pack Of Nonograms", "pattern")
     basic_pattern.set_condition("max_board_size")    
     largest_board.connect("active", basic_pattern, "remove_condition", ["max_board_size"])
-    var farm_pattern = add_upgrade(32, 32, PatternPacks.PATTERN_PACK.FARM, "Collection of farmyard patterns", "pattern")
+    var farm_pattern = add_upgrade(32, 32, PatternPacks.PATTERN_PACK.FARM, "Collection Of Farmyard Nonograms", "pattern")
     farm_pattern.set_condition("basic")
     basic_pattern.connect("active", farm_pattern, "remove_condition", ["basic"])
-    var business_pattern = add_upgrade(32, 32, PatternPacks.PATTERN_PACK.BUSINESS, "Collection of business patterns", "pattern")
+    var business_pattern = add_upgrade(32, 32, PatternPacks.PATTERN_PACK.BUSINESS, "Collection Of Business Nonograms", "pattern")
     business_pattern.set_condition("basic")
     basic_pattern.connect("active", business_pattern, "remove_condition", ["basic"])
     
-    var auto = add_upgrade(128, 256, 2, "Auto Dots", "auto")
+    var auto = add_upgrade(128, 256, 2, "Auto Draw", "auto")
     auto.set_condition("basic_pattern")    
     basic_pattern.connect("active", auto, "remove_condition", ["basic_pattern"])
 

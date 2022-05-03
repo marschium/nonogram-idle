@@ -56,6 +56,10 @@ func enable_close():
     close_button.visible = show_close
     
     
+func set_help(text):
+    $MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/MarginContainer/HBoxContainer/HelpButton.visible = true
+    $MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/MarginContainer/HBoxContainer/HelpButton.helptext = text
+    
 func set_title(t):
     $MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/Label.text = t
 
@@ -80,3 +84,11 @@ func _on_Button_pressed():
 
 func _on_CloseButton_pressed():
     queue_free()
+
+
+func _on_HelpButton_mouse_entered():
+    pass # Replace with function body.
+
+
+func _on_HelpButton_mouse_exited():
+    pass # Replace with function body.

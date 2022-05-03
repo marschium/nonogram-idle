@@ -27,7 +27,8 @@ func _ready():
     autoclicker.connect("started", self, "_on_Autoclicker_started")
     autoclicker.connect("stopped", self, "_on_Autoclicker_stopped")
     autoclicker.connect("shuffle_disabled", self, "_on_Autoclicker_shuffle_disabled")
-    $DraggableWindow.set_title("Autoclicking")
+    $DraggableWindow.set_title("Autopainting")
+    $DraggableWindow.set_help("Auto paints unlocked nonograms.")
     update_counter()
 
     

@@ -15,6 +15,7 @@ onready var clear_button = $DraggableWindow/MarginContainer/MarginContainer/VBox
 # Called when the node enters the scene tree for the first time.
 func _ready():    
     $DraggableWindow.set_title("Palette")
+    $DraggableWindow.set_help("The current colors available.")
 
 func reveal():
     if not revealed:

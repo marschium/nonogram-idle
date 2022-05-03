@@ -29,15 +29,15 @@ margin_bottom = 544.0
 
 [node name="NinePatchRect" parent="DraggableWindow/MarginContainer" index="0"]
 margin_right = 388.0
-margin_bottom = 579.0
+margin_bottom = 547.0
 
 [node name="MarginContainer" parent="DraggableWindow/MarginContainer" index="1"]
 margin_right = 388.0
-margin_bottom = 579.0
+margin_bottom = 547.0
 
 [node name="VBoxContainer" parent="DraggableWindow/MarginContainer/MarginContainer" index="0"]
 margin_right = 384.0
-margin_bottom = 571.0
+margin_bottom = 539.0
 
 [node name="PanelContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer" index="0"]
 margin_right = 380.0
@@ -48,18 +48,13 @@ margin_right = 380.0
 [node name="Label" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer" index="0"]
 margin_right = 376.0
 
-[node name="CenterContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer" index="1"]
+[node name="MarginContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer" index="1"]
 margin_right = 380.0
-margin_bottom = 532.0
-
-[node name="MarginContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer" index="2"]
-margin_right = 380.0
-margin_bottom = 567.0
+margin_bottom = 535.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer" index="0"]
-margin_top = 32.0
 margin_right = 380.0
-margin_bottom = 532.0
+margin_bottom = 500.0
 rect_min_size = Vector2( 380, 500 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
