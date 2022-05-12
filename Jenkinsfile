@@ -16,7 +16,7 @@ pipeline {
                     sh """
                         . .venv/bin/activate
                         pip install -r tools/requirements.txt
-                        python tools/generate.py
+                        python generate.py
                     """
                 }
             }            
