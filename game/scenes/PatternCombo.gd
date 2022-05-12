@@ -37,19 +37,19 @@ func _ready():
     definitions["rgb"] = PatternComboDef.new(
         "RGB",
         "RGB",
-        ["red"] #, "green", "blue"],
+        ["red", "green", "blue"]
     )
     
     definitions["chicken_coop"] = PatternComboDef.new(
         "Chicken Coop",
         "Chicken Coop",
-        ["orange"] #, "green", "blue"],
+        ["chicken", "barn"]
     )
     
     definitions["stock_market"] = PatternComboDef.new(
         "Stock Market",
         "Stock Market",
-        ["white"] #, "green", "blue"],
+        ["office", "profit"]
     )
     
     
