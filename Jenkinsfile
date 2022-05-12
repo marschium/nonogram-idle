@@ -23,7 +23,7 @@ pipeline {
         }
         stage ('Windows') {
             steps {
-                dir("${env.WORKSPACE}") {
+                dir("${env.WORKSPACE}/game") {
                     echo 'Building..'
                     sh "mkdir -p export/windows"
                     sh "godot --export 'Windows Desktop' export/windows/DOTS.exe"
@@ -32,7 +32,7 @@ pipeline {
         }
         stage ('Linux') {
             steps {
-                dir("${env.WORKSPACE}") {
+                dir("${env.WORKSPACE}/game") {
                     echo 'Building..'
                     sh "mkdir -p export/linux"
                     sh "godot --export 'Linux/X11' export/linux/DOTS.x86_64"
@@ -41,7 +41,7 @@ pipeline {
         }
         stage ('Html') {
             steps {
-                dir("${env.WORKSPACE}") {
+                dir("${env.WORKSPACE}/game") {
                     echo 'Building..'
                     sh "mkdir -p export/html"
                     sh "godot --export 'HTML5' export/html/DOTS.html"
@@ -51,7 +51,7 @@ pipeline {
     }
     post {
         always {
-            archiveArtifacts artifacts: "export/**", fingerprint: true
+            archiveArtifacts artifacts: "game/export/**", fingerprint: true
         }
     }
 }
