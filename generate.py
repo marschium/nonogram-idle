@@ -8,6 +8,8 @@ if __name__ == "__main__":
     for f in os.listdir("images"):
         if os.path.isdir(os.path.join("images", f)):
             continue
+        if not f.endswith(".png"):
+            continue
         dest = f.replace(".png", ".json")
         tools.pattern.gen(os.path.join("images", f), os.path.join("game", "patterns", dest))
         shutil.copy2(os.path.join("images", f), os.path.join("game", "images", f))
