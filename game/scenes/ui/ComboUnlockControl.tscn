@@ -37,6 +37,7 @@ margin_bottom = 50.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="tree_exiting" from="DraggableWindow" to="." method="_on_DraggableWindow_tree_exiting"]
 
 [editable path="DraggableWindow"]

@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/ui/DraggableWindow.tscn" type="PackedScene" id=1]
+
+[node name="WelcomeControl" type="Node2D"]
+
+[node name="DraggableWindow" parent="." instance=ExtResource( 1 )]
+show_close = true
+
+[node name="Label" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer" index="0"]
+text = "WELCOME"
+
+[node name="MarginContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer" index="1"]
+margin_bottom = 99.0
+
+[node name="CenterContainer" type="CenterContainer" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer" index="0"]
+margin_right = 462.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 0, 64 )
+
+[node name="Label" type="Label" parent="DraggableWindow/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/CenterContainer"]
+margin_left = 11.0
+margin_top = 22.0
+margin_right = 450.0
+margin_bottom = 41.0
+text = "Click the sqaure in the middle of the screen to begin."
+align = 1
+
+[editable path="DraggableWindow"]

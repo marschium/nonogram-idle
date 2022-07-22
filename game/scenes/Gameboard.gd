@@ -46,8 +46,8 @@ func reset_board(size):
     for c in dots.get_children():
         c.queue_free()
     self.size = size
-    var viewportWidth = get_viewport().size.x
-    var viewportHeight = get_viewport().size.y
+    var viewportWidth = 1280 # get_viewport().size.x
+    var viewportHeight = 720 # get_viewport().size.y
     var gh = spacing * (size - 1) # TODO minus 1 only for odd numbers?
     var gw = spacing * (size - 1)
     offset = Vector2(

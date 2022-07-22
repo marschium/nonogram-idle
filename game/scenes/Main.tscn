@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/Gameboard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Main.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://assets/background2.png" type="Texture" id=10]
 [ext_resource path="res://scenes/systems/ChickenCoop.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/ui/MenuToolbar.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/ui/WelcomeControl.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/ui/AutoclickerControl.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scenes/effects/ChromaticEffect.tscn" type="PackedScene" id=19]
 
@@ -24,7 +25,7 @@ centered = false
 
 [node name="MenuToolbar" parent="." instance=ExtResource( 12 )]
 anchor_right = 0.0
-margin_right = 1920.0
+margin_right = 1280.0
 
 [node name="Upgrades" type="Node2D" parent="."]
 script = ExtResource( 6 )
@@ -35,20 +36,22 @@ script = ExtResource( 6 )
 
 [node name="AutoclickerControl" parent="." instance=ExtResource( 17 )]
 visible = false
-position = Vector2( 17, 16 )
+position = Vector2( 32, 32 )
 AutoclickerNode = NodePath("../Autoclicker")
 
 [node name="PatternsControl" parent="." instance=ExtResource( 8 )]
 visible = false
-position = Vector2( 52.6763, 429.844 )
+position = Vector2( 128, 64 )
 
 [node name="UpgradeControl" parent="." instance=ExtResource( 5 )]
 visible = false
-position = Vector2( 1327.16, 425.736 )
+position = Vector2( 64, 64 )
 upgrades_np = NodePath("../Upgrades")
 
 [node name="ColorMenu" parent="." instance=ExtResource( 7 )]
-position = Vector2( 696.683, 807.154 )
+position = Vector2( 34.0833, 467.359 )
+
+[node name="WelcomeControl" parent="." instance=ExtResource( 13 )]
 
 [node name="Systems" type="Node2D" parent="."]
 
@@ -64,17 +67,15 @@ position = Vector2( 685.241, 16.8417 )
 [node name="EffectsControl" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 1919.0
-margin_bottom = 1082.0
+margin_right = 1280.0
+margin_bottom = 720.0
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ChromaticEffect" parent="EffectsControl" instance=ExtResource( 19 )]
 
 [node name="AutosaveTimer" type="Timer" parent="."]
 wait_time = 10.0
+
 [connection signal="complete_late" from="Gameboard" to="." method="_on_Gameboard_complete_late"]
 [connection signal="tile_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_clicked"]
 [connection signal="tile_right_clicked" from="Gameboard" to="." method="_on_Gameboard_tile_right_clicked"]
