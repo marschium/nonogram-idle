@@ -26,7 +26,7 @@ pipeline {
                 dir("${env.WORKSPACE}/game") {
                     echo 'Building..'
                     sh "mkdir -p export/windows"
-                    sh "godot --export 'Windows Desktop' export/windows/DOTS.exe"
+                    sh "godot --export 'Windows Desktop' export/windows/nonogram_idle.exe"
                 }
             }
         }
@@ -35,7 +35,7 @@ pipeline {
                 dir("${env.WORKSPACE}/game") {
                     echo 'Building..'
                     sh "mkdir -p export/linux"
-                    sh "godot --export 'Linux/X11' export/linux/DOTS.x86_64"
+                    sh "godot --export 'Linux/X11' export/linux/nonogram_idle.x86_64"
                 }
             }
         }
@@ -44,7 +44,7 @@ pipeline {
                 dir("${env.WORKSPACE}/game") {
                     echo 'Building..'
                     sh "mkdir -p export/html"
-                    sh "godot --export 'HTML5' export/html/DOTS.html"
+                    sh "godot --export 'HTML5' export/html/nonogram_idle.html"
                 }
             }
         }
