@@ -11,6 +11,8 @@ onready var label = $Label
 func change_label():	
     label.text = str(max_count)
     
+func luma(color):
+    return (0.2126 * color.r) + (0.7152 * color.g) + (0.0722 * color.b);
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,6 +20,8 @@ func _ready():
     $GapTextureRect.modulate = color
     $SolidTextureRect.visible = solid
     $GapTextureRect.visible = ! solid
+    if luma(color) < 0.35:
+        label.add_color_override("font_color", Color(1,1,1,1))
     change_label()
     self.modulate = Color(1.0, 1.0, 1.0, 0.0)
     

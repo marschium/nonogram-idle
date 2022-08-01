@@ -64,6 +64,10 @@ func tile_changed(t):
         current_tiles[id] = t.current_color
     else:
         current_tiles.erase(id)
+        
+    for l in $Control.get_children():
+        if "color" in l:
+            l.show()
     
     var counts = {}
     var incorrect_color = false

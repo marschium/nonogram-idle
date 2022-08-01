@@ -50,14 +50,14 @@ func sortColors(a, b):
 class TrackColors:
     var seen = []
     var seperated = []
-    var current = null
+    var prev = null
     
     func next(color):
         if color != null and seen.has(color):
             seperated.append(color)# revisting a color
-        elif current != null and color != current:
-            seen.append(current)
-        current = color
+        if prev != null and color != prev:
+            seen.append(prev)
+        prev = color
         
             
 func show_guide(pattern):
